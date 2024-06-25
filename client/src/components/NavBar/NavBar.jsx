@@ -9,7 +9,7 @@ const NavBar = () => {
     const isSelected = (path) => location.pathname === path;
 
     return (
-        <nav className="w-full h-40 flex items-center justify-around shadow-md">
+        <nav className="w-full h-40 flex items-center justify-around">
             <Link to='/' className='h-full'>
                 <Logo2 />
             </Link>
