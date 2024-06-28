@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
-import Logo2 from "../Logo2/Logo2";
+import Logo from '../Logo/Logo';
 import { Link, useLocation } from 'react-router-dom';
 
 const NavBar = () => {
@@ -11,7 +11,7 @@ const NavBar = () => {
     return (
         <nav className="w-full h-40 flex items-center justify-around">
             <Link to='/' className='h-full'>
-                <Logo2 />
+                <Logo/>
             </Link>
             
             <Link to='/fundacion'>

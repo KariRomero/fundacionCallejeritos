@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import doggy from '/dog6.png';
 import { Link } from 'react-router-dom';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 
 const Banner = ()=>{
@@ -11,8 +11,8 @@ const Banner = ()=>{
                 <img src={doggy} alt='banner' className='h-full' />
             </div>
             <div className='mt-36'>
-                <h1 className='text-3xl font-medium tracking-wider'>Cada rescate cuenta.</h1>
-                <h2 className='text-3xl font-medium tracking-wider'>Cada donación ayuda.</h2>
+                <h1 className='text-3xl font-medium tracking-wider'>Cada rescate cuenta</h1>
+                <h2 className='text-3xl font-medium tracking-wider'>Cada donación ayuda</h2>
                 <Link to='/donaciones'>
                     <button className='font-medium text-base tracking-wider px-5 py-2.5 me-2 mb-4 mt-4 rounded-full bg-secondary'>Donaciones</button>
                 </Link>

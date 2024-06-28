@@ -3,12 +3,14 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './views/Home/Home'
 import Detail from './views/Detail/Detail'
 import NavBar from './components/NavBar/NavBar'
+import Footter from './components/Footter/Footter'
 
 function App() {
 
   return (
     <>    
       <NavBar/>
+
     
       <Routes>
         <Route path='/' element={<Home/>}/>
@@ -22,6 +24,7 @@ function App() {
         <Route path='/iniciarsesion' element={<Detail/>}/>
       </Routes>
     
+      <Footter/>
     </>      
   )
 }
