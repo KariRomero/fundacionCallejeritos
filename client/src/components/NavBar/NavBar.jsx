@@ -20,6 +20,12 @@ const NavBar = () => {
                 </button>
             </Link>
           
+            <Link to='/rescates'>
+                <button className={`menu-btn ${isSelected('/rescates') ? 'menu-selected' : 'hover:menu-btn-hover'}`}>
+                    Rescates
+                </button>
+            </Link>
+            
             <Link to='/adopciones'>
                 <button className={`menu-btn ${isSelected('/adopciones') ? 'menu-selected' : 'hover:menu-btn-hover'}`}>
                     Adopciones
@@ -42,13 +48,7 @@ const NavBar = () => {
                 <button className={`menu-btn ${isSelected('/donaciones') ? 'menu-selected' : 'hover:menu-btn-hover'}`}>
                     Donaciones
                 </button>
-            </Link>
-          
-            <Link to='/suscripcion'>
-                <button className={`menu-btn ${isSelected('/suscripcion') ? 'menu-selected' : 'hover:menu-btn-hover'}`}>
-                    Suscripción
-                </button>
-            </Link>
+            </Link>           
          
             <Link to='/iniciarsesion'>
                 <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">

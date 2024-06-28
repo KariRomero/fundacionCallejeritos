@@ -1,9 +1,7 @@
-import Card from "../Card/Card";
-
 const Carousel = ()=>{
     return(
         <div>
-            <Card/>
+            This is Carousel
         </div>
     )
 };
