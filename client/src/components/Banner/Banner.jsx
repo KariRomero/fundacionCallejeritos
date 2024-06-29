@@ -1,16 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import doggy from '/dog6.png';
 import { Link } from 'react-router-dom';
+import doggy from '/dog6.png';
+import backG from '/BannerLanding.png';
 
 
 const Banner = ()=>{
     return(
-        <div className="bg-white w-full h-auto mt-1 grid grid-cols-2 mx-32">
+        <div className="bg-secondary w-full h-auto mt-1 grid grid-cols-2 mx-32 bg-cover bg-center" style={{ backgroundImage: `url(${backG})` }}>
             <div>
                 <img src={doggy} alt='banner' className='h-full' />
             </div>
-            <div className='mt-36'>
+            <div className='mt-36 ' >
                 <h1 className='text-3xl font-medium tracking-wider'>Cada rescate cuenta</h1>
                 <h2 className='text-3xl font-medium tracking-wider'>Cada donación ayuda</h2>
                 <Link to='/donaciones'>

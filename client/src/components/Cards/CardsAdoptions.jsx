@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import CardAdoptions from "../Card/CardAdoptions";
 
-const Carousel = ({cards})=>{
+const CardsAdoptions = ()=>{
 
     const adoptions=[
         {
@@ -130,57 +129,24 @@ const Carousel = ({cards})=>{
         }
         ]
 
-
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const cardsToShow = 4;
-
-    const next = () => {
-        setCurrentIndex((prevIndex) => 
-            (prevIndex + cardsToShow) % adoptions.length
-        );
-    };
-
-    const prev = () => {
-        setCurrentIndex((prevIndex) => 
-            (prevIndex - cardsToShow + adoptions.length) % adoptions.length
-        );
-    };
-
-    const displayCards = () => {
-        let displayed = [];
-        for (let i = 0; i < cardsToShow; i++) {
-            displayed.push(adoptions[(currentIndex + i) % adoptions.length]);
-        }
-        return displayed;
-    };
     return(
-        <div className="relative w-full max-w-7xl mx-auto">
-            <button 
-                onClick={prev} 
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-l-lg"
-            >
-                Prev
-            </button>
-            <div className="flex overflow-hidden">
-                {displayCards().map((card) => (
-                    <CardAdoptions 
-                        key={card.id} 
-                        id={card.id} 
-                        name={card.name} 
-                        images={card.image[0]} 
-                        gender={card.gender} 
-                        age={card.age} 
-                    />
-                ))}
+        <section>
+            <div className="w-full bg-white grid grid-cols-4 gap-4 p-8">
+                {
+                    adoptions && adoptions.map((a) => (
+                        <CardAdoptions
+                            key={a.id}
+                            id={a.id}
+                            name={a.name}
+                            images={a.image[0]}
+                            gender={a.gender}
+                            age={a.age}
+                        />
+                    ))
+                }
             </div>
-            <button 
-                onClick={next} 
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-r-lg"
-            >
-                Next
-            </button>
-        </div>
+        </section>
     )
 };
 
-export default Carousel;
+export default CardsAdoptions;
