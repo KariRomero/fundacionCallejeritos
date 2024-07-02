@@ -1,0 +1,22 @@
+# Ignore environment variables
+.env
+
+# Ignore package lock file
+package-lock.json
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore coverage directory
+coverage/
+
+# Ignore build directories
+build/
+dist/
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
