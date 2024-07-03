@@ -5,6 +5,7 @@ import { getById } from "../../redux/adoptions/adoptionsActions";
 import Album from "../../components/Album/Album";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCat, faDog, faChildReaching, faSuitcaseMedical } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 
 const DetailAdoptions = () => {
@@ -23,10 +24,15 @@ const DetailAdoptions = () => {
             <div className="mx-10 my-6">
                 <div className="flex items-center justify-between">
                     <h1 className='text-3xl font-medium tracking-wider text-secondary'>{detail.name}</h1>
-                    <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">Adoptame!</button>
+                    <div>
+                        <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">Adoptame!</button>
+                        <Link to='/adopciones'>
+                            <button className="text-sm font-semibold tracking-wide text-start">Ver todos</button>
+                        </Link>
+                    </div>
                 </div>
-                <p className="text-base font-normal tracking-wide text-start">{detail.gender}</p>
-                <p className="text-base font-normal tracking-wide text-start">{detail.age}</p>
+                <p className="text-base font-semibold tracking-wide text-start">{detail.gender}</p>
+                <p className="text-base font-semibold tracking-wide text-start">{detail.age}</p>
                 <p className="text-base font-normal tracking-wide text-start">{detail.description}</p>
                 <div className="grid grid-cols-1 gap-4 my-2">
                     {detail.specialCare && 
