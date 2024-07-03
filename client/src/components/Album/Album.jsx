@@ -21,7 +21,7 @@ const Album = ({ slides }) => {
   }
 
   return (
-    <div className='max-w h-[720px] w-full relative group bg-black block'>
+    <div className='h-[720px] w-full relative group bg-black block'>
       <div style={{ backgroundImage: `url(${slides[currentIndex]})` }} className='w-full h-full duration-500 bg-center bg-cover'></div>      
     </div>
   );
