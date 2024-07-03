@@ -26,7 +26,7 @@ const Foundation = ()=>{
                     <img src={fundacion} alt="" className="h-56 ml-60"/>
                 </div>
 
-                <div>
+                <div className='bg-white shadow-md rounded-lg p-4'>
                     <Album slides={slides}/>
                 </div>           
             </div>

@@ -38,9 +38,9 @@ const NavBar = () => {
                 </button>
             </Link>
          
-            <Link to='/voluntariado'>
-                <button className={`menu-btn ${isSelected('/voluntariado') ? 'menu-selected' : 'hover:menu-btn-hover'}`}>
-                    Voluntariado
+            <Link to='/hacertesocio'>
+                <button className={`menu-btn ${isSelected('/hacertesocio') ? 'menu-selected' : 'hover:menu-btn-hover'}`}>
+                    Hacerte socio
                 </button>
             </Link>
          

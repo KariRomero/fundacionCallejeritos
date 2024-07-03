@@ -39,7 +39,7 @@ const Carousel = ({ cards }) => {
     };
 
     return (
-            <section className="relative w-full py-10 mb-10">
+            <section className="relative w-full py-10 mb-10 ">
                 <Link to='/adopciones'>
                     <h1 className="title text-secondary text-center">Tu Futuro Mejor Amigo Te Espera</h1>
                 </Link>
