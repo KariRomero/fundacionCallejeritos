@@ -9,14 +9,14 @@ const Album = ({ slides }) => {
   };
   
   useEffect(() => {
-    if (slides.length > 0) {
+    if (slides) {
       const interval = setInterval(nextSlide, 5000);
       return () => {
         clearInterval(interval);
       };
     }
   }, [currentIndex, slides]);
-  if (slides.length === 0) {    
+  if (!slides) {    
     return <div>No hay banners disponibles.</div>;
   }
 

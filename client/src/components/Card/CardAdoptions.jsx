@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const CardAdoptions = ({ id, name, images, gender, age }) => {
     return (
         <section>
-            <Link to={`/rescatesdetalle/${id}`}>
+            <Link to={`/adopcionesdetalle/${id}`}>
                 <div className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col items-center text-center p-4 w-72 h-96 transition-transform transform hover:scale-105">
                     <img 
                         src={images} 

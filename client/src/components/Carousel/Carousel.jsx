@@ -153,6 +153,7 @@ const Carousel = ({cards})=>{
         }
         return displayed;
     };
+    
     return(
         <div className="relative w-full max-w-7xl mx-auto">
             <button 
