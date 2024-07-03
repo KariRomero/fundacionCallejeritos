@@ -18,8 +18,8 @@ const DetailRescues = ()=>{
     return(
         <section className="grid grid-cols-2">
             <div className="mx-10 my-6">
-                <h1 className='text-3xl font-medium tracking-wider text-secondary'>{detail.name}</h1>
-                <p className="text-base font-normal tracking-wide text-start">{detail.description}</p>
+                <h1 className='title text-secondary text-center'>{detail.name}</h1>
+                <p className="paragraph mx-10 my-10">{detail.description}</p>
             </div>
             <div>
                 <Album slides={detail.image}/>            

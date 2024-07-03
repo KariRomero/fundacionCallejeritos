@@ -7,6 +7,7 @@ import DetailRescues from './views/Detail/DetailRescues';
 import Foundation from './views/Foundation/Foundation';
 import Adoptions from './views/Adoptions/Adoptions';
 import DetailAdoptions from './views/Detail/DetailAdoptions';
+import Donations from './views/Donations/Donations';
 
 function App() {
 
@@ -22,9 +23,9 @@ function App() {
         <Route path='/fundacion' element={<Foundation/>}/>
         <Route path='/adopciones' element={<Adoptions/>}/>
         <Route path='/adopcionesdetalle/:id' element={<DetailAdoptions/>}/>
+        <Route path='/donaciones' element={<Donations/>}/>
         {/* <Route path='/hogardetransito' element={<Detail/>}/> */}
         {/* <Route path='/voluntariado' element={<Detail/>}/> */}
-        {/* <Route path='/donaciones' element={<Detail/>}/> */}
         {/* <Route path='/iniciarsesion' element={<Detail/>}/> */}
       </Routes>
     

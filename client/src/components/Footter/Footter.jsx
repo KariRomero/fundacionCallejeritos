@@ -27,8 +27,8 @@ const Footter = ()=>{
                     <p className="text-base font-normal tracking-wide my-2 hover:text-secondary">Quiero colaborar</p>
                 </Link>   
                 <p className="text-base font-normal tracking-wide my-2 hover:text-secondary">E-mail: fundacion@fundacion.com</p>         
-                <a href='https://www.instagram.com/fundacion.callejeritos/' target='_blank'>
-                        <FontAwesomeIcon icon={faInstagram} size="xl" className='hover:text-secondary' />
+                <a href='https://www.instagram.com/fundacion.callejeritos/' target='_blank' className="hover:text-secondary">
+                    Encontranos en Instagram<FontAwesomeIcon icon={faInstagram} size="xl" className=' ml-2' />
                 </a> 
             </div>
         </div>
