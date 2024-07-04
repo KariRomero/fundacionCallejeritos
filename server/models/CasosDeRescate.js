@@ -1,8 +1,7 @@
-// models/CasosDeRescate.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-const CasosDeRescate = sequelize.define('CasosDeRescate', {
+const CasosDeRescate = sequelize.define("CasosDeRescate", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -13,11 +12,11 @@ const CasosDeRescate = sequelize.define('CasosDeRescate', {
     allowNull: false,
   },
   gender: {
-    type: DataTypes.ENUM('macho', 'hembra'),
+    type: DataTypes.ENUM("macho", "hembra"),
     allowNull: false,
   },
   age: {
-    type: DataTypes.ENUM('cachorro', 'adulto', 'anciano'),
+    type: DataTypes.ENUM("cachorro", "adulto", "anciano"),
     allowNull: false,
   },
   description: {

@@ -3,10 +3,14 @@ const router = express.Router();
 
 // Importar rutas específicas
 const userRoutes = require('./userRoutes');
+const adopcionesRoutes = require('./adopcionesRoutes')
+const casosRoutes = require('./casosRoutes')
 // Puedes importar otras rutas aquí si las tienes
 
 // Montar rutas
 router.use('/users', userRoutes);
-// Puedes montar otras rutas aquí si las tienes
+router.use('/adopciones',adopcionesRoutes);
+router.use('/casos', casosRoutes)
+
 
 module.exports = router;
