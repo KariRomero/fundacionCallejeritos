@@ -39,10 +39,10 @@ const Adopciones = sequelize.define('Adopciones', {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-  image: {
-    type: DataTypes.ARRAY(DataTypes.STRING),
-    defaultValue: [],
-  },
+    image: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue: [],
+    },
 });
 
 module.exports = Adopciones;
