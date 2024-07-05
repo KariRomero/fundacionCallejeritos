@@ -42,7 +42,9 @@ const BecomeAPartner = () => {
              <div ref={contentRef} className='py-32'>
                  <p className="paragraph mx-10 mb-10 mt-4">Convertirse en socio de nuestra fundación es una forma poderosa de apoyar de manera continua nuestra misión de rescatar y cuidar a los animales más vulnerables. Al hacerte socio, contribuyes mensualmente, permitiéndonos proporcionar atención veterinaria, alimento y un refugio seguro para los animales que rescatamos.</p>
                  <p className="paragraph mx-10 my-10">Tu compromiso mensual nos ayuda a planificar y realizar más rescates, y a ofrecerles a estos animales una segunda oportunidad de encontrar un hogar amoroso. Además, como socio, recibirás actualizaciones exclusivas sobre nuestras actividades y los avances de los perritos que has ayudado a salvar.</p>
-                 <p className="paragraph mx-10 my-10">¡Únete a nuestra comunidad de socios hoy y marca una diferencia duradera en la vida de los animales necesitados!</p>
+                 <Link to=''>
+                    <p className="paragraph mx-10 my-10 hover:text-secondary">¡Únete a nuestra comunidad de socios hoy y marca una diferencia duradera en la vida de los animales necesitados!</p>
+                 </Link>
              </div>
         </section>      
     )

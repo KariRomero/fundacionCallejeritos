@@ -18,7 +18,7 @@ export default {
     function ({ addUtilities, theme }) {
       const newUtilities = {
         '.title': {
-          fontSize: theme('fontSize.2xl'),
+          fontSize: theme('fontSize.3xl'),
           fontWeight: theme('fontWeight.medium'),
           letterSpacing: theme('letterSpacing.wider'),
           marginBottom: theme('margin.4'),

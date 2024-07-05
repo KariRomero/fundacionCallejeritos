@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faHandHoldingHeart, faPerson } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 
 const Options = ()=>{
@@ -21,7 +22,9 @@ const Options = ()=>{
                     definitivo. Únete a nosotros en esta noble misión y experimenta la alegría de ver cómo un animal rescatado 
                     florece bajo tu cuidado. ¡Tu apoyo puede marcar la diferencia en sus vidas!
                     </p>
-                    <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>Hogar de tránsito</button>
+                    <Link>
+                        <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>Hogar de tránsito</button>
+                    </Link>
                 </div>
 
                 <div className='border border-solid border-grey rounded-2xl mx-10 px-4 pt-4 grid justify-items-center'>
@@ -33,19 +36,23 @@ const Options = ()=>{
                     crucial para continuar nuestra misión de rescate y rehabilitación. ¡Haz la diferencia hoy y ayuda a salvar 
                     vidas con tu donación!
                     </p>
-                    <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>Donaciones</button>
+                    <Link to='/donaciones'>
+                        <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>Donaciones</button>
+                    </Link>
                 </div>
 
                 <div className='border border-solid border-grey rounded-2xl mx-10 px-4 pt-4 grid justify-items-center'>
                     <FontAwesomeIcon icon={faPerson} size="2xl" className='rounded-full w-20 h-20 p-4 text-secondary bg-primary'/>
                     {/* <h1>Voluntario</h1> */}
                     <p className='paragraph'>
-                    Únete a nuestro equipo de voluntarios y marca una diferencia tangible en la vida de los animales rescatados. 
-                    Tu tiempo y dedicación son esenciales para brindarles los cuidados y el amor que necesitan. Desde ayudar en las 
-                    tareas diarias hasta participar en eventos de adopción, cada esfuerzo cuenta. ¡Sé parte de nuestra misión y 
-                    experimenta la gratificación de ver cómo tu ayuda contribuye a salvar y transformar vidas!
+                    Al adoptar, no solo estás cambiando la vida de un perro o gato, sino que también estás ganando un amigo fiel 
+                    para toda la vida. Nuestros animales están llenos de cariño y esperan con ansias encontrar un hogar donde 
+                    puedan sentirse seguros y queridos. Explora nuestras opciones de adopción y descubre cómo puedes hacer una 
+                    diferencia significativa en la vida de un animal. ¡Adopta hoy y convierte su historia en un final feliz!
                     </p>
-                    <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>Voluntariado</button>
+                    <Link to='/adopciones'>
+                        <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>Adopciones</button>
+                    </Link>
                 </div>
             </div>
 
