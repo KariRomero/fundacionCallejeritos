@@ -1,51 +1,50 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaw } from '@fortawesome/free-solid-svg-icons';
+import { faPaw, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from "react";
+import { useRef } from "react";
 import { Link } from 'react-router-dom';
-import { getAdoptions } from '../../redux/adoptions/adoptionsActions';
-import Album from '../../components/Album/Album';
+import doggy from '/dog5.png';
+import backG from '/BannerLanding.png';
 
 const BecomeAPartner = () => {
 
-    const dispatch = useDispatch();
-    const { adoptions } = useSelector((state) => state.adoptions);
+    const contentRef = useRef(null);
 
-    useEffect(()=>{
-        dispatch(getAdoptions())
-    },[dispatch]);
-
-    const allImages = adoptions.reduce((acc, adoption) => {
-        return acc.concat(adoption.image);
-    }, []);
+    const handlerClick = () => {
+        if (contentRef.current) {
+            contentRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     return(
-        <section className='grid grid-cols-2 p-2'>
-            <div>               
-                <div className='text-center'>
-                    <h1 className="title text-secondary">¡Hazte Socio y Transforma Vidas!</h1>    
-                    <Link to='/hacertesocio'>
-                            <FontAwesomeIcon icon={faPaw} className='px-2 text-secondary '/>
-                            <button className="menu-btn border border-secondary rounded-full hover:bg-secondary ">
-                                Hacerte socio
-                            </button>
-                            <FontAwesomeIcon icon={faPaw} className='px-2 text-secondary '/>
+        <section >                           
+            {/* className="w-full h-auto mt-1 grid grid-cols-2 mx-32 bg-cover bg-center" style={{ backgroundImage: `url(${backG})` }} */}
+             <div className='w-full h-auto mt-1 grid grid-cols-2 mx-32 ' >
+                <div className='pt-36 text-center bg-repeat bg-center' style={{ backgroundImage: `url(${backG})` }}>
+                    <h1 className="title">¡Hazte Socio y Transforma Vidas!</h1>    
+                    <Link to='/hacertesocio' className='flex justify-center items-center'>                        
+                        <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">
+                            Hacerte socio
+                        </button>
                     </Link>
-                </div>
-                <p className="paragraph mx-10 mb-10 mt-4">Convertirse en socio de nuestra fundación es una forma poderosa de apoyar de manera continua nuestra misión de rescatar y cuidar a los animales más vulnerables. Al hacerte socio, contribuyes mensualmente, permitiéndonos proporcionar atención veterinaria, alimento y un refugio seguro para los animales que rescatamos.</p>
-                <p className="paragraph mx-10 my-10">Tu compromiso mensual nos ayuda a planificar y realizar más rescates, y a ofrecerles a estos animales una segunda oportunidad de encontrar un hogar amoroso. Además, como socio, recibirás actualizaciones exclusivas sobre nuestras actividades y los avances de los perritos y gatitos que has ayudado a salvar.</p>
-                <p className="paragraph mx-10 my-10">¡Únete a nuestra comunidad de socios hoy y marca una diferencia duradera en la vida de los animales necesitados!</p>
-
-                
-                <a href='https://www.instagram.com/fundacion.callejeritos/' target='_blank' className="flex items-center mb-10 mx-10 paragraph hover:text-secondary">
+                    <a href='https://www.instagram.com/fundacion.callejeritos/' target='_blank' className="flex justify-center items-center mb-10 mx-10 paragraph hover:text-secondary">
                         Encontranos en Instagram <FontAwesomeIcon icon={faInstagram} size="xl" className="ml-2"/>
-                </a> 
-            </div>
-            <div className='bg-white shadow-md rounded-lg p-4'>
-                <Album slides={allImages}/>
-            </div>
-        </section>
+                    </a>
+                    <button className='hover:bg-primary px-4 py-4 rounded-full' onClick={handlerClick}>
+                        <FontAwesomeIcon icon={faChevronDown} size="xl"/>
+                    </button>
+                </div>
+                <Link to='/'>
+                    <img src={doggy} alt='banner' className='w-2/3'/>
+                </Link>
+             </div>
+
+             <div ref={contentRef} className='py-32'>
+                 <p className="paragraph mx-10 mb-10 mt-4">Convertirse en socio de nuestra fundación es una forma poderosa de apoyar de manera continua nuestra misión de rescatar y cuidar a los animales más vulnerables. Al hacerte socio, contribuyes mensualmente, permitiéndonos proporcionar atención veterinaria, alimento y un refugio seguro para los animales que rescatamos.</p>
+                 <p className="paragraph mx-10 my-10">Tu compromiso mensual nos ayuda a planificar y realizar más rescates, y a ofrecerles a estos animales una segunda oportunidad de encontrar un hogar amoroso. Además, como socio, recibirás actualizaciones exclusivas sobre nuestras actividades y los avances de los perritos que has ayudado a salvar.</p>
+                 <p className="paragraph mx-10 my-10">¡Únete a nuestra comunidad de socios hoy y marca una diferencia duradera en la vida de los animales necesitados!</p>
+             </div>
+        </section>      
     )
 };
 

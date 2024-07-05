@@ -47,7 +47,7 @@ const Carousel = ({ cards }) => {
                     <>
                         <button
                             onClick={prev}
-                            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 hover:bg-primary px-4 py-2 rounded-full z-10"
+                            className="absolute left-0 top-1/2 transform -translate-y-1/2 hover:bg-primary px-4 py-2 rounded-full z-10"
                         >
                             <FontAwesomeIcon icon={faChevronLeft} />
                         </button>
@@ -65,7 +65,7 @@ const Carousel = ({ cards }) => {
                         </div>
                         <button
                             onClick={next}
-                            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 hover:bg-primary px-4 py-2 rounded-full z-10"
+                            className="absolute right-0 top-1/2 transform -translate-y-1/2 hover:bg-primary px-4 py-2 rounded-full z-10"
                         >
                             <FontAwesomeIcon icon={faChevronRight} />
                         </button>

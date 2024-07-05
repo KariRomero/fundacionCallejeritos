@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { getAdoptions } from '../../redux/adoptions/adoptionsActions';
+import fundacion from '/historiaFundacion.png';
+import doggy from '/dog5.png';
 import Album from '../../components/Album/Album';
 
 const Donations = () =>{
@@ -55,10 +57,24 @@ const Donations = () =>{
                 <a href='https://www.instagram.com/fundacion.callejeritos/' target='_blank' className="flex items-center mb-10 mx-10 paragraph hover:text-secondary">
                         Encontranos en Instagram <FontAwesomeIcon icon={faInstagram} size="xl" className="ml-2"/>
                 </a> 
+                <div className='flex justify-center'>
+                    <img src={fundacion} alt="" className="h-32"/>
+                    <img src={fundacion} alt="" className="h-32"/>
+                    <img src={fundacion} alt="" className="h-32"/>
+                    <img src={fundacion} alt="" className="h-32"/>
+                    <img src={fundacion} alt="" className="h-32"/>
+                </div>
             </div>
             <div className='bg-white shadow-md rounded-lg p-4'>
                 <Album slides={allImages}/>
             </div>
+            {/* <Link to='/hacertesocio'>
+                <div className='h-full flex justify-center items-center'>
+                    
+                        <img src={doggy} alt='banner' className='w-2/3' />
+                    
+                </div>
+            </Link> */}
         </section>
     )
 };
