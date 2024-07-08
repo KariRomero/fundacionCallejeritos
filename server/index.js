@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const bodyParser = require('body-parser'); // Asegúrate de tener body-parser instalado
+const bodyParser = require('body-parser'); 
 require('dotenv').config();
 const sequelize = require('./config/database');
 const routes = require('./routes/indexRoutes');
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(morgan('dev'));
 app.use(cors());
-app.use(bodyParser.json()); // Parsea el body de las solicitudes a JSON
+app.use(bodyParser.json()); 
 
 // Rutas
 app.use('/api', routes);
@@ -22,7 +22,7 @@ sequelize.authenticate()
     console.log('Connection has been established successfully.');
 
     // Sincroniza los modelos con la base de datos
-    return sequelize.sync({ force: false }); // Usa `force: true` solo en desarrollo para recrear las tablas
+    return sequelize.sync({ force: false }); 
   })
   .then(() => {
     console.log('Database synchronized successfully.');

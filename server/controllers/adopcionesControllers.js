@@ -1,5 +1,5 @@
-const Adopciones = require('../models/Adopciones');
-const cloudinary = require('../utils/cloudinary');
+const Adopciones = require("../models/Adopciones");
+const cloudinary = require("../utils/cloudinary");
 const { uploader } = cloudinary;
 
 const createAdopcion = async (adopcionData) => {
@@ -19,14 +19,32 @@ const getAdopcion = async (id) => {
   return await Adopciones.findByPk(id);
 };
 
-const getAllAdopcion = async () => {
-  return await Adopciones.findAll();
+const getAllAdopcion = async (filters = {}) => {
+  const where = {};
+
+  if (filters.gender) {
+    where.gender = filters.gender;
+  }
+
+  if (filters.getsAlongWithDogs !== undefined) {
+    where.getsAlongWithDogs = filters.getsAlongWithDogs;
+  }
+
+  if (filters.getsAlongWithCats !== undefined) {
+    where.getsAlongWithCats = filters.getsAlongWithCats;
+  }
+
+  if (filters.getsAlongWithChildren !== undefined) {
+    where.getsAlongWithChildren = filters.getsAlongWithChildren;
+  }
+
+  return await Adopciones.findAll({ where });
 };
 
 const uploadImage = async (adopcionId, imageFile) => {
   try {
     const result = await uploader.upload(imageFile, {
-      folder: 'adopcion_images',
+      folder: "adopcion_images",
       use_filename: true,
       unique_filename: false,
     });
@@ -38,10 +56,10 @@ const uploadImage = async (adopcionId, imageFile) => {
       });
       return updatedAdopcion;
     } else {
-      throw new Error('Adopción no encontrada');
+      throw new Error("Adopción no encontrada");
     }
   } catch (error) {
-    throw new Error('Error subiendo imagen: ' + error.message);
+    throw new Error("Error subiendo imagen: " + error.message);
   }
 };
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+const multer = require('multer'); 
+const upload = multer({ dest: 'uploads/' }); 
 
 const {
   createAdopcionesHandler,
@@ -10,6 +10,7 @@ const {
   getAdopcionesHandler,
   getAllAdopcionesHandler,
   uploadImageAdopcionesHandler,
+ 
 } = require('../handlers/adopcionesHandlers');
 
 router.post('/', createAdopcionesHandler);
@@ -18,7 +19,7 @@ router.delete('/:id', deleteAdopcionesHandler);
 router.get('/:id', getAdopcionesHandler);
 router.get('/', getAllAdopcionesHandler);
 
-// Ruta para subir imagen de adopción
+// Ruta para cargar una imagen de usuario
 router.post('/:id/image', upload.single('image'), uploadImageAdopcionesHandler);
 
 module.exports = router;
