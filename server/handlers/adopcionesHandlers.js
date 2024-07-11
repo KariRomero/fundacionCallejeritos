@@ -49,7 +49,8 @@ const getAdopcionesHandler = async (req, res) => {
 const getAllAdopcionesHandler = async (req, res) => {
   try {
     const filters = req.query;
-    const adopciones = await getAllAdopcion(filters);
+    const order = req.query.order || 'ASC'; 
+    const adopciones = await getAllAdopcion(filters, order);
     res.status(200).json(adopciones);
   } catch (error) {
     res.status(500).json({ error: error.message });

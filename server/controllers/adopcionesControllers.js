@@ -19,7 +19,7 @@ const getAdopcion = async (id) => {
   return await Adopciones.findByPk(id);
 };
 
-const getAllAdopcion = async (filters = {}) => {
+const getAllAdopcion = async (filters = {}, order = 'ASC') => {
   const where = {};
 
   if (filters.gender) {
@@ -38,9 +38,11 @@ const getAllAdopcion = async (filters = {}) => {
     where.getsAlongWithChildren = filters.getsAlongWithChildren;
   }
 
-  return await Adopciones.findAll({ where });
+  return await Adopciones.findAll({
+    where,
+    order: [['name', order]] 
+  });
 };
-
 const uploadImage = async (adopcionId, imageFile) => {
   try {
     const result = await uploader.upload(imageFile, {
