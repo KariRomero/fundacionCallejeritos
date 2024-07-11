@@ -19,8 +19,10 @@ const getCasos = async (id) => {
   return await CasosDeRescate.findByPk(id);
 };
 
-const getAllCasos = async () => {
-  return await CasosDeRescate.findAll();
+const getAllCasos = async (order = 'ASC') => {
+  return await CasosDeRescate.findAll({
+    order: [['name', order]] 
+  });
 };
 
 const uploadImage = async (casosId, imageFile) => {

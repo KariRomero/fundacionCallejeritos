@@ -50,7 +50,8 @@ const {
   
   const getAllCasosHandler = async (req, res) => {
     try {
-      const casos = await getAllCasos();
+      const order = req.query.order || 'ASC'; 
+      const casos = await getAllCasos(order);
       res.status(200).json(casos);
     } catch (error) {
       res.status(500).json({ error: error.message });
