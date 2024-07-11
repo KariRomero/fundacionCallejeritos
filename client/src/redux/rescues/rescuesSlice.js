@@ -12,10 +12,16 @@ export const rescuesSlice = createSlice({
         },
         getRescuesById: (state, action) => {
             state.detail = action.payload;
+        },
+        updateRescueById: (state,action)=>{
+            state.detail = action.payload
+        },
+        deleteRescueById: (state,action)=>{
+            state.rescues = action.payload
         }
     }
 });
 
-export const { getAllRescues, getRescuesById } = rescuesSlice.actions;
+export const { getAllRescues, getRescuesById, updateRescueById, deleteRescueById } = rescuesSlice.actions;
 
 export default rescuesSlice.reducer;

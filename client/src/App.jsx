@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Footter from './components/Footter/Footter';
 import Home from './views/Home/Home';
@@ -9,12 +9,26 @@ import Adoptions from './views/Adoptions/Adoptions';
 import DetailAdoptions from './views/Detail/DetailAdoptions';
 import Donations from './views/Donations/Donations';
 import BecomeAPartner from './views/BecomeAPartner/BecomeAPartner';
+import Dashboard from './views/Dashboard/Dashboard';
+import SideBar from './components/Dashboard/SideBar';
+import AdoptionsDashboard from './views/Dashboard/AdoptionsDashboard/AdoptionsDashboard';
+import AdoptionsCreateForm from './views/Dashboard/AdoptionsDashboard/AdoptionsCreateForm';
+import AdoptionsUpdateForm from './views/Dashboard/AdoptionsDashboard/AdoptionsUpdateForm';
+import RescuesDashboard from './views/Dashboard/RescuesDashboard/RescuesDashboard';
+import RescuesCreateForm from './views/Dashboard/RescuesDashboard/RescuesCreateForm';
+import RescuesUpdateForm from './views/Dashboard/RescuesDashboard/RescuesUpdateForm';
 
 function App() {
 
+  const location = useLocation();
+  const isDashboardRoute = location.pathname.startsWith("/admin");
+  const isAdmin = true;
+
   return (
     <>    
-      <NavBar/>
+      {!isDashboardRoute && <NavBar />}
+      {isDashboardRoute && <SideBar />}
+      
 
     
       <Routes>
@@ -28,9 +42,28 @@ function App() {
         <Route path='/hacertesocio' element={<BecomeAPartner/>}/>
         {/* <Route path='/hogardetransito' element={<Detail/>}/> */}
         {/* <Route path='/iniciarsesion' element={<Detail/>}/> */}
+        {
+          isAdmin ? (
+            <>
+            <Route path='/admin' element={<Dashboard/>}/>
+            <Route path='/admin/adopciones' element={<AdoptionsDashboard/>}/>
+            <Route path='/admin/adopciones/create'element={<AdoptionsCreateForm/>}/>
+            <Route path='/admin/adopciones/update/:id'element={<AdoptionsUpdateForm/>}/>
+            <Route path='/admin/rescates' element={<RescuesDashboard/>}/>
+            <Route path='/admin/rescates/create'element={<RescuesCreateForm/>}/>
+            <Route path='/admin/rescates/update/:id'element={<RescuesUpdateForm/>}/>
+            </>
+          )
+          : (
+            <>
+            </>
+
+          )
+        }
       </Routes>
-    
-      <Footter/>
+
+      {!isDashboardRoute && <Footter/>}  
+      
     </>      
   )
 }

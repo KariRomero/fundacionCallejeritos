@@ -148,7 +148,7 @@ const NavBar = () => {
 
 const NavLink = ({ to, isSelected, children }) => (
     <Link to={to}>
-        <button className={`menu-btn ${isSelected({to}) ? 'menu-selected' : 'hover:menu-btn-hover'}`}>
+        <button className={`menu-btn ${isSelected(to) ? 'menu-selected' : 'hover:menu-btn-hover'}`}>
             {children}
         </button>
     </Link>
