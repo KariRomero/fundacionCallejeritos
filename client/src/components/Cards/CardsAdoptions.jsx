@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { getAdoptions } from "../../redux/adoptions/adoptionsActions";
 
-const CardsAdoptions = ()=>{
+const CardsAdoptions = ( { adoptions } )=>{
 
-    const dispatch = useDispatch();
-    const { adoptions } = useSelector((state) => state.adoptions);
+    // const dispatch = useDispatch();
+    // const { adoptions } = useSelector((state) => state.adoptions);
 
-    useEffect(()=>{
-        dispatch(getAdoptions())
-    },[dispatch]);
+    // useEffect(()=>{
+    //     dispatch(getAdoptions())
+    // },[dispatch]);
 
     return(
         <section>

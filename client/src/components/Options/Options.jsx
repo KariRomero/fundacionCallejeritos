@@ -12,8 +12,8 @@ const Options = ()=>{
             <h1 className='title text-center'>
                 Ayudanos a cambiar su historia
             </h1>
-            <div className='grid grid-cols-3'>
-                <div className='border border-solid border-grey rounded-2xl mx-10 px-4 pt-4 grid justify-items-center'>
+            <div className='grid grid-cols-1 sm:grid-cols-3'>
+                <div className='border border-solid border-grey rounded-2xl mx-10 px-4 pt-4 grid justify-items-center mt-4'>
                     <FontAwesomeIcon icon={faHouse} size="2xl" className='rounded-full w-20 h-20 p-4 text-secondary bg-primary'/>
                     {/* <h1>Hogar de Tránsito</h1> */}
                     <p className='paragraph'>
@@ -27,7 +27,7 @@ const Options = ()=>{
                     </Link>
                 </div>
 
-                <div className='border border-solid border-grey rounded-2xl mx-10 px-4 pt-4 grid justify-items-center'>
+                <div className='border border-solid border-grey rounded-2xl mx-10 px-4 pt-4 grid justify-items-center mt-4'>
                     <FontAwesomeIcon icon={faHandHoldingHeart} size="2xl" className='rounded-full w-20 h-20 p-4 text-secondary bg-primary'/>
                     {/* <h1>Donaciones</h1> */}
                     <p className='paragraph'>
@@ -41,7 +41,7 @@ const Options = ()=>{
                     </Link>
                 </div>
 
-                <div className='border border-solid border-grey rounded-2xl mx-10 px-4 pt-4 grid justify-items-center'>
+                <div className='border border-solid border-grey rounded-2xl mx-10 px-4 pt-4 grid justify-items-center mt-4'>
                     <FontAwesomeIcon icon={faPerson} size="2xl" className='rounded-full w-20 h-20 p-4 text-secondary bg-primary'/>
                     {/* <h1>Voluntario</h1> */}
                     <p className='paragraph'>
