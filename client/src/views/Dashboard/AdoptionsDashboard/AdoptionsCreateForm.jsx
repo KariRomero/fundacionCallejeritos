@@ -12,12 +12,12 @@ const AdoptionsCreateForm = () => {
         name: '',
         gender: 'macho',
         specialCare: false,
-        age:'',
-        getsAlongWithDogs:false,
-        getsAlongWithCats:false,
-        getsAlongWithChildren:false,
+        age: '',
+        getsAlongWithDogs: false,
+        getsAlongWithCats: false,
+        getsAlongWithChildren: false,
         description: '',
-        image:[]
+        image: []
     });
 
     const handleChange = (e) => {
@@ -39,12 +39,12 @@ const AdoptionsCreateForm = () => {
                 name: '',
                 gender: 'macho',
                 specialCare: false,
-                age:'',
-                getsAlongWithDogs:false,
-                getsAlongWithCats:false,
-                getsAlongWithChildren:false,
+                age: '',
+                getsAlongWithDogs: false,
+                getsAlongWithCats: false,
+                getsAlongWithChildren: false,
                 description: '',
-                image:[]                
+                image: []
             });
             alert('Callejerito agregado');
         }
@@ -53,11 +53,11 @@ const AdoptionsCreateForm = () => {
 
     return (
         <section className="flex justify-center sm:ml-64">
-            <div className="w-full max-w-4xl">
+            <div className="w-full max-w-4xl mt-4">
                 <h1 className="title">Nuevo Callejerito</h1>
                 <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Nombre</label>
+                    <div className=" my-4 flex justify-between">
+                        <label className="paragraph">Nombre</label>
                         <input
                             placeholder='Escriba el nombre'
                             type="text"
@@ -67,8 +67,8 @@ const AdoptionsCreateForm = () => {
                         />
                     </div>
 
-                    <div>
-                        <label>Edad</label>
+                    <div className=" my-4 flex justify-between">
+                        <label className="paragraph">Edad</label>
                         <input
                             placeholder='Escriba la edad'
                             type="text"
@@ -78,8 +78,8 @@ const AdoptionsCreateForm = () => {
                         />
                     </div>
 
-                    <div>
-                        <label>Género</label>
+                    <div className=" my-4 flex justify-between">
+                        <label className="paragraph">Género</label>
                         <select
                             value={form.gender}
                             name='gender'
@@ -90,8 +90,8 @@ const AdoptionsCreateForm = () => {
                         </select>
                     </div>
 
-                    <div>
-                        <label>Precisa cuidados especiales</label>
+                    <div className=" my-4 flex justify-between">
+                        <label className="paragraph">Precisa cuidados especiales</label>
                         <input
                             type="checkbox"
                             checked={form.specialCare}
@@ -100,8 +100,8 @@ const AdoptionsCreateForm = () => {
                         />
                     </div>
 
-                    <div>
-                        <label>Se lleva bien con perros</label>
+                    <div className=" my-4 flex justify-between">
+                        <label className="paragraph">Se lleva bien con perros</label>
                         <input
                             type="checkbox"
                             checked={form.getsAlongWithDogs}
@@ -110,8 +110,8 @@ const AdoptionsCreateForm = () => {
                         />
                     </div>
 
-                    <div>
-                        <label>Se lleva bien con gatos</label>
+                    <div className=" my-4 flex justify-between">
+                        <label className="paragraph">Se lleva bien con gatos</label>
                         <input
                             type="checkbox"
                             checked={form.getsAlongWithCats}
@@ -120,8 +120,8 @@ const AdoptionsCreateForm = () => {
                         />
                     </div>
 
-                    <div>
-                        <label>Se lleva bien con niños</label>
+                    <div className=" my-4 flex justify-between">
+                        <label className="paragraph">Se lleva bien con niños</label>
                         <input
                             type="checkbox"
                             checked={form.getsAlongWithChildren}
@@ -130,28 +130,29 @@ const AdoptionsCreateForm = () => {
                         />
                     </div>
 
-                    <div>
-                        <label>Descripción</label>
-                        <input
+                    <div className=" my-4 grid ">
+                        <label className=" paragraph">Descripción</label>
+                        <textarea name="description" rows="4" cols='100' onChange={handleChange}></textarea>
+                        {/* <input
                             placeholder='Escriba una descripción'
                             type="text"
                             value={form.description}
                             name='description'
                             onChange={handleChange}
-                        />
+                        /> */}
                     </div>
 
-                    {/* <div>
-                        <label>Imagenes</label>
-                        <input
+                    <div className=" my-4">
+                        <button className="font-medium text-base tracking-wider ">Agregar Imagenes</button>
+                        {/* <input
                         placeholder='escriba el nombre' 
                         type="text" 
                         value={form.name} 
                         name='name' 
-                        />
-                    </div> */}
+                        /> */}
+                    </div>
 
-                    <button type="submit">Agregar</button>
+                    <button type="submit" className="menu-btn border border-secondary rounded-full hover:bg-secondary">Agregar Callejerito</button>
                 </form>
             </div>
         </section>
