@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { createRescues } from "../../../redux/rescues/rescuesActions";
 
 const RescuesCreateForm = () => {
@@ -44,26 +44,28 @@ const RescuesCreateForm = () => {
     };
     return (
         <section className="flex justify-center sm:ml-64">
-            <div className="w-full max-w-4xl">
+            <div className="w-full max-w-4xl mt-4">
                 <h1 className="title">Nuevo Callejerito</h1>
                 <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Nombre</label>
+                    <div className="my-4 flex justify-between">
+                        <label className="paragraph">Nombre</label>
                         <input
                             placeholder='Escriba el nombre'
                             type="text"
                             value={form.name}
                             name='name'
                             onChange={handleChange}
+                            className="shadow-sm"
                         />
                     </div>
 
-                    <div>
-                        <label>Edad</label>
+                    <div className="my-4 flex justify-between">
+                        <label className="paragraph">Edad</label>
                         <select
                             value={form.age}
                             name='age'
                             onChange={handleChange}
+                            className="shadow-sm paragraph"
                         >
                             <option value="cachorro">Cachorro</option>
                             <option value="adulto">Adulto</option>
@@ -72,40 +74,46 @@ const RescuesCreateForm = () => {
 
                     </div>
 
-                    <div>
-                        <label>Género</label>
+                    <div className="my-4 flex justify-between">
+                        <label className="paragraph">Género</label>
                         <select
                             value={form.gender}
                             name='gender'
                             onChange={handleChange}
+                            className="shadow-sm paragraph"
                         >
                             <option value="macho">Macho</option>
                             <option value="hembra">Hembra</option>
                         </select>
                     </div>
 
-                    <div>
-                        <label>Descripción</label>
-                        <input
+                    <div className="my-4 grid">
+                        <label className="paragraph">Descripción</label>
+                        <textarea name="description" rows="4" cols='100' onChange={handleChange} className="shadow-md"></textarea>
+                        {/* <input
                             placeholder='Escriba una descripción'
                             type="text"
                             value={form.description}
                             name='description'
                             onChange={handleChange}
-                        />
+                        /> */}
                     </div>
 
-                    {/* <div>
-                        <label>Imagenes</label>
+                    <div>
+                        <button className="font-medium text-base tracking-wider ">Agregar Imagenes</button>
+                        {/* <label>Imagenes</label>
                         <input
                         placeholder='escriba el nombre' 
                         type="text" 
                         value={form.name} 
                         name='name' 
-                        />
-                    </div> */}
+                        /> */}
+                    </div>
 
-                    <button type="submit">Agregar</button>
+                    <Link to='/admin/rescates'>
+                        <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">Volver atrás</button>
+                    </Link>
+                    <button type="submit" className="menu-btn border border-secondary rounded-full hover:bg-secondary">Agregar</button>
                 </form>
             </div>
         </section>

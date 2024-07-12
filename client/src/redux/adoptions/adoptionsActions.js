@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { postAdoptions, getAllAdoptions, getAdoptionsById, updateAdoptionById, deleteAdoptionSuccess, deleteAdoptionFailure } from './adoptionsSlice';
+import { 
+  postAdoptions, 
+  getAllAdoptions, 
+  getAdoptionsById, 
+  updateAdoptionById, 
+  deleteAdoptionSuccess, 
+  deleteAdoptionFailure 
+} from './adoptionsSlice';
 
 export const getAdoptions = () => (dispatch) => {
   // axios.get('http://localhost:3000/adoptions')
@@ -26,12 +33,14 @@ export const createAdoptions = (formData) => (dispatch) => {
 };
 
 
-export const updateById = (id) => (dispatch) => {
-  // axios.get(`http://localhost:3000/adoptions/${id}`)
-  axios.put(`http://localhost:3001/api/adopciones/${id}`)
-    .then(res => dispatch(updateAdoptionById(res.data)))
+export const updateById = (id, formData) => (dispatch) => {
+  axios.put(`http://localhost:3001/api/adopciones/${id}`, formData)
+    .then(res => {
+      dispatch(updateAdoptionById(res.data));
+    })
     .catch(e => console.log(e));
 };
+
 
 // export const deleteById = (id) => (dispatch) => {
 //   // axios.get(`http://localhost:3000/adoptions/${id}`)

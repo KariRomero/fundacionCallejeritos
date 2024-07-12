@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { createAdoptions } from "../../../redux/adoptions/adoptionsActions";
 
 const AdoptionsCreateForm = () => {
@@ -63,7 +63,8 @@ const AdoptionsCreateForm = () => {
                             type="text"
                             value={form.name}
                             name='name'
-                            onChange={handleChange}
+                            onChange={handleChange} 
+                            className="shadow-md"
                         />
                     </div>
 
@@ -74,7 +75,8 @@ const AdoptionsCreateForm = () => {
                             type="text"
                             value={form.age}
                             name='age'
-                            onChange={handleChange}
+                            onChange={handleChange} 
+                            className="shadow-md"
                         />
                     </div>
 
@@ -84,6 +86,7 @@ const AdoptionsCreateForm = () => {
                             value={form.gender}
                             name='gender'
                             onChange={handleChange}
+                            className="shadow-md paragraph"
                         >
                             <option value="macho">Macho</option>
                             <option value="hembra">Hembra</option>
@@ -97,6 +100,7 @@ const AdoptionsCreateForm = () => {
                             checked={form.specialCare}
                             name='specialCare'
                             onChange={handleChange}
+                            className="shadow-sm"
                         />
                     </div>
 
@@ -107,6 +111,7 @@ const AdoptionsCreateForm = () => {
                             checked={form.getsAlongWithDogs}
                             name='getsAlongWithDogs'
                             onChange={handleChange}
+                            className="shadow-sm"
                         />
                     </div>
 
@@ -117,6 +122,7 @@ const AdoptionsCreateForm = () => {
                             checked={form.getsAlongWithCats}
                             name='getsAlongWithCats'
                             onChange={handleChange}
+                            className="shadow-sm"
                         />
                     </div>
 
@@ -127,12 +133,13 @@ const AdoptionsCreateForm = () => {
                             checked={form.getsAlongWithChildren}
                             name='getsAlongWithChildren'
                             onChange={handleChange}
+                            className="shadow-sm"
                         />
                     </div>
 
                     <div className=" my-4 grid ">
                         <label className=" paragraph">Descripción</label>
-                        <textarea name="description" rows="4" cols='100' onChange={handleChange}></textarea>
+                        <textarea name="description" rows="4" cols='100' onChange={handleChange} className="shadow-md"></textarea>
                         {/* <input
                             placeholder='Escriba una descripción'
                             type="text"
@@ -152,6 +159,9 @@ const AdoptionsCreateForm = () => {
                         /> */}
                     </div>
 
+                    <Link to='/admin/adopciones'>
+                    <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">Volver atrás</button>
+                    </Link>
                     <button type="submit" className="menu-btn border border-secondary rounded-full hover:bg-secondary">Agregar Callejerito</button>
                 </form>
             </div>
