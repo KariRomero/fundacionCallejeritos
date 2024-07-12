@@ -25,9 +25,9 @@ export const createRescues = (formData) => (dispatch) => {
       });
 };
 
-export const updateById = (id) => (dispatch) => {
+export const updateById = (id, formData) => (dispatch) => {
   // axios.get(`http://localhost:3000/adoptions/${id}`)
-  axios.put(`http://localhost:3001/api/casos/${id}`)
+  axios.put(`http://localhost:3001/api/casos/${id}`, formData)
     .then(res => dispatch(updateRescueById(res.data)))
     .catch(e => console.log(e));
 };

@@ -1,10 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaw, faRightFromBracket, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faPaw, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 const SideBar = () => {
     const location = useLocation();
-    const isSelected = (path) => location.pathname === path;
+    const isSelected = (path) => location.pathname.includes(path);
 
     return (
         <aside className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-primary">
@@ -17,19 +17,19 @@ const SideBar = () => {
                         </button>
                     </li>
                 </Link>
-                <NavLink to='/admin/rescates' isSelected={isSelected}>
+                <NavLink to='/admin/rescates'>
                     Rescates
                 </NavLink>
-                <NavLink to='/admin/adopciones' isSelected={isSelected}>
+                <NavLink to='/admin/adopciones'>
                     Adopciones
                 </NavLink>
-                <NavLink to='' isSelected={isSelected}>
+                <NavLink to='/admin/socios'>
                     Socios
                 </NavLink>
-                <NavLink to='' isSelected={isSelected}>
+                <NavLink to='/admin/usuarios'>
                     Usuarios
                 </NavLink>
-                <NavLink to='' isSelected={isSelected}>
+                <NavLink to='/admin/cerrar-sesion'>
                     <FontAwesomeIcon icon={faRightFromBracket} className="mr-2" />
                     Cerrar sesión
                 </NavLink>
@@ -38,14 +38,20 @@ const SideBar = () => {
     )
 };
 
-const NavLink = ({ to, isSelected, children }) => (
-    <Link to={to}>
-        <li className="hover:bg-secondary">
-            <button className={`menu-btn ${isSelected(to) ? 'menu-selected' : 'hover:menu-btn-hover'}`}>
-                {children}
-            </button>
-        </li>
-    </Link>
-);
+const NavLink = ({ to, children }) => {
+    const location = useLocation();
+    const isSelected = location.pathname.includes(to);
+
+    return (
+        <Link to={to} >
+            <li className="hover:bg-secondary">
+                <button className={`menu-btn ${isSelected ? 'menu-selected' : 'hover:bg-secondary'}`}>
+                    {children}
+                </button>
+
+            </li>
+        </Link>
+    );
+};
 
 export default SideBar;
