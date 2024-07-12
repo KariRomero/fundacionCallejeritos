@@ -1,6 +1,5 @@
 const Adopciones = require("../models/Adopciones");
-const cloudinary = require("../utils/cloudinary");
-const { uploader } = cloudinary;
+const cloudinary = require("../config/cloudinary");
 
 const createAdopcion = async (adopcionData) => {
   return await Adopciones.create(adopcionData);
@@ -45,25 +44,32 @@ const getAllAdopcion = async (filters = {}, order = 'ASC') => {
 };
 const uploadImage = async (adopcionId, imageFile) => {
   try {
-    const result = await uploader.upload(imageFile, {
-      folder: "adopcion_images",
+    const result = await cloudinary.uploader.upload(imageFile, {
+      folder: 'adopcion_images',
       use_filename: true,
       unique_filename: false,
     });
 
     const adopcion = await Adopciones.findByPk(adopcionId);
-    if (adopcion) {
-      const updatedAdopcion = await adopcion.update({
-        image: [...adopcion.image, result.secure_url],
-      });
-      return updatedAdopcion;
-    } else {
-      throw new Error("Adopción no encontrada");
+    if (!adopcion) {
+      throw new Error('Adopción no encontrada');
     }
+
+    // Verifica que adopcion.image es un array
+    if (!Array.isArray(adopcion.image)) {
+      adopcion.image = [];
+    }
+
+    adopcion.image.push(result.secure_url);
+    await adopcion.save();
+
+    return adopcion;
   } catch (error) {
-    throw new Error("Error subiendo imagen: " + error.message);
+    throw new Error(`Error subiendo imagen: ${error.message}`);
   }
 };
+
+
 
 module.exports = {
   createAdopcion,

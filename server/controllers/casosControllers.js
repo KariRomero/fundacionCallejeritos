@@ -1,6 +1,6 @@
 
 const CasosDeRescate = require('../models/CasosDeRescate');
-const cloudinary = require('../utils/cloudinary');
+const cloudinary = require('../config/cloudinary');
 
 const createCasos = async (casosData) => {
   return await CasosDeRescate.create(casosData);

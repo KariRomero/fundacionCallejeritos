@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const cloudinary = require('../utils/cloudinary'); // Importa la configuración de Cloudinary
+const cloudinary = require('../config/cloudinary'); // Importa la configuración de Cloudinary
 const { uploader } = cloudinary; // Asumiendo que tienes un método uploader en tu configuración
 
 const createUser = async (userData) => {
