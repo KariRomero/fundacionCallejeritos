@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { createAdoptions } from "../../../redux/adoptions/adoptionsActions";
+import Swal from 'sweetalert2';
 
 const AdoptionsCreateForm = () => {
     const dispatch = useDispatch();
@@ -32,7 +33,11 @@ const AdoptionsCreateForm = () => {
         e.preventDefault();
         const exist = adoptions.find(a => a.name === form.name);
         if (exist) {
-            alert('Ese Callejerito ya existe');
+            Swal.fire({
+                title: "Ese Callejerito ya existe",
+                icon: "success",
+                confirmButtonColor: "#f69a0b",
+            });
         } else {
             dispatch(createAdoptions(form));
             setForm({
@@ -46,8 +51,14 @@ const AdoptionsCreateForm = () => {
                 description: '',
                 image: []
             });
-            alert('Callejerito agregado');
+            Swal.fire({
+                title: "Nueva adopción",
+                text: "Has agregado un nuevo Callejerito",
+                icon: "success",
+                confirmButtonColor: "#f69a0b",
+            });
         }
+        
         navigate('/admin/adopciones');
     };
 

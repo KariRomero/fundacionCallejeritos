@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Swal from 'sweetalert2';
 import { faPlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -15,7 +16,25 @@ const RescuesDashboard = () => {
     }, [dispatch]);
 
     const handleClick = (id) => {
-        dispatch(deleteRescueById(id))
+        Swal.fire({
+            title: "Seguro quieres eliminar el Callejerito ?",
+            text: "Esta acción no se revertirá",
+            icon: "warning",
+            // showCancelButton: true,
+            confirmButtonColor: "#b91c1c",
+            // cancelButtonColor: "#d33",
+            confirmButtonText: "Eliminar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Eliminado!",
+                    text: "Callejerito ha sido eliminado",
+                    icon: "success",
+                    confirmButtonColor: "#f69a0b",
+                });
+                dispatch(deleteRescueById(id));
+            }
+        });        
     };
 
     const handleOrderChange = (e) => {

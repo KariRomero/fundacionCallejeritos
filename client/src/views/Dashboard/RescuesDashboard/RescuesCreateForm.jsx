@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { createRescues } from "../../../redux/rescues/rescuesActions";
+import Swal from 'sweetalert2';
 
 const RescuesCreateForm = () => {
     const dispatch = useDispatch();
@@ -28,7 +29,11 @@ const RescuesCreateForm = () => {
         e.preventDefault();
         const exist = rescues.find(a => a.name === form.name);
         if (exist) {
-            alert('Ese Callejerito ya existe');
+            Swal.fire({
+                title: "Ese Callejerito ya existe",
+                icon: "success",
+                confirmButtonColor: "#f69a0b",
+            });
         } else {
             dispatch(createRescues(form));
             setForm({
@@ -38,7 +43,12 @@ const RescuesCreateForm = () => {
                 description: '',
                 image: []
             });
-            alert('Callejerito agregado');
+            Swal.fire({
+                title: "Nuevo rescate",
+                text: "Has agregado un nuevo Callejerito",
+                icon: "success",
+                confirmButtonColor: "#f69a0b",
+            });
         }
         navigate('/admin/rescates');
     };

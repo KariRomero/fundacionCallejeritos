@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { updateById } from "../../../redux/adoptions/adoptionsActions";
+import Swal from 'sweetalert2';
 
 const AdoptionsUpdateForm = () => {
     const dispatch = useDispatch();
@@ -40,7 +41,11 @@ const AdoptionsUpdateForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(updateById(id, form));
-        alert('Callejerito actualizado');
+        Swal.fire({
+            title: "Has actualizado la informacion",
+            icon: "success",
+            confirmButtonColor: "#f69a0b",
+        });
         navigate('/admin/adopciones');
     };
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { updateById } from "../../../redux/rescues/rescuesActions";
+import Swal from 'sweetalert2';
 
 const RescuesUpdateForm = () => {
     const dispatch = useDispatch();
@@ -36,8 +37,12 @@ const RescuesUpdateForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(updateById(id, form));
-        alert('Callejerito actualizado');
-        navigate('/admin/rescues');
+        Swal.fire({
+            title: "Has actualizado la informacion",
+            icon: "success",
+            confirmButtonColor: "#f69a0b",
+        });
+        navigate('/admin/rescates');
     };
 
     if (!rescuesToEdit) return <div>Rescue not found</div>;

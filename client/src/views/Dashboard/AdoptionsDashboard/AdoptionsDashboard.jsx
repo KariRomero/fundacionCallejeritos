@@ -17,19 +17,20 @@ const AdoptionsDashboard = () => {
 
     const handleClick = (id) => {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            title: "Seguro quieres eliminar el Callejerito ?",
+            text: "Esta acción no se revertirá",
             icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            // showCancelButton: true,
+            confirmButtonColor: "#b91c1c",
+            // cancelButtonColor: "#d33",
+            confirmButtonText: "Eliminar"
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
+                    title: "Eliminado!",
+                    text: "Callejerito ha sido eliminado",
+                    icon: "success",
+                    confirmButtonColor: "#f69a0b",
                 });
                 dispatch(deleteAdoptionById(id));
             }
