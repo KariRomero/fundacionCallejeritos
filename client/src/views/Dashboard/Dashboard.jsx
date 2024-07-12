@@ -1,5 +1,3 @@
-import SideBar from "../../components/Dashboard/SideBar";
-
 const Dashboard = ()=>{
     return(
         <section>

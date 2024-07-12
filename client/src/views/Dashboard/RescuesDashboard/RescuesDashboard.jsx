@@ -3,7 +3,7 @@ import { faPlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icon
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getRescues, deleteById } from '../../../redux/rescues/rescuesActions';
+import { getRescues, deleteRescueById } from '../../../redux/rescues/rescuesActions';
 
 const RescuesDashboard = () => {
     const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const RescuesDashboard = () => {
     }, [dispatch]);
 
     const handleClick = (id) => {
-        dispatch(deleteById(id))
+        dispatch(deleteRescueById(id))
     }
 
     return (
@@ -35,7 +35,7 @@ const RescuesDashboard = () => {
                     </Link>
                 </div>
                 <ul className="w-full">
-                    {rescues && rescues.map((resc) => (
+                    {Array.isArray(rescues) && rescues.map((resc) => (
                         <li key={resc.id} className="flex justify-between border border-l-0 border-r-0 border-t-secondary border-b-secondary p-4 hover:bg-secondary">
                             <h2 className="paragraph">{resc.name}</h2>
                             <div>
