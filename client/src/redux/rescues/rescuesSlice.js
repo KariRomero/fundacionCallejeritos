@@ -33,9 +33,24 @@ export const rescuesSlice = createSlice({
             state.status = 'failed';
             state.error = action.payload;
         },
+        rescuesAsc:(state,action)=>{
+            state.rescues = action.payload
+        },
+        rescuesDesc:(state,action)=>{
+            state.rescues = action.payload
+        }
     }
 });
 
-export const { getAllRescues, getRescuesById, updateRescueById, postRescues, deleteRescueSuccess, deleteRescueFailure  } = rescuesSlice.actions;
+export const { 
+    getAllRescues, 
+    getRescuesById, 
+    updateRescueById, 
+    postRescues, 
+    deleteRescueSuccess, 
+    deleteRescueFailure,
+    rescuesAsc,
+    rescuesDesc  
+} = rescuesSlice.actions;
 
 export default rescuesSlice.reducer;

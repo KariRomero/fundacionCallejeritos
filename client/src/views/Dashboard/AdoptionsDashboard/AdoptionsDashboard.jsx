@@ -2,13 +2,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from 'sweetalert2';
 import { faPlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getAdoptions, deleteAdoptionById } from '../../../redux/adoptions/adoptionsActions';
+import { getAdoptions, deleteAdoptionById, orderAdoptionsAsc, orderAdoptionsDesc } from '../../../redux/adoptions/adoptionsActions';
 
 const AdoptionsDashboard = () => {
     const dispatch = useDispatch();
     const { adoptions } = useSelector(state => state.adoptions);
+    const [orderBy, setOrderBy] = useState('');
 
     useEffect(() => {
         dispatch(getAdoptions());
@@ -16,34 +17,44 @@ const AdoptionsDashboard = () => {
 
     const handleClick = (id) => {
         Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!"
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
         }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success"
-            });
-            dispatch(deleteAdoptionById(id));
-          }
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+                dispatch(deleteAdoptionById(id));
+            }
         });
-      }
+    };
+
+    const handleOrderChange = (e) => {
+        const order = e.target.value;
+        setOrderBy(order);
+        if (order === 'asc') {
+            dispatch(orderAdoptionsAsc());
+        } else if (order === 'desc') {
+            dispatch(orderAdoptionsDesc());
+        }
+    };
 
     return (
         <section className="flex justify-center sm:ml-64">
             <div className="w-full max-w-4xl mt-4">
                 <h1 className="title">Callejeritos en adopción</h1>
                 <div className='flex justify-between items-center'>
-                    <select className='paragraph bg-white'>
+                    <select className='paragraph bg-white' value={orderBy} onChange={handleOrderChange}>
                         <option value="">Ordenar por</option>
-                        <option value="">A-Z</option>
-                        <option value="">Z-A</option>
+                        <option value="asc">A-Z</option>
+                        <option value="desc">Z-A</option>
                     </select>
                     <Link to='/admin/adopciones/create'>
                         <button className="menu-btn flex items-center">
@@ -68,7 +79,6 @@ const AdoptionsDashboard = () => {
                             </div>
                         </li>
                     ))}
-
                 </ul>
             </div>
         </section>

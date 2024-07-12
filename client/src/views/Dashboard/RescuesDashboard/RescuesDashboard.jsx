@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getRescues, deleteRescueById } from '../../../redux/rescues/rescuesActions';
+import { getRescues, deleteRescueById, orderRescuesAsc, orderRescuesDesc } from '../../../redux/rescues/rescuesActions';
 
 const RescuesDashboard = () => {
     const dispatch = useDispatch();
     const { rescues } = useSelector(state => state.rescues);
+    const [orderBy, setOrderBy] = useState('');
 
     useEffect(() => {
         dispatch(getRescues());
@@ -15,17 +16,27 @@ const RescuesDashboard = () => {
 
     const handleClick = (id) => {
         dispatch(deleteRescueById(id))
-    }
+    };
+
+    const handleOrderChange = (e) => {
+        const order = e.target.value;
+        setOrderBy(order);
+        if (order === 'asc') {
+            dispatch(orderRescuesAsc());
+        } else if (order === 'desc') {
+            dispatch(orderRescuesDesc());
+        }
+    };
 
     return (
         <section className="flex justify-center sm:ml-64">
             <div className="w-full max-w-4xl">
                 <h1 className="title">Casos de Callejeritos</h1>
                 <div className='flex justify-between items-center'>
-                    <select className='paragraph bg-white'>
+                    <select className='paragraph bg-white' value={orderBy} onChange={handleOrderChange}>
                         <option value="">Ordenar por</option>
-                        <option value="">A-Z</option>
-                        <option value="">Z-A</option>
+                        <option value="asc">A-Z</option>
+                        <option value="desc">Z-A</option>
                     </select>
                     <Link to='/admin/rescates/create'>
                         <button className="menu-btn flex items-center">

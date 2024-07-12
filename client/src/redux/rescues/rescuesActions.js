@@ -1,5 +1,14 @@
 import axios from 'axios';
-import { getAllRescues, getRescuesById, updateRescueById, postRescues, deleteRescueSuccess, deleteRescueFailure } from './rescuesSlice';
+import {
+  getAllRescues,
+  getRescuesById,
+  updateRescueById,
+  postRescues,
+  deleteRescueSuccess,
+  deleteRescueFailure,
+  rescuesAsc,
+  rescuesDesc
+} from './rescuesSlice';
 
 
 export const getRescues = () => (dispatch) => {
@@ -18,11 +27,11 @@ export const getById = (id) => (dispatch) => {
 
 export const createRescues = (formData) => (dispatch) => {
   axios.post('http://localhost:3001/api/casos', formData)
-      .then(res => dispatch(postRescues(res.data)))
-      .catch(err => {
-          console.error('Error al crear caso:', err);
-          alert('Hubo un error al crear el caso');
-      });
+    .then(res => dispatch(postRescues(res.data)))
+    .catch(err => {
+      console.error('Error al crear caso:', err);
+      alert('Hubo un error al crear el caso');
+    });
 };
 
 export const updateById = (id, formData) => (dispatch) => {
@@ -41,9 +50,25 @@ export const updateById = (id, formData) => (dispatch) => {
 
 export const deleteRescueById = (id) => async dispatch => {
   try {
-      const response = await axios.delete(`http://localhost:3001/api/casos/${id}`);
-      dispatch(deleteRescueSuccess(id));
+    const response = await axios.delete(`http://localhost:3001/api/casos/${id}`);
+    dispatch(deleteRescueSuccess(id));
   } catch (error) {
-      dispatch(deleteRescueFailure(error.message));
+    dispatch(deleteRescueFailure(error.message));
   }
+};
+
+export const orderRescuesAsc = ()=>(dispatch)=>{
+  axios.get('http://localhost:3001/api/casos?order=asc')
+  .then(res=>dispatch(rescuesAsc(res.data)))
+  .catch(err=>{
+    console.error('Error ordenar rescates asc',err)
+  })
+};
+
+export const orderRescuesDesc = ()=>(dispatch)=>{
+  axios.get('http://localhost:3001/api/casos?order=desc')
+  .then(res=>dispatch(rescuesDesc(res.data)))
+  .catch(err=>{
+    console.error('Error ordenar rescates desc',err)
+  })
 };

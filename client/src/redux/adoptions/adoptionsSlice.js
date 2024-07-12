@@ -33,9 +33,24 @@ export const adoptionsSlice = createSlice({
             state.status = 'failed';
             state.error = action.payload;
         },
+        adoptionsAsc:(state,action)=>{
+            state.adoptions = action.payload
+        },
+        adoptionsDesc:(state,action)=>{
+            state.adoptions = action.payload
+        },
     }
 });
 
-export const { getAllAdoptions, getAdoptionsById, updateAdoptionById, postAdoptions, deleteAdoptionSuccess, deleteAdoptionFailure } = adoptionsSlice.actions;
+export const { 
+    getAllAdoptions, 
+    getAdoptionsById, 
+    updateAdoptionById, 
+    postAdoptions, 
+    deleteAdoptionSuccess, 
+    deleteAdoptionFailure,
+    adoptionsAsc,
+    adoptionsDesc 
+} = adoptionsSlice.actions;
 
 export default adoptionsSlice.reducer;
