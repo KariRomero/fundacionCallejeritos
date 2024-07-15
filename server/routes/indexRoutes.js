@@ -5,7 +5,6 @@ const router = express.Router();
 const userRoutes = require('./userRoutes');
 const adopcionesRoutes = require('./adopcionesRoutes')
 const casosRoutes = require('./casosRoutes')
-// Puedes importar otras rutas aquí si las tienes
 
 // Montar rutas
 router.use('/users', userRoutes);

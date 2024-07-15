@@ -4,14 +4,14 @@ const {
   deleteUser,
   getUser,
   getAllUsers,
-  uploadImage // Agregamos la función de carga de imagen
+  uploadImage,
 } = require('../controllers/userControllers');
 
 const createUserHandler = async (req, res) => {
   try {
-    const userData = req.body;
-    const imageFile = req.file?.path;
-    const user = await createUser(userData, imageFile);
+    const { body, file } = req;
+    const userData = { ...body, imageFile: file.path };
+    const user = await createUser(userData);
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -20,8 +20,10 @@ const createUserHandler = async (req, res) => {
 
 const updateUserHandler = async (req, res) => {
   try {
-    const user = await updateUser(req.params.id, req.body);
-    res.status(200).json(user);
+    const { id } = req.params;
+    const userData = req.body;
+    const updatedUser = await updateUser(id, userData);
+    res.status(200).json(updatedUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -29,8 +31,9 @@ const updateUserHandler = async (req, res) => {
 
 const deleteUserHandler = async (req, res) => {
   try {
-    await deleteUser(req.params.id);
-    res.status(200).json({ message: 'Usuario eliminado correctamente' });
+    const { id } = req.params;
+    await deleteUser(id);
+    res.status(200).json({ message: 'User deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -38,9 +41,10 @@ const deleteUserHandler = async (req, res) => {
 
 const getUserHandler = async (req, res) => {
   try {
-    const user = await getUser(req.params.id);
+    const { id } = req.params;
+    const user = await getUser(id);
     if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: 'User not found' });
     }
     res.status(200).json(user);
   } catch (error) {
@@ -57,13 +61,12 @@ const getAllUsersHandler = async (req, res) => {
   }
 };
 
-// Handler para la carga de imágenes
 const uploadImageHandler = async (req, res) => {
-  const userId = req.params.id;
-  const imageFile = req.file.path; // Asumiendo que multer o un middleware similar guarda la imagen en req.file.path
   try {
-    const user = await uploadImage(userId, imageFile);
-    res.status(200).json(user);
+    const { id } = req.params;
+    const imageFile = req.file.path;
+    const updatedUser = await uploadImage(id, imageFile);
+    res.status(200).json(updatedUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -75,5 +78,5 @@ module.exports = {
   deleteUserHandler,
   getUserHandler,
   getAllUsersHandler,
-  uploadImageHandler // Agregamos el handler de carga de imagen
+  uploadImageHandler,
 };
