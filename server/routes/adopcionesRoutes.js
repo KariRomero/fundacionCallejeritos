@@ -9,17 +9,16 @@ const {
   getAdopcionesHandler,
   getAllAdopcionesHandler,
   uploadImageAdopcionesHandler,
+  deleteImageAdopcionesHandler
 } = require('../handlers/adopcionesHandlers');
 
-// Agregar el middleware de Multer a la ruta de creación de adopciones
-router.post('/', upload.single('imageFile'), createAdopcionesHandler);
 
-// Mantener el middleware de Multer en la ruta de subida de imágenes para adopciones existentes
-router.post('/:id/image', upload.single('imageFile'), uploadImageAdopcionesHandler);
-
+router.post('/', upload.array('imageFiles', 5), createAdopcionesHandler);
+router.post('/:id/image', upload.array('imageFiles', 5), uploadImageAdopcionesHandler);
 router.put('/:id', updateAdopcionesHandler);
 router.delete('/:id', deleteAdopcionesHandler);
 router.get('/:id', getAdopcionesHandler);
 router.get('/', getAllAdopcionesHandler);
+router.delete('/:id/image', deleteImageAdopcionesHandler);
 
 module.exports = router;

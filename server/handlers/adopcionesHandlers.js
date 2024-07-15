@@ -5,12 +5,13 @@ const {
   getAdopcion,
   getAllAdopcion,
   uploadImage,
+  deleteImage,
 } = require('../controllers/adopcionesControllers');
 
 const createAdopcionesHandler = async (req, res) => {
   try {
-    const adopcion = await createAdopcion(req.body, req.file.path);
-    res.status(201).json(adopcion);
+    const adopcion = await createAdopcion(req.body, req.files);
+    res.status(201).json(adopcion);  // Aquí se retorna directamente la adopción creada
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -60,9 +61,24 @@ const getAllAdopcionesHandler = async (req, res) => {
 const uploadImageAdopcionesHandler = async (req, res) => {
   try {
     const adopcionId = req.params.id;
-    const imageFile = req.file.path; 
+    const imageFiles = req.files; 
 
-    const updatedAdopcion = await uploadImage(adopcionId, imageFile);
+    const uploadedImages = await uploadImage(adopcionId, imageFiles);
+    res.status(200).json({ uploadedImages });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const deleteImageAdopcionesHandler = async (req, res) => {
+  try {
+    const adopcionId = req.params.id;
+    const { imageUrl } = req.body; // Obtener la URL de la imagen del cuerpo de la solicitud
+
+    if (!imageUrl || !imageUrl.match(/^https?:\/\/.+/)) {
+      throw new Error('Formato de URL inválido o URL no proporcionada');
+    }
+
+    const updatedAdopcion = await deleteImage(adopcionId, imageUrl);
     res.status(200).json(updatedAdopcion);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -76,4 +92,5 @@ module.exports = {
   getAdopcionesHandler,
   getAllAdopcionesHandler,
   uploadImageAdopcionesHandler,
+  deleteImageAdopcionesHandler
 };
