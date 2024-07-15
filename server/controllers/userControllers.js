@@ -1,9 +1,23 @@
 const User = require('../models/User');
-const cloudinary = require('../config/cloudinary'); // Importa la configuración de Cloudinary
-const { uploader } = cloudinary; // Asumiendo que tienes un método uploader en tu configuración
+const cloudinary = require('../config/cloudinary'); 
+const { uploader } = cloudinary; 
+const createUser = async (userData, imageFile) => {
+  try {
+    let imageUrl = '';
+    if (imageFile) {
+      const result = await uploader.upload(imageFile, {
+        folder: 'user_images', 
+        use_filename: true,
+        unique_filename: false,
+      });
+      imageUrl = result.secure_url;
+    }
 
-const createUser = async (userData) => {
-  return await User.create(userData);
+    const newUserData = { ...userData, images: imageUrl ? [imageUrl] : [] };
+    return await User.create(newUserData);
+  } catch (error) {
+    throw new Error('Error creating user: ' + error.message);
+  }
 };
 
 const updateUser = async (id, userData) => {
@@ -25,7 +39,7 @@ const getAllUsers = async () => {
 
 const uploadImage = async (userId, imageFile) => {
   try {
-    // Subir la imagen a Cloudinary
+
     const result = await uploader.upload(imageFile, {
       folder: 'user_images', // Carpeta en Cloudinary donde se almacenarán las imágenes de usuario
       use_filename: true,

@@ -1,8 +1,6 @@
-
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+const upload = require('../config/multer');
 
 const {
   createCasosHandler,
@@ -13,13 +11,15 @@ const {
   uploadImageCasosHandler,
 } = require('../handlers/casosHandlers');
 
-router.post('/', createCasosHandler);
+// Añadir middleware de Multer para manejar la subida de imágenes en la creación de casos
+router.post('/', upload.single('imageFile'), createCasosHandler);
+
+// Mantener el middleware de Multer en la ruta de subida de imágenes para casos existentes
+router.post('/:id/image', upload.single('imageFile'), uploadImageCasosHandler);
+
 router.put('/:id', updateCasosHandler);
 router.delete('/:id', deleteCasosHandler);
 router.get('/:id', getCasosHandler);
 router.get('/', getAllCasosHandler);
-
-
-router.post('/:id/image', upload.single('image'), uploadImageCasosHandler);
 
 module.exports = router;

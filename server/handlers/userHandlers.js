@@ -9,7 +9,9 @@ const {
 
 const createUserHandler = async (req, res) => {
   try {
-    const user = await createUser(req.body);
+    const userData = req.body;
+    const imageFile = req.file?.path;
+    const user = await createUser(userData, imageFile);
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });

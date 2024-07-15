@@ -11,7 +11,9 @@ const {
   
   const createCasosHandler = async (req, res) => {
     try {
-      const casos = await createCasos(req.body);
+      const casosData = req.body;
+      const imageFile = req.file?.path; 
+      const casos = await createCasos(casosData, imageFile);
       res.status(201).json(casos);
     } catch (error) {
       res.status(500).json({ error: error.message });

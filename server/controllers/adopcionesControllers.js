@@ -1,8 +1,35 @@
 const Adopciones = require("../models/Adopciones");
 const cloudinary = require("../config/cloudinary");
 
-const createAdopcion = async (adopcionData) => {
-  return await Adopciones.create(adopcionData);
+const createAdopcion = async (adopcionData, imageFile) => {
+  try {
+   
+    const newAdopcion = await Adopciones.create(adopcionData);
+
+    if (imageFile) {
+      
+      const result = await cloudinary.uploader.upload(imageFile, {
+        folder: 'adopcion_images',
+        use_filename: true,
+        unique_filename: false,
+      });
+
+   
+      if (!Array.isArray(newAdopcion.image)) {
+        newAdopcion.image = [];
+      }
+
+     
+      newAdopcion.image.push(result.secure_url);
+
+     
+      await newAdopcion.save();
+    }
+
+    return newAdopcion;
+  } catch (error) {
+    throw new Error(`Error creando adopción: ${error.message}`);
+  }
 };
 
 const updateAdopcion = async (id, adopcionData) => {
@@ -15,7 +42,11 @@ const deleteAdopcion = async (id) => {
 };
 
 const getAdopcion = async (id) => {
-  return await Adopciones.findByPk(id);
+  const adopcion = await Adopciones.findByPk(id);
+  if (!adopcion) {
+    throw new Error('Adopción no encontrada');
+  }
+  return adopcion;
 };
 
 const getAllAdopcion = async (filters = {}, order = 'ASC') => {
@@ -23,7 +54,7 @@ const getAllAdopcion = async (filters = {}, order = 'ASC') => {
 
   if (filters.gender) {
     where.gender = filters.gender;
-  }
+  } 
 
   if (filters.getsAlongWithDogs !== undefined) {
     where.getsAlongWithDogs = filters.getsAlongWithDogs;
@@ -42,6 +73,7 @@ const getAllAdopcion = async (filters = {}, order = 'ASC') => {
     order: [['name', order]] 
   });
 };
+
 const uploadImage = async (adopcionId, imageFile) => {
   try {
     const result = await cloudinary.uploader.upload(imageFile, {
@@ -55,7 +87,7 @@ const uploadImage = async (adopcionId, imageFile) => {
       throw new Error('Adopción no encontrada');
     }
 
-    // Verifica que adopcion.image es un array
+    
     if (!Array.isArray(adopcion.image)) {
       adopcion.image = [];
     }
@@ -69,6 +101,14 @@ const uploadImage = async (adopcionId, imageFile) => {
   }
 };
 
+module.exports = {
+  createAdopcion,
+  updateAdopcion,
+  deleteAdopcion,
+  getAdopcion,
+  getAllAdopcion,
+  uploadImage
+};
 
 
 module.exports = {

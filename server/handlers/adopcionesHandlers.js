@@ -9,7 +9,7 @@ const {
 
 const createAdopcionesHandler = async (req, res) => {
   try {
-    const adopcion = await createAdopcion(req.body);
+    const adopcion = await createAdopcion(req.body, req.file.path);
     res.status(201).json(adopcion);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -57,7 +57,6 @@ const getAllAdopcionesHandler = async (req, res) => {
   }
 };
 
-
 const uploadImageAdopcionesHandler = async (req, res) => {
   try {
     const adopcionId = req.params.id;
@@ -70,8 +69,6 @@ const uploadImageAdopcionesHandler = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   createAdopcionesHandler,
   updateAdopcionesHandler,
@@ -79,5 +76,4 @@ module.exports = {
   getAdopcionesHandler,
   getAllAdopcionesHandler,
   uploadImageAdopcionesHandler,
-  
 };

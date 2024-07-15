@@ -1,9 +1,23 @@
-
 const CasosDeRescate = require('../models/CasosDeRescate');
 const cloudinary = require('../config/cloudinary');
 
-const createCasos = async (casosData) => {
-  return await CasosDeRescate.create(casosData);
+const createCasos = async (casosData, imageFile) => {
+  try {
+    let imageUrl = '';
+    if (imageFile) {
+      const result = await cloudinary.uploader.upload(imageFile, {
+        folder: 'casos_images', 
+        use_filename: true,
+        unique_filename: false,
+      });
+      imageUrl = result.secure_url;
+    }
+
+    const newCasosData = { ...casosData, image: imageUrl ? [imageUrl] : [] };
+    return await CasosDeRescate.create(newCasosData);
+  } catch (error) {
+    throw new Error('Error creando caso de rescate: ' + error.message);
+  }
 };
 
 const updateCasos = async (id, casosData) => {
@@ -28,7 +42,7 @@ const getAllCasos = async (order = 'ASC') => {
 const uploadImage = async (casosId, imageFile) => {
   try {
     const result = await cloudinary.uploader.upload(imageFile, {
-      folder: 'casos_images', // Carpeta en Cloudinary donde se almacenarán las imágenes de casos de rescate
+      folder: 'casos_images', 
       use_filename: true,
       unique_filename: false,
     });
@@ -36,7 +50,7 @@ const uploadImage = async (casosId, imageFile) => {
     const casos = await CasosDeRescate.findByPk(casosId);
     if (casos) {
       const updatedCasos = await casos.update({
-        image: [...casos.image, result.secure_url], // Agrega la nueva imagen al array de imágenes de casos de rescate
+        image: [...casos.image, result.secure_url], 
       });
       return updatedCasos;
     } else {
