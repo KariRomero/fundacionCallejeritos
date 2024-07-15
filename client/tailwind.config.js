@@ -11,6 +11,7 @@ export default {
       'white': '#fafafa',
       'black': '#0a0a0a',
       'grey': '#d4d4d8',
+      'red': '#b91c1c'
     },
     extend: {},
   },
