@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { createAdoptions } from "../../../redux/adoptions/adoptionsActions";
+import { createAdoptions, getAdoptions } from "../../../redux/adoptions/adoptionsActions";
+import validateAdoptionsCreateForm from "./validateAdoptionsCreateForm";
 import Swal from 'sweetalert2';
 
 const AdoptionsCreateForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { adoptions } = useSelector(state => state.adoptions);
+    const [navigateToAdoptions, setNavigateToAdoptions] = useState(false);
 
     const [form, setForm] = useState({
         name: '',
@@ -21,12 +23,29 @@ const AdoptionsCreateForm = () => {
         image: []
     });
 
+    const [errors, setErrors] = useState({
+        name: '',
+        gender: '',
+        specialCare: '',
+        age: '',
+        getsAlongWithDogs: '',
+        getsAlongWithCats: '',
+        getsAlongWithChildren: '',
+        description: '',
+        image: ''
+    });
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
+        const newValue = type === 'checkbox' ? checked : value;
         setForm({
             ...form,
-            [name]: type === 'checkbox' ? checked : value,
+            [name]: newValue,
         });
+        setErrors(validateAdoptionsCreateForm({
+            ...form,
+            [name]: newValue,
+        }));
     };
 
     const handleSubmit = (e) => {
@@ -57,45 +76,59 @@ const AdoptionsCreateForm = () => {
                 icon: "success",
                 confirmButtonColor: "#f69a0b",
             });
+            setNavigateToAdoptions(true);
         }
-        
-        navigate('/admin/adopciones');
     };
+
+    useEffect(() => {
+        if (navigateToAdoptions) {
+            navigate('/admin/adopciones');
+            dispatch(getAdoptions());
+        }
+    }, [navigateToAdoptions, navigate, dispatch]);
+
+    const emptyErrors = Object.keys(errors).length === 0;
 
     return (
         <section className="flex justify-center sm:ml-64">
             <div className="w-full max-w-4xl mt-4">
                 <h1 className="title">Nuevo Callejerito</h1>
                 <form onSubmit={handleSubmit}>
-                    <div className=" my-4 flex justify-between">
+                    <div className="my-4 flex justify-between">
                         <label className="paragraph">Nombre</label>
-                        <input
-                            placeholder='Escriba el nombre'
-                            type="text"
-                            value={form.name}
-                            name='name'
-                            onChange={handleChange} 
-                            className="shadow-md"
-                        />
+                        <div className="grid">
+                            <input
+                                placeholder="Escriba el nombre"
+                                type="text"
+                                value={form.name}
+                                name="name"
+                                onChange={handleChange}
+                                className="shadow-md"
+                            />
+                            {errors.name && <p className="text-red">{errors.name}</p>}
+                        </div>
                     </div>
 
-                    <div className=" my-4 flex justify-between">
+                    <div className="my-4 flex justify-between">
                         <label className="paragraph">Edad</label>
-                        <input
-                            placeholder='Escriba la edad'
-                            type="text"
-                            value={form.age}
-                            name='age'
-                            onChange={handleChange} 
-                            className="shadow-md"
-                        />
+                        <div className="grid">
+                            <input
+                                placeholder="Escriba la edad"
+                                type="text"
+                                value={form.age}
+                                name="age"
+                                onChange={handleChange}
+                                className="shadow-md"
+                            />
+                            {errors.age && <p className="text-red">{errors.age}</p>}
+                        </div>
                     </div>
 
-                    <div className=" my-4 flex justify-between">
+                    <div className="my-4 flex justify-between">
                         <label className="paragraph">Género</label>
                         <select
                             value={form.gender}
-                            name='gender'
+                            name="gender"
                             onChange={handleChange}
                             className="shadow-md paragraph"
                         >
@@ -104,76 +137,86 @@ const AdoptionsCreateForm = () => {
                         </select>
                     </div>
 
-                    <div className=" my-4 flex justify-between">
+                    <div className="my-4 flex justify-between">
                         <label className="paragraph">Precisa cuidados especiales</label>
                         <input
                             type="checkbox"
                             checked={form.specialCare}
-                            name='specialCare'
+                            name="specialCare"
                             onChange={handleChange}
                             className="shadow-sm"
                         />
                     </div>
 
-                    <div className=" my-4 flex justify-between">
+                    <div className="my-4 flex justify-between">
                         <label className="paragraph">Se lleva bien con perros</label>
                         <input
                             type="checkbox"
                             checked={form.getsAlongWithDogs}
-                            name='getsAlongWithDogs'
+                            name="getsAlongWithDogs"
                             onChange={handleChange}
                             className="shadow-sm"
                         />
                     </div>
 
-                    <div className=" my-4 flex justify-between">
+                    <div className="my-4 flex justify-between">
                         <label className="paragraph">Se lleva bien con gatos</label>
                         <input
                             type="checkbox"
                             checked={form.getsAlongWithCats}
-                            name='getsAlongWithCats'
+                            name="getsAlongWithCats"
                             onChange={handleChange}
                             className="shadow-sm"
                         />
                     </div>
 
-                    <div className=" my-4 flex justify-between">
+                    <div className="my-4 flex justify-between">
                         <label className="paragraph">Se lleva bien con niños</label>
                         <input
                             type="checkbox"
                             checked={form.getsAlongWithChildren}
-                            name='getsAlongWithChildren'
+                            name="getsAlongWithChildren"
                             onChange={handleChange}
                             className="shadow-sm"
                         />
                     </div>
 
-                    <div className=" my-4 grid ">
-                        <label className=" paragraph">Descripción</label>
-                        <textarea name="description" rows="4" cols='100' onChange={handleChange} className="shadow-md"></textarea>
-                        {/* <input
-                            placeholder='Escriba una descripción'
-                            type="text"
-                            value={form.description}
-                            name='description'
-                            onChange={handleChange}
-                        /> */}
+                    <div className="my-4 grid">
+                        <label className="paragraph">Descripción</label>
+                        <div>
+                            <textarea
+                                name="description"
+                                rows="4"
+                                cols="100"
+                                onChange={handleChange}
+                                className="shadow-md"
+                            />
+                            {errors.description && <p className="text-red">{errors.description}</p>}
+                        </div>
                     </div>
 
-                    <div className=" my-4">
-                        <button className="font-medium text-base tracking-wider ">Agregar Imagenes</button>
-                        {/* <input
-                        placeholder='escriba el nombre' 
-                        type="text" 
-                        value={form.name} 
-                        name='name' 
-                        /> */}
+                    <div className="my-4">
+                        <button className="font-medium text-base tracking-wider">
+                            Agregar Imágenes
+                        </button>
                     </div>
 
-                    <Link to='/admin/adopciones'>
-                    <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">Volver atrás</button>
+                    <Link to="/admin/adopciones">
+                        <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">
+                            Volver atrás
+                        </button>
                     </Link>
-                    <button type="submit" className="menu-btn border border-secondary rounded-full hover:bg-secondary">Agregar Callejerito</button>
+                    <button type="submit" className="menu-btn border border-secondary rounded-full hover:bg-secondary">
+                        Agregar Callejerito
+                    </button>
+                    {/* {
+                        emptyErrors && 
+
+                            <button type="submit" className="menu-btn border border-secondary rounded-full hover:bg-secondary">
+                                Agregar Callejerito
+                            </button>
+                        
+                    } */}
                 </form>
             </div>
         </section>
