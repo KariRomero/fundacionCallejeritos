@@ -13,7 +13,6 @@ const Adoptions = ()=>{
         dispatch(getAdoptions());
     }, [dispatch]);
     
-    console.log(adoptions);
     return(
         <section>
             <Filter/>

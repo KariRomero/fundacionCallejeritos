@@ -20,7 +20,7 @@ const AdoptionsCreateForm = () => {
         getsAlongWithCats: false,
         getsAlongWithChildren: false,
         description: '',
-        image: []
+        imageFiles: []
     });
 
     const [errors, setErrors] = useState({
@@ -32,8 +32,18 @@ const AdoptionsCreateForm = () => {
         getsAlongWithCats: '',
         getsAlongWithChildren: '',
         description: '',
-        image: ''
+        imageFiles: ''
     });
+
+    const handleImageChange = (e) => {
+        const files = Array.from(e.target.files);
+        setForm({
+            ...form,
+            imageFiles: files,
+        });
+    };
+
+
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -48,6 +58,7 @@ const AdoptionsCreateForm = () => {
         }));
     };
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const exist = adoptions.find(a => a.name === form.name);
@@ -57,8 +68,17 @@ const AdoptionsCreateForm = () => {
                 icon: "success",
                 confirmButtonColor: "#f69a0b",
             });
+            setNavigateToAdoptions(true);
         } else {
-            dispatch(createAdoptions(form));
+            const formData = new FormData();
+            for (const key in form) {
+                if (key === 'imageFiles') {
+                    form.imageFiles.forEach(file => formData.append('imageFiles', file));
+                } else {
+                    formData.append(key, form[key]);
+                }
+            }
+            dispatch(createAdoptions(formData));
             setForm({
                 name: '',
                 gender: 'macho',
@@ -68,7 +88,7 @@ const AdoptionsCreateForm = () => {
                 getsAlongWithCats: false,
                 getsAlongWithChildren: false,
                 description: '',
-                image: []
+                imageFiles: []
             });
             Swal.fire({
                 title: "Nueva adopción",
@@ -76,9 +96,10 @@ const AdoptionsCreateForm = () => {
                 icon: "success",
                 confirmButtonColor: "#f69a0b",
             });
-            setNavigateToAdoptions(true);
         }
+        setNavigateToAdoptions(true);
     };
+
 
     useEffect(() => {
         if (navigateToAdoptions) {
@@ -196,9 +217,16 @@ const AdoptionsCreateForm = () => {
                     </div>
 
                     <div className="my-4">
-                        <button className="font-medium text-base tracking-wider">
-                            Agregar Imágenes
-                        </button>
+                        <label className="paragraph">Imágenes</label>
+                        <div>
+                            <input
+                                type="file"
+                                multiple
+                                onChange={handleImageChange}
+                                className="shadow-md"
+                            />
+                            {/* {errors.imageFiles && <p className="text-red">{errors.imageFiles}</p>} */}
+                        </div>
                     </div>
 
                     <Link to="/admin/adopciones">

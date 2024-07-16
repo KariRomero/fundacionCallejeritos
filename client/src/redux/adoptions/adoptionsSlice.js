@@ -14,15 +14,18 @@ export const adoptionsSlice = createSlice({
         getAdoptionsById: (state, action) => {
             state.detail = action.payload;
         },
-        postAdoptions:(state,action)=>{
-            state.adoptions = action.payload
+        postAdoptionSuccess: (state, action) => {
+            state.adoptions = [...state.adoptions, action.payload];
+            state.status = 'succeeded';
+            state.error = null;
         },
-        updateAdoptionById: (state,action)=>{
+        postAdoptionFailure: (state, action) => {
+            state.status = 'failed';
+            state.error = action.payload;
+        },
+        updateAdoptionById: (state, action) => {
             state.detail = action.payload
         },
-        // deleteAdoptionById: (state,action)=>{
-        //     state.adoptions = action.payload
-        // }
         deleteAdoptionSuccess(state, action) {
             const deletedId = action.payload;
             state.adoptions = state.adoptions.filter(adop => adop.id !== deletedId);
@@ -33,24 +36,25 @@ export const adoptionsSlice = createSlice({
             state.status = 'failed';
             state.error = action.payload;
         },
-        adoptionsAsc:(state,action)=>{
+        adoptionsAsc: (state, action) => {
             state.adoptions = action.payload
         },
-        adoptionsDesc:(state,action)=>{
+        adoptionsDesc: (state, action) => {
             state.adoptions = action.payload
         },
     }
 });
 
-export const { 
-    getAllAdoptions, 
-    getAdoptionsById, 
-    updateAdoptionById, 
-    postAdoptions, 
-    deleteAdoptionSuccess, 
+export const {
+    getAllAdoptions,
+    getAdoptionsById,
+    updateAdoptionById,
+    postAdoptionSuccess,
+    postAdoptionFailure,
+    deleteAdoptionSuccess,
     deleteAdoptionFailure,
     adoptionsAsc,
-    adoptionsDesc 
+    adoptionsDesc
 } = adoptionsSlice.actions;
 
 export default adoptionsSlice.reducer;

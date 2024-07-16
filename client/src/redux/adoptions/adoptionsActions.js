@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
-  postAdoptions,
+  postAdoptionSuccess,
+  postAdoptionFailure,
   getAllAdoptions,
   getAdoptionsById,
   updateAdoptionById,
@@ -24,32 +25,26 @@ export const getById = (id) => (dispatch) => {
     .catch(e => console.log(e));
 };
 
-
 export const createAdoptions = (formData) => (dispatch) => {
   axios.post('http://localhost:3001/api/adopciones', formData)
-    .then(res => dispatch(postAdoptions(res.data)))
+    .then(res => dispatch(postAdoptionSuccess(res.data)))
     .catch(err => {
       console.error('Error al crear adopción:', err);
+      dispatch(postAdoptionFailure(err.message));
       alert('Hubo un error al crear la adopción');
     });
 };
-
 
 export const updateById = (id, formData) => (dispatch) => {
   axios.put(`http://localhost:3001/api/adopciones/${id}`, formData)
     .then(res => {
       dispatch(updateAdoptionById(res.data));
     })
-    .catch(e => console.log(e));
+    .catch(err => {
+      console.error('Error al actualizar adopción:', err);
+      dispatch(postAdoptionFailure(err.message));
+    });
 };
-
-
-// export const deleteById = (id) => (dispatch) => {
-//   // axios.get(`http://localhost:3000/adoptions/${id}`)
-//   axios.delete(`http://localhost:3001/api/adopciones/${id}`)
-//     .then(res => dispatch(deleteAdoptionById(res.data)))
-//     .catch(e => console.log(e));
-// };
 
 export const deleteAdoptionById = (id) => async dispatch => {
   try {
