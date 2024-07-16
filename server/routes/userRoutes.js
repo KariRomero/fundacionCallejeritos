@@ -9,6 +9,7 @@ const {
   getUserHandler,
   getAllUsersHandler,
   uploadImageHandler,
+  deleteImageUserHandler
 } = require('../handlers/userHandlers');
 
 router.post('/', createUserHandler);
@@ -17,5 +18,5 @@ router.delete('/:id', deleteUserHandler);
 router.get('/:id', getUserHandler);
 router.get('/', getAllUsersHandler);
 router.post('/:id/image', upload.single('image'), uploadImageHandler);
-
+router.delete('/:id/image', deleteImageUserHandler);
 module.exports = router;

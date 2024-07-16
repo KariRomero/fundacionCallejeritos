@@ -1,19 +1,22 @@
 const CasosDeRescate = require('../models/CasosDeRescate');
 const cloudinary = require('../config/cloudinary');
 
-const createCasos = async (casosData, imageFile) => {
+const createCasos = async (casosData, imageFiles) => {
   try {
-    let imageUrl = '';
-    if (imageFile) {
-      const result = await cloudinary.uploader.upload(imageFile, {
-        folder: 'casos_images', 
-        use_filename: true,
-        unique_filename: false,
+    let imageUrls = [];
+    if (imageFiles && Array.isArray(imageFiles)) {
+      const uploadPromises = imageFiles.map(async (file) => {
+        const result = await cloudinary.uploader.upload(file.path, {
+          folder: 'casos_images',
+          use_filename: true,
+          unique_filename: false,
+        });
+        return result.secure_url;
       });
-      imageUrl = result.secure_url;
+      imageUrls = await Promise.all(uploadPromises);
     }
 
-    const newCasosData = { ...casosData, image: imageUrl ? [imageUrl] : [] };
+    const newCasosData = { ...casosData, image: imageUrls };
     return await CasosDeRescate.create(newCasosData);
   } catch (error) {
     throw new Error('Error creando caso de rescate: ' + error.message);
@@ -39,25 +42,65 @@ const getAllCasos = async (order = 'ASC') => {
   });
 };
 
-const uploadImage = async (casosId, imageFile) => {
+const uploadImage = async (casosId, imageFiles) => {
   try {
-    const result = await cloudinary.uploader.upload(imageFile, {
-      folder: 'casos_images', 
-      use_filename: true,
-      unique_filename: false,
-    });
-
     const casos = await CasosDeRescate.findByPk(casosId);
-    if (casos) {
-      const updatedCasos = await casos.update({
-        image: [...casos.image, result.secure_url], 
+    if (!casos) {
+      throw new Error('Casos de rescate no encontrado');
+    }
+
+    if (imageFiles && Array.isArray(imageFiles)) {
+      const uploadPromises = imageFiles.map(async (file) => {
+        const result = await cloudinary.uploader.upload(file.path, {
+          folder: 'casos_images',
+          use_filename: true,
+          unique_filename: false,
+        });
+        return result.secure_url;
       });
+
+      const uploadedImages = await Promise.all(uploadPromises);
+
+      const updatedCasos = await casos.update({
+        image: [...casos.image, ...uploadedImages],
+      });
+
       return updatedCasos;
     } else {
-      throw new Error('Casos de rescate no encontrado');
+      throw new Error('No se proporcionaron archivos de imagen');
     }
   } catch (error) {
     throw new Error('Error subiendo imagen: ' + error.message);
+  }
+};
+
+const deleteImage = async (casosId, imageUrl) => {
+  try {
+    const casos = await CasosDeRescate.findByPk(casosId);
+    if (!casos) {
+      throw new Error('Caso de rescate no encontrado');
+    }
+
+    if (!Array.isArray(casos.image)) {
+      throw new Error('No hay imágenes asociadas con este caso de rescate');
+    }
+
+    const imageIndex = casos.image.indexOf(imageUrl);
+    if (imageIndex === -1) {
+      throw new Error('Imagen no encontrada en el caso de rescate');
+    }
+
+    // Eliminar la URL de la imagen del array
+    casos.image.splice(imageIndex, 1);
+    await casos.save();
+
+    // Eliminar la imagen de Cloudinary
+    const publicId = imageUrl.split('/').pop().split('.')[0];
+    await cloudinary.uploader.destroy(`casos_images/${publicId}`);
+
+    return casos;
+  } catch (error) {
+    throw new Error(`Error eliminando imagen: ${error.message}`);
   }
 };
 
@@ -68,4 +111,5 @@ module.exports = {
   getCasos,
   getAllCasos,
   uploadImage,
+  deleteImage
 };

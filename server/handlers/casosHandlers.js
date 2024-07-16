@@ -7,13 +7,14 @@ const {
     getCasos,
     getAllCasos,
     uploadImage,
+    deleteImage
   } = require('../controllers/casosControllers');
   
   const createCasosHandler = async (req, res) => {
     try {
       const casosData = req.body;
-      const imageFile = req.file?.path; 
-      const casos = await createCasos(casosData, imageFile);
+      const imageFiles = req.files; 
+      const casos = await createCasos(casosData, imageFiles);
       res.status(201).json(casos);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -62,13 +63,29 @@ const {
   
   const uploadImageCasosHandler = async (req, res) => {
     try {
-      const casos = await uploadImage(req.params.id, req.file.path);
-      res.status(200).json(casos);
+      const casosId = req.params.id;
+      const imageFiles = req.files; 
+  
+      const updatedCasos = await uploadImage(casosId, imageFiles);
+      res.status(200).json(updatedCasos);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   };
+  const deleteImageCasosHandler = async (req, res) => {
+    try {
+      const casosId = req.params.id;
+      const { imageUrl } = req.body; 
+      if (!imageUrl || !imageUrl.match(/^https?:\/\/.+/)) {
+        throw new Error('Formato de URL inválido o URL no proporcionada');
+      }
   
+      const updatedCasos = await deleteImage(casosId, imageUrl);
+      res.status(200).json(updatedCasos);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
   module.exports = {
     createCasosHandler,
     updateCasosHandler,
@@ -76,5 +93,6 @@ const {
     getCasosHandler,
     getAllCasosHandler,
     uploadImageCasosHandler,
+    deleteImageCasosHandler,
   };
   

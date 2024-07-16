@@ -5,6 +5,7 @@ const {
   getUser,
   getAllUsers,
   uploadImage,
+  deleteImage
 } = require('../controllers/userControllers');
 
 const createUserHandler = async (req, res) => {
@@ -71,6 +72,21 @@ const uploadImageHandler = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+const deleteImageUserHandler = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { imageUrl } = req.body;
+
+    if (!imageUrl || !imageUrl.match(/^https?:\/\/.+/)) {
+      throw new Error('Invalid URL format or URL not provided');
+    }
+
+    const updatedUser = await deleteImage(userId, imageUrl);
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 module.exports = {
   createUserHandler,
@@ -79,4 +95,5 @@ module.exports = {
   getUserHandler,
   getAllUsersHandler,
   uploadImageHandler,
+  deleteImageUserHandler,
 };

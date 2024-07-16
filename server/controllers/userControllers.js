@@ -1,13 +1,13 @@
 const User = require('../models/User');
-const cloudinary = require('../config/cloudinary'); // Importa la configuración de Cloudinary
-const { uploader } = cloudinary; // Asumiendo que tienes un método uploader en tu configuración
+const cloudinary = require('../config/cloudinary'); 
+const { uploader } = cloudinary; 
 
 const createUser = async (userData, imageFile) => {
   try {
     let imageUrl = '';
     if (imageFile) {
       const result = await uploader.upload(imageFile, {
-        folder: 'user_images', // Carpeta en Cloudinary donde se almacenarán las imágenes de usuario
+        folder: 'user_images', 
         use_filename: true,
         unique_filename: false,
       });
@@ -64,6 +64,34 @@ const uploadImage = async (userId, imageFile) => {
   }
 };
 
+const deleteImage = async (userId, imageUrl) => {
+  try {
+    const user = await User.findByPk(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    if (!Array.isArray(user.images)) {
+      throw new Error('No images associated with this user');
+    }
+
+    const imageIndex = user.images.indexOf(imageUrl);
+    if (imageIndex === -1) {
+      throw new Error('Image not found in user');
+    }
+
+    user.images.splice(imageIndex, 1);
+    await user.save();
+
+    const publicId = imageUrl.split('/').pop().split('.')[0];
+    await uploader.destroy(`user_images/${publicId}`);
+
+    return user;
+  } catch (error) {
+    throw new Error(`Error deleting image: ${error.message}`);
+  }
+};
+
 module.exports = {
   createUser,
   updateUser,
@@ -71,4 +99,5 @@ module.exports = {
   getUser,
   getAllUsers,
   uploadImage,
+  deleteImage
 };

@@ -9,6 +9,7 @@ const {
   getCasosHandler,
   getAllCasosHandler,
   uploadImageCasosHandler,
+  deleteImageCasosHandler
 } = require('../handlers/casosHandlers');
 
 // Añadir middleware de Multer para manejar la subida de imágenes en la creación de casos
@@ -21,5 +22,5 @@ router.put('/:id', updateCasosHandler);
 router.delete('/:id', deleteCasosHandler);
 router.get('/:id', getCasosHandler);
 router.get('/', getAllCasosHandler);
-
+router.delete('/:id/image', deleteImageCasosHandler);
 module.exports = router;
