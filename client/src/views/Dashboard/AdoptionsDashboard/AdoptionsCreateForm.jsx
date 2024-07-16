@@ -39,9 +39,19 @@ const AdoptionsCreateForm = () => {
         const files = Array.from(e.target.files);
         setForm({
             ...form,
-            imageFiles: files,
+            imageFiles: [...form.imageFiles, ...files],
         });
     };
+
+    const handleRemoveImage = (index) => {
+        const newImageFiles = [...form.imageFiles];
+        newImageFiles.splice(index, 1); // Eliminar el archivo en el índice dado
+        setForm({
+            ...form,
+            imageFiles: newImageFiles,
+        });
+    };
+
 
 
 
@@ -99,6 +109,7 @@ const AdoptionsCreateForm = () => {
         }
         setNavigateToAdoptions(true);
     };
+
 
 
     useEffect(() => {
@@ -225,6 +236,18 @@ const AdoptionsCreateForm = () => {
                                 onChange={handleImageChange}
                                 className="shadow-md"
                             />
+                            {form.imageFiles.map((file, index) => (
+                                <div key={index} className="flex items-center">
+                                    <p>{file.name}</p> {/* Mostrar el nombre del archivo */}
+                                    <button
+                                        type="button"
+                                        className="ml-2 text-red-600 hover:text-red-800"
+                                        onClick={() => handleRemoveImage(index)}
+                                    >
+                                        Eliminar
+                                    </button>
+                                </div>
+                            ))}
                             {/* {errors.imageFiles && <p className="text-red">{errors.imageFiles}</p>} */}
                         </div>
                     </div>
