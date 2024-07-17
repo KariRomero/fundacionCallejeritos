@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { createAdoptions, getAdoptions } from "../../../redux/adoptions/adoptionsActions";
 import validateAdoptionsCreateForm from "./validateAdoptionsCreateForm";
 import Swal from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const AdoptionsCreateForm = () => {
     const dispatch = useDispatch();
@@ -35,8 +37,29 @@ const AdoptionsCreateForm = () => {
         imageFiles: ''
     });
 
+    
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        const newValue = type === 'checkbox' ? checked : value;
+        setForm({
+            ...form,
+            [name]: newValue,
+        });
+        setErrors(validateAdoptionsCreateForm({
+            ...form,
+            [name]: newValue,
+        }));
+    };
+    
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
+        if (form.imageFiles.length + files.length > 5) {
+            Swal.fire({
+                title: "Solo puedes subir un máximo de 5 imágenes",
+                icon: "error",
+                confirmButtonColor: "#f69a0b",
+            });
+        }
         setForm({
             ...form,
             imageFiles: [...form.imageFiles, ...files],
@@ -51,23 +74,6 @@ const AdoptionsCreateForm = () => {
             imageFiles: newImageFiles,
         });
     };
-
-
-
-
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        const newValue = type === 'checkbox' ? checked : value;
-        setForm({
-            ...form,
-            [name]: newValue,
-        });
-        setErrors(validateAdoptionsCreateForm({
-            ...form,
-            [name]: newValue,
-        }));
-    };
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -110,8 +116,6 @@ const AdoptionsCreateForm = () => {
         setNavigateToAdoptions(true);
     };
 
-
-
     useEffect(() => {
         if (navigateToAdoptions) {
             navigate('/admin/adopciones');
@@ -124,8 +128,8 @@ const AdoptionsCreateForm = () => {
     return (
         <section className="flex justify-center sm:ml-64">
             <div className="w-full max-w-4xl mt-4">
-                <h1 className="title">Nuevo Callejerito</h1>
-                <form onSubmit={handleSubmit}>
+                <h1 className="title ml-8">Nuevo Callejerito</h1>
+                <form onSubmit={handleSubmit} className="mx-8">
                     <div className="my-4 flex justify-between">
                         <label className="paragraph">Nombre</label>
                         <div className="grid">
@@ -237,14 +241,17 @@ const AdoptionsCreateForm = () => {
                                 className="shadow-md"
                             />
                             {form.imageFiles.map((file, index) => (
-                                <div key={index} className="flex items-center">
-                                    <p>{file.name}</p> {/* Mostrar el nombre del archivo */}
+                                <div 
+                                key={index} 
+                                className="flex justify-between items-center my-2"
+                                >
+                                    <p>{file.name}</p> 
                                     <button
                                         type="button"
-                                        className="ml-2 text-red-600 hover:text-red-800"
+                                        className="hover:text-red"
                                         onClick={() => handleRemoveImage(index)}
                                     >
-                                        Eliminar
+                                        <FontAwesomeIcon icon={faTrash} className='px-2' />
                                     </button>
                                 </div>
                             ))}
