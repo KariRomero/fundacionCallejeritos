@@ -14,7 +14,7 @@ const CardsRescue = ()=>{
 
     return(
         <section>
-            <div className="w-full bg-white grid grid-cols-4 gap-4 p-8">
+            <div className="w-full bg-white grid grid-cols-1 sm:grid-cols-4 gap-4 p-8">
                 {
                     rescues && rescues.map((r) => (
                         <CardRescues

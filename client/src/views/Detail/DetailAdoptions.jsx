@@ -23,9 +23,9 @@ const DetailAdoptions = () => {
     console.log(detail.image);
 
     return (
-        <section className="grid grid-cols-2 bg-repeat bg-auto" style={{ backgroundImage: `url(${fondoDetail})` }}>
+        <section className="grid grid-cols-1 sm:grid-cols-2 bg-repeat bg-auto" style={{ backgroundImage: `url(${fondoDetail})` }}>
             <div className="bg-white m-10 p-10">
-                <div className="flex items-center justify-between">
+                <div className="grid sm:flex sm:items-center sm:justify-between">
                     <h1 className='titleName text-secondary'>{detail.name}</h1>
                     <div>
                         <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">Adoptame!</button>
@@ -95,7 +95,7 @@ const DetailAdoptions = () => {
                     Encontranos en Instagram <FontAwesomeIcon icon={faInstagram} size="xl" className="ml-2" />
                 </a>
             </div>
-            <div>
+            <div className="px-4">
                 <Album slides={detail.image} />
             </div>
         </section>
