@@ -18,7 +18,7 @@ const DetailRescues = ()=>{
     return(
         <section className="grid grid-cols-2">
             <div className="mx-10 my-6">
-                <h1 className='title text-secondary text-center'>{detail.name}</h1>
+                <h1 className='titleName text-secondary text-center'>{detail.name}</h1>
                 <p className="paragraph mx-10 my-10">{detail.description}</p>
             </div>
             <div>

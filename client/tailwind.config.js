@@ -24,6 +24,12 @@ export default {
           letterSpacing: theme('letterSpacing.wider'),
           marginBottom: theme('margin.4'),
         },
+        '.titleName': {
+          fontSize: theme('fontSize.3xl'),
+          fontWeight: theme('fontWeight.extrabold'),
+          letterSpacing: theme('letterSpacing.wider'),
+          marginBottom: theme('margin.4'),
+        },
         '.paragraph': {
           fontSize: theme('fontSize.base'),
           fontWeight: theme('fontWeight.normal'),

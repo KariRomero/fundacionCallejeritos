@@ -20,13 +20,14 @@ const DetailAdoptions = () => {
     }, [dispatch, id]);
 
     const detail = useSelector((state) => state.adoptions.detail);
+    console.log(detail.image);
 
     return (
-        <section className="grid grid-cols-2">
-            <div className="bg-repeat bg-center m-8" style={{ backgroundImage: `url(${fondoDetail})` }}>
+        <section className="grid grid-cols-2" style={{ backgroundImage: `url(${fondoDetail})` }}>
+            <div className="bg-repeat bg-center m-8" >
                 <div className="bg-white m-12 p-4">
                     <div className="flex items-center justify-between">
-                        <h1 className='title text-secondary'>{detail.name}</h1>
+                        <h1 className='titleName text-secondary'>{detail.name}</h1>
                         <div>
                             <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">Adoptame!</button>
                             <Link to='/adopciones'>
@@ -34,8 +35,8 @@ const DetailAdoptions = () => {
                             </Link>
                         </div>
                     </div>
-                    <p className="paragraph-bold">{detail.gender}</p>
-                    <p className="paragraph-bold">{detail.age}</p>
+                    <p className="paragraph-bold">{detail.age} - {detail.gender}</p>
+                    {/* <p className="paragraph-bold">{detail.gender}</p> */}
                     <p className="paragraph">{detail.description}</p>
                     <div className="grid grid-cols-1 gap-4 my-4">
                         {detail.specialCare ? (
