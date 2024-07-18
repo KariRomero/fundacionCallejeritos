@@ -70,6 +70,7 @@ const RescuesCreateForm = () => {
                 icon: "success",
                 confirmButtonColor: "#f69a0b",
             });
+            setNavigateToRescues(true);
         } else {
             const formData = new FormData();
             for (const key in form) {
@@ -79,7 +80,7 @@ const RescuesCreateForm = () => {
                     formData.append(key, form[key]);
                 }
             }
-            dispatch(createRescues(form));
+            dispatch(createRescues(formData));
             setForm({
                 name: '',
                 gender: 'macho',

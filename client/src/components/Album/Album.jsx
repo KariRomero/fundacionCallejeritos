@@ -28,7 +28,7 @@ const Album = ({ slides }) => {
                         <FontAwesomeIcon icon={faChevronLeft} />
                     </button>
                     <div className="flex justify-center">
-                        <img src={slides[currentIndex]} alt={`slide-${currentIndex}`} className="w-3/4 object-cover" />
+                        <img src={slides[currentIndex]} alt={`slide-${currentIndex}`} className="w-3/4 h-3/4 object-scale-down" />
                     </div>
                     <button
                         onClick={next}

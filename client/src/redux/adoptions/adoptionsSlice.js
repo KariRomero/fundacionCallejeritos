@@ -6,6 +6,7 @@ export const adoptionsSlice = createSlice({
         adoptions: [],
         detail: {},
         status: 'idle',
+        error:'idle'
     },
     reducers: {
         getAllAdoptions: (state, action) => {

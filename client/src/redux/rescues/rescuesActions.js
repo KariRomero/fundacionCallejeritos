@@ -3,7 +3,8 @@ import {
   getAllRescues,
   getRescuesById,
   updateRescueById,
-  postRescues,
+  postRescueSuccess,
+  postRescueFaillure,
   deleteRescueSuccess,
   deleteRescueFailure,
   rescuesAsc,
@@ -27,9 +28,10 @@ export const getById = (id) => (dispatch) => {
 
 export const createRescues = (formData) => (dispatch) => {
   axios.post('http://localhost:3001/api/casos', formData)
-    .then(res => dispatch(postRescues(res.data)))
+    .then(res => dispatch(postRescueSuccess(res.data)))
     .catch(err => {
       console.error('Error al crear caso:', err);
+      dispatch(postRescueFaillure(err.message));
       alert('Hubo un error al crear el caso');
     });
 };
@@ -57,18 +59,18 @@ export const deleteRescueById = (id) => async dispatch => {
   }
 };
 
-export const orderRescuesAsc = ()=>(dispatch)=>{
+export const orderRescuesAsc = () => (dispatch) => {
   axios.get('http://localhost:3001/api/casos?order=asc')
-  .then(res=>dispatch(rescuesAsc(res.data)))
-  .catch(err=>{
-    console.error('Error ordenar rescates asc',err)
-  })
+    .then(res => dispatch(rescuesAsc(res.data)))
+    .catch(err => {
+      console.error('Error ordenar rescates asc', err)
+    })
 };
 
-export const orderRescuesDesc = ()=>(dispatch)=>{
+export const orderRescuesDesc = () => (dispatch) => {
   axios.get('http://localhost:3001/api/casos?order=desc')
-  .then(res=>dispatch(rescuesDesc(res.data)))
-  .catch(err=>{
-    console.error('Error ordenar rescates desc',err)
-  })
+    .then(res => dispatch(rescuesDesc(res.data)))
+    .catch(err => {
+      console.error('Error ordenar rescates desc', err)
+    })
 };

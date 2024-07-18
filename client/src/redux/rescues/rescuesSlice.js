@@ -6,6 +6,7 @@ export const rescuesSlice = createSlice({
         rescues: [],
         detail: {},
         status: 'idle',
+        error: 'idle'
     },
     reducers: {
         getAllRescues: (state, action) => {
@@ -14,15 +15,18 @@ export const rescuesSlice = createSlice({
         getRescuesById: (state, action) => {
             state.detail = action.payload;
         },
-        postRescues:(state,action)=>{
-            state.rescues = action.payload
+        postRescueSuccess:(state,action)=>{
+            state.rescues = [...state.rescues, action.payload];
+            state.status = 'succeeded';
+            state.error = null;
+        },
+        postRescueFaillure: (state, action)=>{
+            state.status = 'failed';
+            state.error = action.payload;
         },
         updateRescueById: (state,action)=>{
             state.detail = action.payload
         },
-        // deleteRescueById: (state,action)=>{
-        //     state.rescues = action.payload
-        // }
         deleteRescueSuccess(state, action) {
             const deletedId = action.payload;
             state.rescues = state.rescues.filter(resc => resc.id !== deletedId);
@@ -46,7 +50,8 @@ export const {
     getAllRescues, 
     getRescuesById, 
     updateRescueById, 
-    postRescues, 
+    postRescueSuccess, 
+    postRescueFaillure,
     deleteRescueSuccess, 
     deleteRescueFailure,
     rescuesAsc,
