@@ -60,11 +60,10 @@ const {
       res.status(500).json({ error: error.message });
     }
   };
-  
   const uploadImageCasosHandler = async (req, res) => {
     try {
       const casosId = req.params.id;
-      const imageFiles = req.files; 
+      const imageFiles = req.files;
   
       const updatedCasos = await uploadImage(casosId, imageFiles);
       res.status(200).json(updatedCasos);

@@ -64,9 +64,10 @@ const getAllUsersHandler = async (req, res) => {
 
 const uploadImageHandler = async (req, res) => {
   try {
-    const { id } = req.params;
-    const imageFile = req.file.path;
-    const updatedUser = await uploadImage(id, imageFile);
+    const userId = req.params.id;
+    const imageFile = req.file.path; // `req.file` es el archivo subido por `upload.single()`
+
+    const updatedUser = await uploadImage(userId, imageFile);
     res.status(200).json(updatedUser);
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -70,37 +70,41 @@ const getAllAdopcion = async (filters = {}, order = 'ASC') => {
 
 const uploadImage = async (adopcionId, imageFiles) => {
   try {
+    // Subir todas las imágenes a Cloudinary
     const uploadPromises = imageFiles.map(async (file) => {
       const result = await cloudinary.uploader.upload(file.path, {
         folder: 'adopcion_images',
         use_filename: true,
         unique_filename: false,
       });
-
       return result.secure_url;
     });
 
     const uploadedImages = await Promise.all(uploadPromises);
 
+    // Buscar el registro de adopción por ID
     const adopcion = await Adopciones.findByPk(adopcionId);
     if (!adopcion) {
       throw new Error('Adopción no encontrada');
     }
 
+    // Asegurarse de que el campo de imágenes sea un array
     if (!Array.isArray(adopcion.image)) {
       adopcion.image = [];
     }
 
-    adopcion.image.push(...uploadedImages);
+    // Agregar las nuevas imágenes al array existente
+    adopcion.image = [...adopcion.image, ...uploadedImages];
+
+    // Guardar el registro actualizado en la base de datos
     await adopcion.save();
 
-    return adopcion;
+    // Devolver solo el array de imágenes actualizado
+    return adopcion.image;
   } catch (error) {
     throw new Error(`Error subiendo imágenes: ${error.message}`);
   }
 };
-
-
 
 const deleteImage = async (adopcionId, imageUrl) => {
   try {

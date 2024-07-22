@@ -41,24 +41,23 @@ const getAllUsers = async () => {
 const uploadImage = async (userId, imageFile) => {
   try {
     // Subir la imagen a Cloudinary
-    const result = await uploader.upload(imageFile, {
-      folder: 'user_images', // Carpeta en Cloudinary donde se almacenarán las imágenes de usuario
+    const result = await cloudinary.uploader.upload(imageFile, {
+      folder: 'user_images',
       use_filename: true,
       unique_filename: false,
     });
 
-    // Obtener el usuario y actualizar la propiedad de imágenes
+    // Obtener el usuario y verificar si existe
     let user = await User.findByPk(userId);
     if (!user) {
       throw new Error('User not found');
     }
 
-    // Actualizar el campo de imágenes en el modelo User
-    const updatedImages = [...user.images, result.secure_url]; // Agrega la nueva imagen al array de imágenes del usuario
-    await user.update({ images: updatedImages });
+    // Reemplazar la imagen existente con la nueva
+    const updatedUser = await user.update({ image: result.secure_url });
 
-    // Retorna el usuario actualizado con las imágenes
-    return await User.findByPk(userId);
+    // Retornar el usuario actualizado
+    return updatedUser;
   } catch (error) {
     throw new Error('Error uploading image: ' + error.message);
   }

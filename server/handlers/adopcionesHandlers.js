@@ -63,8 +63,8 @@ const uploadImageAdopcionesHandler = async (req, res) => {
     const adopcionId = req.params.id;
     const imageFiles = req.files; 
 
-    const uploadedImages = await uploadImage(adopcionId, imageFiles);
-    res.status(200).json({ uploadedImages });
+    const updatedImages = await uploadImage(adopcionId, imageFiles);
+    res.status(200).json({ image: updatedImages });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
