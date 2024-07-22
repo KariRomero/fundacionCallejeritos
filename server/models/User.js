@@ -73,9 +73,9 @@ const User = sequelize.define('User', {
     defaultValue: false, // False indicates a regular user, true indicates an admin
   },
   image: {
-    type: DataTypes.ARRAY(DataTypes.STRING), // Define como un array de strings
-    defaultValue: [], // Valor por defecto: un array vacío
-    allowNull: true, // Permitir que sea nulo
+    type: DataTypes.ARRAY(DataTypes.STRING),
+    defaultValue: [],
+    allowNull: true,
   },
 });
 

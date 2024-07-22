@@ -7,19 +7,20 @@ const createUser = async (userData, imageFile) => {
     let imageUrl = '';
     if (imageFile) {
       const result = await uploader.upload(imageFile, {
-        folder: 'user_images', 
+        folder: 'user_images',
         use_filename: true,
         unique_filename: false,
       });
       imageUrl = result.secure_url;
     }
 
-    const newUserData = { ...userData, images: imageUrl ? [imageUrl] : [] };
+    const newUserData = { ...userData, image: imageUrl ? [imageUrl] : [] };
     return await User.create(newUserData);
   } catch (error) {
     throw new Error('Error creating user: ' + error.message);
   }
 };
+
 
 const updateUser = async (id, userData) => {
   await User.update(userData, { where: { id } });
@@ -41,7 +42,7 @@ const getAllUsers = async () => {
 const uploadImage = async (userId, imageFile) => {
   try {
     // Subir la imagen a Cloudinary
-    const result = await cloudinary.uploader.upload(imageFile, {
+    const result = await uploader.upload(imageFile, {
       folder: 'user_images',
       use_filename: true,
       unique_filename: false,
@@ -54,7 +55,7 @@ const uploadImage = async (userId, imageFile) => {
     }
 
     // Reemplazar la imagen existente con la nueva
-    const updatedUser = await user.update({ image: result.secure_url });
+    const updatedUser = await user.update({ image: [result.secure_url] });
 
     // Retornar el usuario actualizado
     return updatedUser;
