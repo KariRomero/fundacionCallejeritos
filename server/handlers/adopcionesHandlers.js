@@ -72,7 +72,7 @@ const uploadImageAdopcionesHandler = async (req, res) => {
 const deleteImageAdopcionesHandler = async (req, res) => {
   try {
     const adopcionId = req.params.id;
-    const { imageUrl } = req.body; // Obtener la URL de la imagen del cuerpo de la solicitud
+    const { imageUrl } = req.body; 
 
     if (!imageUrl || !imageUrl.match(/^https?:\/\/.+/)) {
       throw new Error('Formato de URL inválido o URL no proporcionada');

@@ -17,7 +17,7 @@ const createUserHandler = async (req, res) => {
       throw new Error('No file uploaded');
     }
 
-    // Si se proporciona imageFile en el cuerpo, puede ser que el archivo esté en otro campo
+   
     const userData = { ...body, imageFile: imageFile || body.imageFile };
     const user = await createUser(userData, imageFile || body.imageFile);
     res.status(201).json(user);

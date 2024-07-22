@@ -44,15 +44,15 @@ const getAllCasos = async (order = 'ASC') => {
 
 const uploadImage = async (casosId, imageFiles) => {
   try {
-    // Buscar el registro de casos por ID
+    
     const casos = await CasosDeRescate.findByPk(casosId);
     if (!casos) {
       throw new Error('Casos de rescate no encontrado');
     }
 
-    // Verificar y manejar archivos de imagen
+    
     if (imageFiles && Array.isArray(imageFiles)) {
-      // Subir todas las imágenes a Cloudinary
+      
       const uploadPromises = imageFiles.map(async (file) => {
         const result = await cloudinary.uploader.upload(file.path, {
           folder: 'casos_images',
@@ -64,15 +64,15 @@ const uploadImage = async (casosId, imageFiles) => {
 
       const uploadedImages = await Promise.all(uploadPromises);
 
-      // Asegurarse de que el campo de imágenes sea un array
+      
       if (!Array.isArray(casos.image)) {
         casos.image = [];
       }
 
-      // Agregar las nuevas imágenes al array existente
+     
       casos.image = [...casos.image, ...uploadedImages];
 
-      // Guardar el registro actualizado en la base de datos
+    
       const updatedCasos = await casos.save();
 
       return updatedCasos;
@@ -100,11 +100,11 @@ const deleteImage = async (casosId, imageUrl) => {
       throw new Error('Imagen no encontrada en el caso de rescate');
     }
 
-    // Eliminar la URL de la imagen del array
+    
     casos.image.splice(imageIndex, 1);
     await casos.save();
 
-    // Eliminar la imagen de Cloudinary
+    
     const publicId = imageUrl.split('/').pop().split('.')[0];
     await cloudinary.uploader.destroy(`casos_images/${publicId}`);
 

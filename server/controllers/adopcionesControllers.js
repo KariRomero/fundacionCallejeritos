@@ -16,9 +16,9 @@ const createAdopcion = async (adopcionData, imageFiles) => {
       });
 
       const uploadedImages = await Promise.all(uploadPromises);
-      // Añadir las URLs de las imágenes subidas al campo 'image' de la adopción
+      
       newAdopcion.image = [...newAdopcion.image, ...uploadedImages];
-      await newAdopcion.save(); // Guardar la adopción actualizada con las URLs de las imágenes
+      await newAdopcion.save(); 
     }
 
     return newAdopcion;
@@ -70,7 +70,7 @@ const getAllAdopcion = async (filters = {}, order = 'ASC') => {
 
 const uploadImage = async (adopcionId, imageFiles) => {
   try {
-    // Subir todas las imágenes a Cloudinary
+    
     const uploadPromises = imageFiles.map(async (file) => {
       const result = await cloudinary.uploader.upload(file.path, {
         folder: 'adopcion_images',
@@ -82,24 +82,24 @@ const uploadImage = async (adopcionId, imageFiles) => {
 
     const uploadedImages = await Promise.all(uploadPromises);
 
-    // Buscar el registro de adopción por ID
+   
     const adopcion = await Adopciones.findByPk(adopcionId);
     if (!adopcion) {
       throw new Error('Adopción no encontrada');
     }
 
-    // Asegurarse de que el campo de imágenes sea un array
+   
     if (!Array.isArray(adopcion.image)) {
       adopcion.image = [];
     }
 
-    // Agregar las nuevas imágenes al array existente
+    
     adopcion.image = [...adopcion.image, ...uploadedImages];
 
-    // Guardar el registro actualizado en la base de datos
+   
     await adopcion.save();
 
-    // Devolver solo el array de imágenes actualizado
+    
     return adopcion.image;
   } catch (error) {
     throw new Error(`Error subiendo imágenes: ${error.message}`);
@@ -122,11 +122,11 @@ const deleteImage = async (adopcionId, imageUrl) => {
       throw new Error('Imagen no encontrada en la adopción');
     }
 
-    // Eliminar la URL de la imagen del array
+    
     adopcion.image.splice(imageIndex, 1);
     await adopcion.save();
 
-    // Eliminar la imagen de Cloudinary
+   
     const publicId = imageUrl.split('/').pop().split('.')[0];
     await cloudinary.uploader.destroy(`adopcion_images/${publicId}`);
 
