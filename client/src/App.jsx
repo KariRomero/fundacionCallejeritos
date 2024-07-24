@@ -12,6 +12,7 @@ import Donations from './views/Donations/Donations';
 import BecomeAPartner from './views/BecomeAPartner/BecomeAPartner';
 import LogIn from './views/LogIn/LogIn';
 import SignUp from './views/SignUp/SignUp';
+import UserProfile from './views/UserProfile/UserProfile';
 import Dashboard from './views/Dashboard/Dashboard';
 import SideBar from './components/Dashboard/SideBar';
 import AdoptionsDashboard from './views/Dashboard/AdoptionsDashboard/AdoptionsDashboard';
@@ -45,7 +46,8 @@ function App() {
         <Route path='/hacertesocio' element={<BecomeAPartner/>}/>
         {/* <Route path='/hogardetransito' element={<Detail/>}/> */}
         <Route path='/iniciarsesion' element={<LogIn/>}/>
-        <Route path='/registro' element={<SignUp/>} />
+        <Route path='/registro' element={<SignUp/>}/>
+        <Route path='/usuario/:id' element={<UserProfile/>}/>
         {
           isAdmin ? (
             <>
