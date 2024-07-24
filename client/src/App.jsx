@@ -1,4 +1,5 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import NavBar from './components/NavBar/NavBar';
 import Footter from './components/Footter/Footter';
 import Home from './views/Home/Home';
@@ -9,6 +10,8 @@ import Adoptions from './views/Adoptions/Adoptions';
 import DetailAdoptions from './views/Detail/DetailAdoptions';
 import Donations from './views/Donations/Donations';
 import BecomeAPartner from './views/BecomeAPartner/BecomeAPartner';
+import LogIn from './views/LogIn/LogIn';
+import SignUp from './views/SignUp/SignUp';
 import Dashboard from './views/Dashboard/Dashboard';
 import SideBar from './components/Dashboard/SideBar';
 import AdoptionsDashboard from './views/Dashboard/AdoptionsDashboard/AdoptionsDashboard';
@@ -22,13 +25,13 @@ function App() {
 
   const location = useLocation();
   const isDashboardRoute = location.pathname.startsWith("/admin");
-  const isAdmin = true;
+  // const isAdmin = useSelector((state) => state.user.user?.rol); constante para cuando este listo el redux
+  const isAdmin = true; //constante hardcodeada
 
   return (
     <>    
       {!isDashboardRoute && <NavBar />}
-      {isDashboardRoute && <SideBar />}
-      
+      {isDashboardRoute && <SideBar />}      
 
     
       <Routes>
@@ -41,7 +44,8 @@ function App() {
         <Route path='/donaciones' element={<Donations/>}/>
         <Route path='/hacertesocio' element={<BecomeAPartner/>}/>
         {/* <Route path='/hogardetransito' element={<Detail/>}/> */}
-        {/* <Route path='/iniciarsesion' element={<Detail/>}/> */}
+        <Route path='/iniciarsesion' element={<LogIn/>}/>
+        <Route path='/registro' element={<SignUp/>} />
         {
           isAdmin ? (
             <>
