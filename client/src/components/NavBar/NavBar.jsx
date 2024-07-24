@@ -16,7 +16,7 @@ const NavBar = () => {
 
     return (
         <nav className="w-full h-40 flex items-center justify-between px-4 xl:px-8 bg-white shadow-md">
-            {/* Logo */}
+            
             <Link to='/' className='h-40'>
                 <Logo />
             </Link>
@@ -48,11 +48,11 @@ const NavBar = () => {
             </div>
 
             {/* Mobile Menu */}
-            <div className="xl:hidden flex items-center space-x-4">
+            <div className="xl:hidden flex space-x-4">
                 <FontAwesomeIcon icon={faBars} className="cursor-pointer" onClick={toggleMenu} />
 
                 {showMenu && (
-                    <div className="absolute top-16 right-0 w-48 bg-white shadow-md py-2 rounded-md flex flex-col space-y-2">
+                    <div className="absolute top-24 right-0 w-48 bg-white shadow-md py-2 rounded-md flex flex-col space-y-2 z-50">
                         <NavLinkMobile to='/fundacion' isSelected={isSelected} toggleMenu={toggleMenu}>
                             Fundación
                         </NavLinkMobile>

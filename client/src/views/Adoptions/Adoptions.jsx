@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAdoptions } from "../../redux/adoptions/adoptionsActions";
 
-const Adoptions = ()=>{
-    
+const Adoptions = () => {
     const dispatch = useDispatch();
     const { adoptions } = useSelector(state => state.adoptions);
     
@@ -13,10 +12,10 @@ const Adoptions = ()=>{
         dispatch(getAdoptions());
     }, [dispatch]);
     
-    return(
-        <section>
-            <Filter/>
-            <CardsAdoptions adoptions={ adoptions }/>
+    return (
+        <section className="w-full flex flex-col items-center">
+            <Filter />
+            <CardsAdoptions adoptions={ adoptions } />
         </section>
     )
 };
