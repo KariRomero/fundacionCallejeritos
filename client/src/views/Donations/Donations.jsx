@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { getAdoptions } from '../../redux/adoptions/adoptionsActions';
 import fundacion from '/historiaFundacion.png';
-import doggy from '/dog5.png';
 import Album from '../../components/Album/Album';
 
 const Donations = () =>{
@@ -23,7 +22,7 @@ const Donations = () =>{
     }, []);
 
     return(
-        <section className='grid grid-cols-2 p-2'>
+        <section className='grid grid-cols-1 md:grid-cols-2 p-2'>
             <div>
                 <div className="flex items-center justify-between mx-10">
                     <h1 className="title text-secondary text-center">¡Ayúdanos a Ayudarlos!</h1>

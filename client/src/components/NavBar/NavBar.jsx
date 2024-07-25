@@ -92,7 +92,7 @@ const NavLink = ({ to, isSelected, children }) => (
 
 const NavLinkMobile = ({ to, isSelected, toggleMenu, children }) => (
     <Link to={to}>
-        <button onClick={toggleMenu} className={`text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white ${isSelected(to) && 'font-bold'}`}>
+        <button onClick={toggleMenu} className={`menu-btn ${isSelected(to) ? 'menu-selected' : 'hove:menu-btn-hover'}`}>
             {children}
         </button>
     </Link>

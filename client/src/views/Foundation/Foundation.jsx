@@ -11,7 +11,7 @@ const Foundation = ()=>{
 
     return(
         <section>
-            <div className="grid grid-cols-1 sm:grid-cols-2 p-2">                
+            <div className="grid grid-cols-1 md:grid-cols-2 p-2">                
                 <div>
                     <h1 className='title text-secondary text-center my-10'>Bienvenidos a Fundación Callejeritos</h1>
                     <p className="paragraph my-10 mx-10">Desde 2021, estamos unidos en la realización de este sueño.</p>
