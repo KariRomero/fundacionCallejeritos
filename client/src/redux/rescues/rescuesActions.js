@@ -8,7 +8,9 @@ import {
   deleteRescueSuccess,
   deleteRescueFailure,
   rescuesAsc,
-  rescuesDesc
+  rescuesDesc,
+  uploadRescueImagesFailure,
+  uploadRescueImagesSuccess
 } from './rescuesSlice';
 
 
@@ -73,4 +75,26 @@ export const orderRescuesDesc = () => (dispatch) => {
     .catch(err => {
       console.error('Error ordenar rescates desc', err)
     })
+};
+
+export const uploadRescueImages = (id, imageFiles) => async dispatch => {
+  try {
+    const formData = new FormData();
+    Array.from(imageFiles).forEach(file => {
+      formData.append('imageFiles', file);
+    });
+
+    const response = await axios.post(`http://localhost:3001/api/casos/${id}/image`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    dispatch(uploadRescueImagesSuccess(response.data));
+    
+  } catch (error) {
+    console.error('Error al subir imágenes:', error);
+    dispatch(uploadRescueImagesFailure(error.message));
+    
+  }
 };

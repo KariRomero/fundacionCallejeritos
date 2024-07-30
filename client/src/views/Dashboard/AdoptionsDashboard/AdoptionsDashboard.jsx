@@ -15,6 +15,8 @@ const AdoptionsDashboard = () => {
         dispatch(getAdoptions());
     }, [dispatch]);
 
+    console.log(adoptions);
+
     const handleClick = (id) => {
         Swal.fire({
             title: "Seguro quieres eliminar el Callejerito ?",

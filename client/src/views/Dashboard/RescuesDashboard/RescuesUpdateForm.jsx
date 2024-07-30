@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { updateById } from "../../../redux/rescues/rescuesActions";
+import { updateById, getById, uploadRescueImages } from "../../../redux/rescues/rescuesActions";
 import Swal from 'sweetalert2';
 
 const RescuesUpdateForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams(); // Obtenemos el id de los parámetros de la URL
-    const { rescues } = useSelector(state => state.rescues);
+    const { detail } = useSelector(state => state.rescues);
 
-    const rescuesToEdit = rescues.find(rescue => rescue.id === parseInt(id));
+    const [newImages, setNewImages] = useState([]);
+
+    // const rescuesToEdit = rescues.find(rescue => rescue.id === parseInt(id));
 
     const [form, setForm] = useState({
         name: '',
@@ -21,21 +23,57 @@ const RescuesUpdateForm = () => {
     });
 
     useEffect(() => {
-        if (rescuesToEdit) {
-            setForm(rescuesToEdit);
+        dispatch(getById(id));
+    }, [dispatch,id])
+
+    useEffect(() => {
+        if (detail) {
+            setForm({
+                name: detail.name || '',
+                gender: detail.gender || 'macho',
+                age: detail.age || 'adulto',
+                description: detail.description || '',
+                image: detail.image || []
+            });
         }
-    }, [rescuesToEdit]);
+    }, [detail]);
 
     const handleChange = (e) => {
-        const { name, value, type } = e.target;
+        const { name, value } = e.target;
         setForm({
             ...form,
             [name]: value,
         });
     };
 
+    const handleImageChange = (e) => {
+        const files = Array.from(e.target.files);
+        if (form.image.length + newImages.length + files.length > 5) {
+            Swal.fire({
+                title: "Solo puedes subir un máximo de 5 imágenes",
+                icon: "error",
+                confirmButtonColor: "#f69a0b",
+            });
+        } else {
+            setNewImages([...newImages, ...files]);
+        }
+    };
+
+    const handleRemoveImage = (index) => {
+        const newImageFiles = [...form.image];
+        newImageFiles.splice(index, 1); // Eliminar el archivo en el índice dado
+        setForm({
+            ...form,
+            image: newImageFiles,
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (newImages.length > 0) {
+            dispatch(uploadRescueImages(id, newImages));
+        }
         dispatch(updateById(id, form));
         Swal.fire({
             title: "Has actualizado la informacion",
@@ -45,7 +83,7 @@ const RescuesUpdateForm = () => {
         navigate('/admin/rescates');
     };
 
-    if (!rescuesToEdit) return <div>Rescue not found</div>;
+    if (!rescues) return <div>Rescue not found</div>;
 
     return (
         <section className="flex justify-center sm:ml-64">

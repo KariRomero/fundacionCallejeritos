@@ -42,6 +42,17 @@ export const rescuesSlice = createSlice({
         },
         rescuesDesc:(state,action)=>{
             state.rescues = action.payload
+        },
+        uploadRescueImagesSuccess: (state, action) => {
+            state.detail.image = action.payload;
+            const index = state.rescues.findIndex(adoption => rescues.id === action.payload.id);
+            if (index !== -1) {
+                state.rescues[index] = action.payload;
+            }
+        },
+        uploadRescueImagesFailure: (state, action) => {
+            state.status = 'failed';
+            state.error = action.payload;
         }
     }
 });
@@ -55,7 +66,9 @@ export const {
     deleteRescueSuccess, 
     deleteRescueFailure,
     rescuesAsc,
-    rescuesDesc  
+    rescuesDesc,
+    uploadRescueImagesFailure,
+    uploadRescueImagesSuccess  
 } = rescuesSlice.actions;
 
 export default rescuesSlice.reducer;

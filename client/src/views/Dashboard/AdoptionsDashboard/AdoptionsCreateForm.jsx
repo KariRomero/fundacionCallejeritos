@@ -37,7 +37,7 @@ const AdoptionsCreateForm = () => {
         imageFiles: ''
     });
 
-    
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         const newValue = type === 'checkbox' ? checked : value;
@@ -50,7 +50,7 @@ const AdoptionsCreateForm = () => {
             [name]: newValue,
         }));
     };
-    
+
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
         if (form.imageFiles.length + files.length > 5) {
@@ -59,11 +59,12 @@ const AdoptionsCreateForm = () => {
                 icon: "error",
                 confirmButtonColor: "#f69a0b",
             });
+        } else {
+            setForm({
+                ...form,
+                imageFiles: [...form.imageFiles, ...files],
+            });
         }
-        setForm({
-            ...form,
-            imageFiles: [...form.imageFiles, ...files],
-        });
     };
 
     const handleRemoveImage = (index) => {
@@ -131,7 +132,7 @@ const AdoptionsCreateForm = () => {
                 <h1 className="title ml-8">Nuevo Callejerito</h1>
                 <form onSubmit={handleSubmit} className="mx-8">
                     <div className="my-4 flex justify-between">
-                        <label className="paragraph">Nombre</label>
+                        <label className="label">Nombre</label>
                         <div className="grid">
                             <input
                                 placeholder="Escriba el nombre"
@@ -146,7 +147,7 @@ const AdoptionsCreateForm = () => {
                     </div>
 
                     <div className="my-4 flex justify-between">
-                        <label className="paragraph">Edad</label>
+                        <label className="label">Edad</label>
                         <div className="grid">
                             <input
                                 placeholder="Escriba la edad"
@@ -161,12 +162,12 @@ const AdoptionsCreateForm = () => {
                     </div>
 
                     <div className="my-4 flex justify-between">
-                        <label className="paragraph">Género</label>
+                        <label className="label">Género</label>
                         <select
                             value={form.gender}
                             name="gender"
                             onChange={handleChange}
-                            className="shadow-md paragraph"
+                            className="shadow-md label"
                         >
                             <option value="macho">Macho</option>
                             <option value="hembra">Hembra</option>
@@ -174,7 +175,7 @@ const AdoptionsCreateForm = () => {
                     </div>
 
                     <div className="my-4 flex justify-between">
-                        <label className="paragraph">Precisa cuidados especiales</label>
+                        <label className="label">Precisa cuidados especiales</label>
                         <input
                             type="checkbox"
                             checked={form.specialCare}
@@ -185,7 +186,7 @@ const AdoptionsCreateForm = () => {
                     </div>
 
                     <div className="my-4 flex justify-between">
-                        <label className="paragraph">Se lleva bien con perros</label>
+                        <label className="label">Se lleva bien con perros</label>
                         <input
                             type="checkbox"
                             checked={form.getsAlongWithDogs}
@@ -196,7 +197,7 @@ const AdoptionsCreateForm = () => {
                     </div>
 
                     <div className="my-4 flex justify-between">
-                        <label className="paragraph">Se lleva bien con gatos</label>
+                        <label className="label">Se lleva bien con gatos</label>
                         <input
                             type="checkbox"
                             checked={form.getsAlongWithCats}
@@ -207,7 +208,7 @@ const AdoptionsCreateForm = () => {
                     </div>
 
                     <div className="my-4 flex justify-between">
-                        <label className="paragraph">Se lleva bien con niños</label>
+                        <label className="label">Se lleva bien con niños</label>
                         <input
                             type="checkbox"
                             checked={form.getsAlongWithChildren}
@@ -218,7 +219,7 @@ const AdoptionsCreateForm = () => {
                     </div>
 
                     <div className="my-4 grid">
-                        <label className="paragraph">Descripción</label>
+                        <label className="label">Descripción</label>
                         <div>
                             <textarea
                                 name="description"
@@ -232,7 +233,7 @@ const AdoptionsCreateForm = () => {
                     </div>
 
                     <div className="my-4">
-                        <label className="paragraph">Imágenes</label>
+                        <label className="label">Imágenes</label>
                         <div>
                             <input
                                 type="file"
@@ -240,21 +241,27 @@ const AdoptionsCreateForm = () => {
                                 onChange={handleImageChange}
                                 className="shadow-md"
                             />
-                            {form.imageFiles.map((file, index) => (
-                                <div 
-                                key={index} 
-                                className="flex justify-between items-center my-2"
-                                >
-                                    <p>{file.name}</p> 
-                                    <button
-                                        type="button"
-                                        className="hover:text-red"
-                                        onClick={() => handleRemoveImage(index)}
+                            <div className="flex flex-wrap mt-2">
+                                {form.imageFiles.map((file, index) => (
+                                    <div
+                                        key={index}
+                                        className="relative w-24 h-24 mr-2 mb-2"
                                     >
-                                        <FontAwesomeIcon icon={faTrash} className='px-2' />
-                                    </button>
-                                </div>
-                            ))}
+                                        <img
+                                            src={URL.createObjectURL(file)}
+                                            alt="Mascota"
+                                            className="w-full h-full object-cover rounded-md"
+                                        />
+                                        <button
+                                            type="button"
+                                            className="absolute top-0 right-0 mt-1 mr-1 text-red-500 bg-white rounded-full p-1 shadow"
+                                            onClick={() => handleRemoveImage(index)}
+                                        >
+                                            <FontAwesomeIcon icon={faTrash} className='px-2' />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
                             {/* {errors.imageFiles && <p className="text-red">{errors.imageFiles}</p>} */}
                         </div>
                     </div>

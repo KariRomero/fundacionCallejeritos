@@ -6,7 +6,7 @@ export const adoptionsSlice = createSlice({
         adoptions: [],
         detail: {},
         status: 'idle',
-        error:'idle'
+        error: 'idle'
     },
     reducers: {
         getAllAdoptions: (state, action) => {
@@ -43,6 +43,20 @@ export const adoptionsSlice = createSlice({
         adoptionsDesc: (state, action) => {
             state.adoptions = action.payload
         },
+        // updateImageById: (state, action)=>{
+        //     state.detail.image = [...state.detail.image, action.payload]
+        // },
+        uploadAdoptionImagesSuccess: (state, action) => {
+            state.detail.image = action.payload;
+            const index = state.adoptions.findIndex(adoption => adoption.id === action.payload.id);
+            if (index !== -1) {
+                state.adoptions[index] = action.payload;
+            }
+        },
+        uploadAdoptionImagesFailure: (state, action) => {
+            state.status = 'failed';
+            state.error = action.payload;
+        }
     }
 });
 
@@ -55,7 +69,9 @@ export const {
     deleteAdoptionSuccess,
     deleteAdoptionFailure,
     adoptionsAsc,
-    adoptionsDesc
+    adoptionsDesc,
+    uploadAdoptionImagesSuccess,
+    uploadAdoptionImagesFailure
 } = adoptionsSlice.actions;
 
 export default adoptionsSlice.reducer;

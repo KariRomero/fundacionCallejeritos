@@ -20,7 +20,6 @@ const DetailAdoptions = () => {
     }, [dispatch, id]);
 
     const detail = useSelector((state) => state.adoptions.detail);
-    console.log(detail.image);
 
     return (
         <section className="grid grid-cols-1 sm:grid-cols-2 bg-repeat bg-auto" style={{ backgroundImage: `url(${fondoDetail})` }}>

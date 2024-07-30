@@ -8,7 +8,9 @@ import {
   deleteAdoptionSuccess,
   deleteAdoptionFailure,
   adoptionsAsc,
-  adoptionsDesc
+  adoptionsDesc,
+  uploadAdoptionImagesSuccess,
+  uploadAdoptionImagesFailure
 } from './adoptionsSlice';
 
 export const getAdoptions = () => (dispatch) => {
@@ -79,4 +81,26 @@ export const orderAdoptionsDesc = () => (dispatch) => {
     .catch(err => {
       console.error('Error ordenar adopciones desc', err);
     });
+};
+
+export const uploadAdoptionImages = (id, imageFiles) => async dispatch => {
+  try {
+    const formData = new FormData();
+    Array.from(imageFiles).forEach(file => {
+      formData.append('imageFiles', file);
+    });
+
+    const response = await axios.post(`http://localhost:3001/api/adopciones/${id}/image`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    dispatch(uploadAdoptionImagesSuccess(response.data));
+    
+  } catch (error) {
+    console.error('Error al subir imágenes:', error);
+    dispatch(uploadAdoptionImagesFailure(error.message));
+    
+  }
 };

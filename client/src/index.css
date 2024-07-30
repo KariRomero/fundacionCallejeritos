@@ -34,6 +34,13 @@
         underline 
         decoration-secondary 
         decoration-2 
-        underline-offset-8
+        underline-offset-8        
+    };
+    .label{
+        @apply
+        font-semibold
+        text-base
+        tracking-wider 
+        mx-2
     }
 }
