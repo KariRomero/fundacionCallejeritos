@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { updateById, getById, uploadRescueImages } from "../../../redux/rescues/rescuesActions";
 import Swal from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const RescuesUpdateForm = () => {
     const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const RescuesUpdateForm = () => {
 
     useEffect(() => {
         dispatch(getById(id));
-    }, [dispatch,id])
+    }, [dispatch, id])
 
     useEffect(() => {
         if (detail) {
@@ -33,7 +35,7 @@ const RescuesUpdateForm = () => {
                 gender: detail.gender || 'macho',
                 age: detail.age || 'adulto',
                 description: detail.description || '',
-                image: detail.image || []
+                image: Array.isArray(detail.image) ? detail.image : []
             });
         }
     }, [detail]);
@@ -61,7 +63,7 @@ const RescuesUpdateForm = () => {
 
     const handleRemoveImage = (index) => {
         const newImageFiles = [...form.image];
-        newImageFiles.splice(index, 1); // Eliminar el archivo en el índice dado
+        newImageFiles.splice(index, 1); 
         setForm({
             ...form,
             image: newImageFiles,
@@ -83,7 +85,7 @@ const RescuesUpdateForm = () => {
         navigate('/admin/rescates');
     };
 
-    if (!rescues) return <div>Rescue not found</div>;
+    if (!detail) return <div>No se encontró rescate</div>;
 
     return (
         <section className="flex justify-center sm:ml-64">
@@ -143,10 +145,56 @@ const RescuesUpdateForm = () => {
                     </div>
 
                     <div className="my-4">
-                        <button className="font-medium text-base tracking-wider">Actualizar Imagenes</button>
+                        <label className="label">Imágenes</label>
+                        <input
+                            type="file"
+                            id="image"
+                            name="image"
+                            onChange={handleImageChange}
+                            multiple
+                            accept="image/*"
+                            className="mx-2 block w-full"
+                        />
+                        <div className="flex flex-wrap mt-2">
+                            {form.image && Array.isArray(form.image) ?
+                                form.image.map((img, index) => (
+                                    <div key={index} className="relative w-24 h-24 mx-2">
+                                        <img
+                                            src={img}
+                                            alt="Mascota"
+                                            className="w-full h-full object-cover rounded-md"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => handleRemoveImage(index)}
+                                            className="absolute top-0 right-0 mt-1 mr-1 text-red-500 bg-white rounded-full p-1 shadow"
+                                        >
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                    </div>
+                                ))
+                                : <p>Las imagenes se están cargando, recargue la pagina por favor.</p>
+                            }
+                            {newImages.map((img, index) => (
+                                <div key={index} className="relative w-24 h-24 mr-2 mb-2">
+                                    <img
+                                        src={URL.createObjectURL(img)}
+                                        alt="Nueva mascota"
+                                        className="w-full h-full object-cover rounded-md"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => handleRemoveImage(index)}
+                                        className="absolute top-0 right-0 mt-1 mr-1 text-red-500 bg-white rounded-full p-1 shadow"
+                                    >
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
-                    <Link to='/admin/adopciones'>
+                    <Link to='/admin/rescates'>
                         <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">Volver atrás</button>
                     </Link>
                     <button type="submit" className="menu-btn border border-secondary rounded-full hover:bg-secondary">Actualizar Callejerito</button>

@@ -45,20 +45,15 @@ export const updateById = (id, formData) => (dispatch) => {
     .catch(e => console.log(e));
 };
 
-// export const deleteById = (id) => (dispatch) => {
-//   // axios.get(`http://localhost:3000/adoptions/${id}`)
-//   axios.delete(`http://localhost:3001/api/casos/${id}`)
-//     .then(res => dispatch(deleteRescueById(res.data)))
-//     .catch(e => console.log(e));
-// };
-
-export const deleteRescueById = (id) => async dispatch => {
-  try {
-    const response = await axios.delete(`http://localhost:3001/api/casos/${id}`);
-    dispatch(deleteRescueSuccess(id));
-  } catch (error) {
-    dispatch(deleteRescueFailure(error.message));
-  }
+export const deleteRescueById = (id) => (dispatch) => {
+  axios.delete(`http://localhost:3001/api/casos/${id}`)
+  .then(res=>{
+    dispatch(deleteRescueSuccess(res.data));
+    dispatch(getRescues());
+  })
+  .catch(err=>{
+    dispatch(deleteRescueFailure(err.message));
+  })
 };
 
 export const orderRescuesAsc = () => (dispatch) => {
@@ -89,7 +84,6 @@ export const uploadRescueImages = (id, imageFiles) => async dispatch => {
         'Content-Type': 'multipart/form-data'
       }
     });
-
     dispatch(uploadRescueImagesSuccess(response.data));
     
   } catch (error) {

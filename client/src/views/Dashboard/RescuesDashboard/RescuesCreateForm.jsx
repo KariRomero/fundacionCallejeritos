@@ -111,7 +111,7 @@ const RescuesCreateForm = () => {
                 <h1 className="title ml-8">Nuevo Callejerito</h1>
                 <form onSubmit={handleSubmit} className="mx-8">
                     <div className="my-4 flex justify-between">
-                        <label className="paragraph">Nombre</label>
+                        <label className="label">Nombre</label>
                         <input
                             placeholder='Escriba el nombre'
                             type="text"
@@ -123,12 +123,12 @@ const RescuesCreateForm = () => {
                     </div>
 
                     <div className="my-4 flex justify-between">
-                        <label className="paragraph">Edad</label>
+                        <label className="label">Edad</label>
                         <select
                             value={form.age}
                             name='age'
                             onChange={handleChange}
-                            className="shadow-sm paragraph"
+                            className="shadow-sm label"
                         >
                             <option value="cachorro">Cachorro</option>
                             <option value="adulto">Adulto</option>
@@ -138,12 +138,12 @@ const RescuesCreateForm = () => {
                     </div>
 
                     <div className="my-4 flex justify-between">
-                        <label className="paragraph">Género</label>
+                        <label className="label">Género</label>
                         <select
                             value={form.gender}
                             name='gender'
                             onChange={handleChange}
-                            className="shadow-sm paragraph"
+                            className="shadow-sm label"
                         >
                             <option value="macho">Macho</option>
                             <option value="hembra">Hembra</option>
@@ -151,7 +151,7 @@ const RescuesCreateForm = () => {
                     </div>
 
                     <div className="my-4 grid">
-                        <label className="paragraph">Descripción</label>
+                        <label className="label">Descripción</label>
                         <textarea
                             name="description"
                             rows="4"
@@ -161,7 +161,7 @@ const RescuesCreateForm = () => {
                     </div>
 
                     <div className="my-4">
-                        <label className="paragraph">Imágenes</label>
+                        <label className="label">Imágenes</label>
                         <div>
                             <input
                                 type="file"
@@ -169,7 +169,28 @@ const RescuesCreateForm = () => {
                                 onChange={handleImageChange}
                                 className="shadow-md"
                             />
-                            {form.imageFiles.map((file, index) => (
+                            <div className="flex flex-wrap mt-2">
+                                {form.imageFiles.map((file, index) => (
+                                    <div
+                                        key={index}
+                                        className="relative w-24 h-24 mr-2 mb-2"
+                                    >
+                                        <img
+                                            src={URL.createObjectURL(file)}
+                                            alt="Mascota"
+                                            className="w-full h-full object-cover rounded-md"
+                                        />
+                                        <button
+                                            type="button"
+                                            className="absolute top-0 right-0 mt-1 mr-1 text-red-500 bg-white rounded-full p-1 shadow"
+                                            onClick={() => handleRemoveImage(index)}
+                                        >
+                                            <FontAwesomeIcon icon={faTrash} className='px-2' />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                            {/* {form.imageFiles.map((file, index) => (
                                 <div 
                                 key={index} 
                                 className="flex justify-between items-center my-2"
@@ -183,7 +204,7 @@ const RescuesCreateForm = () => {
                                         <FontAwesomeIcon icon={faTrash} className='px-2' />
                                     </button>
                                 </div>
-                            ))}
+                            ))} */}
                             {/* {errors.imageFiles && <p className="text-red">{errors.imageFiles}</p>} */}
                         </div>
                     </div>

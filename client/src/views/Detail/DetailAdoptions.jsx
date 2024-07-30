@@ -45,7 +45,7 @@ const DetailAdoptions = () => {
 
                     ) : (
                         <div className="flex items-center">
-                            <FontAwesomeIcon icon={faXmark} size="2lg" className="w-10 h-10 p-2 text-primary bg-secondary rounded-full mr-2" />
+                            <FontAwesomeIcon icon={faXmark} size="2xl" className="w-10 h-10 p-2 text-primary bg-secondary rounded-full mr-2" />
                             <p className="paragraph">No requiere cuidados especiales</p>
                         </div>
                     )
@@ -58,7 +58,7 @@ const DetailAdoptions = () => {
 
                     ) : (
                         <div className="flex items-center">
-                            <FontAwesomeIcon icon={faXmark} size="2lg" className="w-10 h-10 p-2 text-primary bg-secondary rounded-full mr-2" />
+                            <FontAwesomeIcon icon={faXmark} size="2xl" className="w-10 h-10 p-2 text-primary bg-secondary rounded-full mr-2" />
                             <p className="paragraph">No me llevo bien con perros</p>
                         </div>
                     )
@@ -71,7 +71,7 @@ const DetailAdoptions = () => {
                         </div>
                     ) : (
                         <div className="flex items-center">
-                            <FontAwesomeIcon icon={faXmark} size="2lg" className="w-10 h-10 p-2 text-primary bg-secondary rounded-full mr-2" />
+                            <FontAwesomeIcon icon={faXmark} size="2xl" className="w-10 h-10 p-2 text-primary bg-secondary rounded-full mr-2" />
                             <p className="paragraph">No me llevo bien con gatos</p>
                         </div>
 
@@ -84,7 +84,7 @@ const DetailAdoptions = () => {
                         </div>
                     ) : (
                         <div className="flex items-center">
-                            <FontAwesomeIcon icon={faXmark} size="2lg" className="w-10 h-10 p-2 text-primary bg-secondary rounded-full mr-2" />
+                            <FontAwesomeIcon icon={faXmark} size="2xl" className="w-10 h-10 p-2 text-primary bg-secondary rounded-full mr-2" />
                             <p className="paragraph">No me llevo bien con niños</p>
                         </div>
                     )

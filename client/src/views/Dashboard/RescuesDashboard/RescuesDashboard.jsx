@@ -47,6 +47,8 @@ const RescuesDashboard = () => {
         }
     };
 
+    console.log(rescues);
+
     return (
         <section className="flex justify-center sm:ml-64">
             <div className="w-full max-w-4xl">

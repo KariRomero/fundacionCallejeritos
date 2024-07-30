@@ -45,7 +45,7 @@ export const rescuesSlice = createSlice({
         },
         uploadRescueImagesSuccess: (state, action) => {
             state.detail.image = action.payload;
-            const index = state.rescues.findIndex(adoption => rescues.id === action.payload.id);
+            const index = state.rescues.findIndex(rescues => rescues.id === action.payload.id);
             if (index !== -1) {
                 state.rescues[index] = action.payload;
             }

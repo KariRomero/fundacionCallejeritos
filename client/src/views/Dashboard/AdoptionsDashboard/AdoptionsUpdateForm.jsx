@@ -41,7 +41,7 @@ const AdoptionsUpdateForm = () => {
                 getsAlongWithCats: detail.getsAlongWithCats || false,
                 getsAlongWithChildren: detail.getsAlongWithChildren || false,
                 description: detail.description || '',
-                image: detail.image || []
+                image: Array.isArray(detail.image) ? detail.image : []
             });
         }
     }, [detail]);
@@ -69,23 +69,12 @@ const AdoptionsUpdateForm = () => {
 
     const handleRemoveImage = (index) => {
         const newImageFiles = [...form.image];
-        newImageFiles.splice(index, 1); // Eliminar el archivo en el índice dado
+        newImageFiles.splice(index, 1); 
         setForm({
             ...form,
             image: newImageFiles,
         });
     };
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     dispatch(updateById(id, form));
-    //     Swal.fire({
-    //         title: "Has actualizado la informacion",
-    //         icon: "success",
-    //         confirmButtonColor: "#f69a0b",
-    //     });
-    //     navigate('/admin/adopciones');
-    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -102,13 +91,8 @@ const AdoptionsUpdateForm = () => {
         navigate('/admin/adopciones');
     };
 
-    if (!detail) return <div>Adoption not found</div>;
-
-
-    // console.log('es detalle', detail);
-    // console.log('nuevas imagenes', newImages);
-    // console.log(form);
-
+    if (!detail) return <div>No se encontró adopción</div>;
+    
     return (
         <section className="flex justify-center sm:ml-64">
             <div className="w-full max-w-4xl mt-4">
@@ -219,7 +203,7 @@ const AdoptionsUpdateForm = () => {
                             className="mx-2 block w-full"
                         />
                         <div className="flex flex-wrap mt-2">
-                            {form.image ?
+                            {form.image && Array.isArray(form.image) ?
                                 form.image.map((img, index) => (
                                     <div key={index} className="relative w-24 h-24 mx-2">
                                         <img
@@ -259,7 +243,9 @@ const AdoptionsUpdateForm = () => {
 
 
                     <Link to='/admin/adopciones'>
-                        <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">Volver atrás</button>
+                        <button 
+                        onClick={()=>handleClick()}
+                        className="menu-btn border border-secondary rounded-full hover:bg-secondary">Volver atrás</button>
                     </Link>
                     <button type="submit" className="menu-btn border border-secondary rounded-full hover:bg-secondary">Actualizar Callejerito</button>
                 </form>
@@ -269,4 +255,3 @@ const AdoptionsUpdateForm = () => {
 };
 
 export default AdoptionsUpdateForm;
-

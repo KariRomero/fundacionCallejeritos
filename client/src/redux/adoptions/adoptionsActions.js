@@ -48,13 +48,15 @@ export const updateById = (id, formData) => (dispatch) => {
     });
 };
 
-export const deleteAdoptionById = (id) => async dispatch => {
-  try {
-    const response = await axios.delete(`http://localhost:3001/api/adopciones/${id}`);
-    dispatch(deleteAdoptionSuccess(id));
-  } catch (error) {
-    dispatch(deleteAdoptionFailure(error.message));
-  }
+export const deleteAdoptionById = (id) => (dispatch) => {
+  axios.delete(`http://localhost:3001/api/adopciones/${id}`)
+    .then(res => {
+      dispatch(deleteAdoptionSuccess(res.data));
+      dispatch(getAdoptions());
+    })
+    .catch(err => {
+      dispatch(deleteAdoptionFailure(err.message));
+    })
 };
 
 export const filterAdoptions = (filters) => (dispatch) => {
@@ -97,10 +99,10 @@ export const uploadAdoptionImages = (id, imageFiles) => async dispatch => {
     });
 
     dispatch(uploadAdoptionImagesSuccess(response.data));
-    
+
   } catch (error) {
     console.error('Error al subir imágenes:', error);
     dispatch(uploadAdoptionImagesFailure(error.message));
-    
+
   }
 };

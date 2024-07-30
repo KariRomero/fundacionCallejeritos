@@ -3,11 +3,12 @@ import Swal from 'sweetalert2';
 import { faPlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAdoptions, deleteAdoptionById, orderAdoptionsAsc, orderAdoptionsDesc } from '../../../redux/adoptions/adoptionsActions';
 
 const AdoptionsDashboard = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { adoptions } = useSelector(state => state.adoptions);
     const [orderBy, setOrderBy] = useState('');
 
@@ -15,18 +16,15 @@ const AdoptionsDashboard = () => {
         dispatch(getAdoptions());
     }, [dispatch]);
 
-    console.log(adoptions);
-
     const handleClick = (id) => {
         Swal.fire({
             title: "Seguro quieres eliminar el Callejerito ?",
             text: "Esta acción no se revertirá",
             icon: "warning",
-            // showCancelButton: true,
             confirmButtonColor: "#b91c1c",
-            // cancelButtonColor: "#d33",
             confirmButtonText: "Eliminar"
-        }).then((result) => {
+        })
+        .then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
                     title: "Eliminado!",
