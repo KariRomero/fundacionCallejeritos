@@ -1,9 +1,18 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from "react";
+import { getRescues } from "../../redux/rescues/rescuesActions";
 import CardsRescue from "../../components/Cards/CardsRescue";
 import Carousel from '../../components/Carousel/Carousel';
 
 const Rescues = ()=>{
+    const dispatch = useDispatch();
+    const { rescues } = useSelector((state) => state.rescues);
+
+    useEffect(()=>{
+        dispatch(getRescues())
+    },[dispatch]);
     return(
         <section>
             <h1 className='title text-secondary text-center'>Finales felices</h1>
@@ -13,7 +22,7 @@ const Rescues = ()=>{
             <p className="paragraph mx-10 my-10">¡Descubre cómo transformamos vidas y únete a nosotros en este noble esfuerzo!
             <FontAwesomeIcon icon={faPaw} className='pl-2'/>    
             </p>                 
-            <CardsRescue/>
+            <CardsRescue rescues={ rescues }/>
             <Carousel/>
         </section>
     )
