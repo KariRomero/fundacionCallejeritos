@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 
 const Footter = ()=>{
     return(
-        <div className="h-48 sm:h-96 grid grid-cols-2 border border-t-grey border-b-0 border-x-0 ">
-            <div className="h-36 sm:h-72 m-auto">
+        <div className="grid grid-cols-2 border border-t-grey border-b-0 border-x-0">
+            <div className="h-36 md:h-72 m-auto">
                 <Link to='/'>
                     <Logo/>
                 </Link>
             </div>
-            <div className="mt-24 pb-16">
+            <div className="mt-24 pb-16 mr-2">
                 <h1 className='text-secondary text-base font-medium tracking-wider'>Adoptá un Callejerito</h1>
                 <Link to='/'>
                     <p className="text-base font-normal tracking-wide my-2 hover:text-secondary">Inicio</p>
@@ -31,7 +31,7 @@ const Footter = ()=>{
                     <p className="text-base font-normal tracking-wide my-2 hover:text-secondary">Administrador</p>
                 </Link>   
                 <a href='https://www.instagram.com/fundacion.callejeritos/' target='_blank' className="hover:text-secondary">
-                    Encontranos en Instagram<FontAwesomeIcon icon={faInstagram} size="xl" className=' ml-2' />
+                    En Instagram<FontAwesomeIcon icon={faInstagram} size="xl" className=' ml-2' />
                 </a> 
             </div>
         </div>
