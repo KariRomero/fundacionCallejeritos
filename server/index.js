@@ -1,13 +1,13 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const bodyParser = require('body-parser'); 
+const bodyParser = require('body-parser');
 require('dotenv').config();
 const sequelize = require('./config/database');
 const routes = require('./routes/indexRoutes');
 const session = require('express-session');
-const passport = require('./config/passport'); // Asegúrate de importar passport desde el archivo correcto
-const authRoutes = require('./routes/googleAuthRoutes'); // Asegúrate de ajustar la ruta según tu estructura de proyecto
+const passport = require('./config/passport');
+const authRoutes = require('./routes/googleAuthRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(morgan('dev'));
 app.use(cors());
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -29,7 +29,7 @@ app.use(passport.session());
 
 // Rutas
 app.use('/api', routes);
-app.use(authRoutes); // Uso de las rutas de autenticación
+app.use('/', authRoutes); // Asegúrate de que las rutas de autenticación se cargan bajo '/auth'
 
 // Prueba la conexión a la base de datos
 sequelize.authenticate()
@@ -37,7 +37,7 @@ sequelize.authenticate()
     console.log('Connection has been established successfully.');
 
     // Sincroniza los modelos con la base de datos
-    return sequelize.sync({ force: false }); 
+    return sequelize.sync({ force: false });
   })
   .then(() => {
     console.log('Database synchronized successfully.');

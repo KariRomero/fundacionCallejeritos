@@ -8,6 +8,10 @@ const User = sequelize.define('User', {
     autoIncrement: true,
     primaryKey: true,
   },
+  googleId: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   firstName: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -17,16 +21,16 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
   gender: {
-    type: DataTypes.ENUM('male', 'female'),
-    allowNull: false,
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   address: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   birthDate: {
     type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
     get() {
       const rawValue = this.getDataValue('birthDate');
       return moment(rawValue).format('DD/MM/YYYY');
@@ -37,27 +41,27 @@ const User = sequelize.define('User', {
   },
   city: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   state: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   postalCode: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   phone: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   mobile: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   dni: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   email: {
     type: DataTypes.STRING,
@@ -69,8 +73,8 @@ const User = sequelize.define('User', {
   },
   role: {
     type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: false, // False indicates a regular user, true indicates an admin
+    allowNull: true,
+    defaultValue: false,
   },
   image: {
     type: DataTypes.ARRAY(DataTypes.STRING),
