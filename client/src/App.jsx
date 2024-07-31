@@ -1,3 +1,4 @@
+// src/App.js
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import NavBar from './components/NavBar/NavBar';
@@ -23,55 +24,43 @@ import RescuesCreateForm from './views/Dashboard/RescuesDashboard/RescuesCreateF
 import RescuesUpdateForm from './views/Dashboard/RescuesDashboard/RescuesUpdateForm';
 
 function App() {
-
   const location = useLocation();
-  const isDashboardRoute = location.pathname.startsWith("/admin");
-  // const isAdmin = useSelector((state) => state.user.user?.rol); constante para cuando este listo el redux
-  const isAdmin = true; //constante hardcodeada
+  const isDashboardRoute = location.pathname.startsWith('/admin');
+  const isAdmin = useSelector((state) => state.auth.user?.role); // Usar el estado del usuario del Redux
 
   return (
     <>    
       {!isDashboardRoute && <NavBar />}
       {isDashboardRoute && <SideBar />}      
 
-    
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/rescates' element={<Rescues/>}/>
-        <Route path='/rescatesdetalle/:id' element={<DetailRescues/>}/>
-        <Route path='/fundacion' element={<Foundation/>}/>
-        <Route path='/adopciones' element={<Adoptions/>}/>
-        <Route path='/adopcionesdetalle/:id' element={<DetailAdoptions/>}/>
-        <Route path='/donaciones' element={<Donations/>}/>
-        <Route path='/hacertesocio' element={<BecomeAPartner/>}/>
-        {/* <Route path='/hogardetransito' element={<Detail/>}/> */}
-        <Route path='/iniciarsesion' element={<LogIn/>}/>
-        <Route path='/registro' element={<SignUp/>}/>
-        <Route path='/usuario/:id' element={<UserProfile/>}/>
-        {
-          isAdmin ? (
-            <>
-            <Route path='/admin' element={<Dashboard/>}/>
-            <Route path='/admin/adopciones' element={<AdoptionsDashboard/>}/>
-            <Route path='/admin/adopciones/create'element={<AdoptionsCreateForm/>}/>
-            <Route path='/admin/adopciones/update/:id'element={<AdoptionsUpdateForm/>}/>
-            <Route path='/admin/rescates' element={<RescuesDashboard/>}/>
-            <Route path='/admin/rescates/create'element={<RescuesCreateForm/>}/>
-            <Route path='/admin/rescates/update/:id'element={<RescuesUpdateForm/>}/>
-            </>
-          )
-          : (
-            <>
-            </>
-
-          )
-        }
+        <Route path='/' element={<Home/>} />
+        <Route path='/rescates' element={<Rescues/>} />
+        <Route path='/rescatesdetalle/:id' element={<DetailRescues/>} />
+        <Route path='/fundacion' element={<Foundation/>} />
+        <Route path='/adopciones' element={<Adoptions/>} />
+        <Route path='/adopcionesdetalle/:id' element={<DetailAdoptions/>} />
+        <Route path='/donaciones' element={<Donations/>} />
+        <Route path='/hacertesocio' element={<BecomeAPartner/>} />
+        <Route path='/iniciarsesion' element={<LogIn/>} />
+        <Route path='/registro' element={<SignUp/>} />
+        <Route path='/usuario/:id' element={<UserProfile/>} />
+        {isAdmin && (
+          <>
+            <Route path='/admin' element={<Dashboard/>} />
+            <Route path='/admin/adopciones' element={<AdoptionsDashboard/>} />
+            <Route path='/admin/adopciones/create' element={<AdoptionsCreateForm/>} />
+            <Route path='/admin/adopciones/update/:id' element={<AdoptionsUpdateForm/>} />
+            <Route path='/admin/rescates' element={<RescuesDashboard/>} />
+            <Route path='/admin/rescates/create' element={<RescuesCreateForm/>} />
+            <Route path='/admin/rescates/update/:id' element={<RescuesUpdateForm/>} />
+          </>
+        )}
       </Routes>
 
-      {!isDashboardRoute && <Footter/>}  
-      
+      {!isDashboardRoute && <Footter />}  
     </>      
-  )
+  );
 }
 
-export default App
+export default App;
