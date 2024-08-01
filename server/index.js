@@ -11,10 +11,15 @@ const authRoutes = require('./routes/googleAuthRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  credentials: true,
+};
+
 
 // Middleware
 app.use(morgan('dev'));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.use(session({

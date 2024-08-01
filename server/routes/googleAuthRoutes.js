@@ -16,14 +16,16 @@ router.get('/auth/google/callback',
   }
 );
 
+
 // Ruta para cerrar sesión
-router.get('/logout', (req, res) => {
+router.get('/logout', (req, res, next) => {
   req.logout((err) => {
     if (err) { return next(err); }
     res.redirect('/');
   });
 });
-//ruta para obtener la autenticacion del ususario
+
+// Ruta para obtener la autenticación del usuario
 router.get('/current_user', (req, res) => {
   if (req.isAuthenticated()) {
     res.json(req.user);
@@ -31,4 +33,6 @@ router.get('/current_user', (req, res) => {
     res.status(401).json({ error: 'User not authenticated' });
   }
 });
+
+
 module.exports = router;

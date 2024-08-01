@@ -4,19 +4,23 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
-    isAuthenticated: false,
+    isLoggedIn: false,
   },
   reducers: {
-    setUser(state, action) {
+    logInGoogle: (state, action) => {
       state.user = action.payload;
-      state.isAuthenticated = true;
+      state.isLoggedIn = true;
     },
-    clearUser(state) {
+    getCurrentUser: (state, action) => {
+      state.user = action.payload;
+      state.isLoggedIn = !!action.payload;
+    },
+    logOutGoogle: (state) => {
       state.user = null;
-      state.isAuthenticated = false;
+      state.isLoggedIn = false;
     },
   },
 });
 
-export const { setUser, clearUser } = authSlice.actions;
+export const { logInGoogle, getCurrentUser, logOutGoogle } = authSlice.actions;
 export default authSlice.reducer;
