@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { startGoogleLogin, fetchCurrentUser, startGoogleLogout } from '../../redux/auth/authActions';
 
@@ -10,6 +10,10 @@ const LogInComponent = () => {
   const user = useSelector((state) => state.auth.user);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
+  // useEffect(() => {
+  //   dispatch(fetchCurrentUser());
+  // }, [dispatch]);
+
 
   const handleGoogleLogin = (response) => {
     if (response.credential) {
@@ -18,10 +22,6 @@ const LogInComponent = () => {
       console.error('Google login failed. No credential returned.');
     }
   };
-
-  // const handleGoogleLogin = () => {
-  //   dispatch(startGoogleLogin());
-  // };
 
   const handleLogout = () => {
     dispatch(startGoogleLogout());
@@ -37,7 +37,6 @@ const LogInComponent = () => {
           </div>
         ) : (
           <div className='flex justify-center'>
-            {/* <button onClick={handleGoogleLogin}>Log in with Google</button> */}
             <GoogleLogin
               onSuccess={handleGoogleLogin}
               onError={(error) => console.error('Google login error:', error)}
@@ -45,9 +44,6 @@ const LogInComponent = () => {
             />
           </div>
         )}
-        {/* <div className='flex justify-center'>
-          <p>No account? <a href="/registro">Register here</a></p>
-        </div> */}
       </GoogleOAuthProvider>
     </section>
   );
