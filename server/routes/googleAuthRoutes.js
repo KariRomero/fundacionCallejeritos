@@ -16,16 +16,14 @@ router.get('/auth/google/callback',
   }
 );
 
-
 // Ruta para cerrar sesión
-
 router.get('/logout', (req, res, next) => {
   req.logout((err) => {
     if (err) { return next(err); }
     req.session.destroy((err) => {
       if (err) return next(err);
-      res.clearCookie('connect.sid');
-      res.redirect('http://localhost:5173'); // Cambia esto según tus necesidades
+      res.clearCookie('connect.sid', { path: '/' });
+      res.redirect('http://localhost:5173'); 
     });
   });
 });
@@ -38,6 +36,5 @@ router.get('/current_user', (req, res) => {
     res.status(401).json({ error: 'User not authenticated' });
   }
 });
-
 
 module.exports = router;

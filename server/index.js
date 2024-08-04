@@ -16,7 +16,6 @@ const corsOptions = {
   credentials: true,
 };
 
-
 // Middleware
 app.use(morgan('dev'));
 app.use(cors(corsOptions));
@@ -25,12 +24,28 @@ app.use(bodyParser.json());
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    secure: false, // Cambia a `true` si estás usando HTTPS
+  }
 }));
 
 // Inicialización de Passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Agregar encabezados CORS a todas las respuestas
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
+// Manejar solicitudes OPTIONS (preflight)
+app.options('*', cors(corsOptions));
 
 // Rutas
 app.use('/api', routes);
