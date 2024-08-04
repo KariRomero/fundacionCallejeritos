@@ -12,7 +12,7 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('http://localhost:5173'); // Cambia esto según tus necesidades
+    res.redirect('http://localhost:5173'); 
   }
 );
 
