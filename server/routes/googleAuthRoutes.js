@@ -18,10 +18,15 @@ router.get('/auth/google/callback',
 
 
 // Ruta para cerrar sesión
+
 router.get('/logout', (req, res, next) => {
   req.logout((err) => {
     if (err) { return next(err); }
-    res.redirect('/');
+    req.session.destroy((err) => {
+      if (err) return next(err);
+      res.clearCookie('connect.sid');
+      res.redirect('http://localhost:5173'); // Cambia esto según tus necesidades
+    });
   });
 });
 
