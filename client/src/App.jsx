@@ -29,7 +29,8 @@ function App() {
   const location = useLocation();
   const dispatch = useDispatch();
   const isDashboardRoute = location.pathname.startsWith('/admin');
-  const isAdmin = useSelector((state) => state.auth.user?.role);
+  // const isAdmin = useSelector((state) => state.auth.user?.role);
+  const isAdmin = true
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
@@ -37,8 +38,7 @@ function App() {
 
   return (
     <>
-      {!isDashboardRoute && <NavBar />}
-      {isDashboardRoute && <SideBar />}
+      {isDashboardRoute ? <SideBar/> : <NavBar />}
 
       <Routes>
         <Route path='/' element={<Home />} />

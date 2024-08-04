@@ -19,7 +19,7 @@ export const fetchCurrentUser = () => async (dispatch) => {
 // Cierra sesión
 export const startGoogleLogout = () => async (dispatch) => {
   try {
-    await axios.get('http://localhost:3001/logout', { withCredentials: true });
+    await axios.get('http://localhost:3001/logout');
     dispatch(logOutGoogle());
   } catch (error) {
     console.error("Google logout failed:", error);
