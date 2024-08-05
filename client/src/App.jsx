@@ -34,7 +34,6 @@ function App() {
   const location = useLocation();
   const dispatch = useDispatch();
   const isDashboardRoute = location.pathname.startsWith('/admin');
-  const isUserProfile = location.pathname.startsWith('/usuario');
   // const isAdmin = useSelector((state) => state.auth.user?.role);
   
   const isAdmin = true
@@ -46,7 +45,6 @@ function App() {
   return (
     <>
       {isDashboardRoute ? <SideBar/> : <NavBar />}
-      {/* {isUserProfile && <SideNav/>} */}
 
       <Routes>
         <Route path='/' element={<Home />} />
