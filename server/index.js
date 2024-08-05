@@ -8,6 +8,7 @@ const routes = require('./routes/indexRoutes');
 const session = require('express-session');
 const passport = require('./config/passport');
 const authRoutes = require('./routes/googleAuthRoutes');
+const mercadoPagoRouter = require ('./mercadoPago/mercadoPagoRoutes')
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -50,6 +51,7 @@ app.options('*', cors(corsOptions));
 // Rutas
 app.use('/api', routes);
 app.use('/', authRoutes); // Asegúrate de que las rutas de autenticación se cargan bajo '/auth'
+app.use('/pagos', mercadoPagoRouter);
 
 // Prueba la conexión a la base de datos
 sequelize.authenticate()
