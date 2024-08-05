@@ -1,6 +1,6 @@
 // src/App.js
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchCurrentUser } from './redux/auth/authActions';
 import NavBar from './components/NavBar/NavBar';
@@ -18,18 +18,25 @@ import SignUp from './views/SignUp/SignUp';
 import UserProfile from './views/UserProfile/UserProfile';
 import Dashboard from './views/Dashboard/Dashboard';
 import SideBar from './components/Dashboard/SideBar';
+import SideNav from './components/User/SideNav';
 import AdoptionsDashboard from './views/Dashboard/AdoptionsDashboard/AdoptionsDashboard';
 import AdoptionsCreateForm from './views/Dashboard/AdoptionsDashboard/AdoptionsCreateForm';
 import AdoptionsUpdateForm from './views/Dashboard/AdoptionsDashboard/AdoptionsUpdateForm';
 import RescuesDashboard from './views/Dashboard/RescuesDashboard/RescuesDashboard';
 import RescuesCreateForm from './views/Dashboard/RescuesDashboard/RescuesCreateForm';
 import RescuesUpdateForm from './views/Dashboard/RescuesDashboard/RescuesUpdateForm';
+import MyInformation from './views/UserProfile/MyInformation';
+import MyDonations from './views/UserProfile/MyDonations';
+import MyAdoptions from './views/UserProfile/MyAdoptions';
+import MySuscription from './views/UserProfile/MySuscription';
 
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
   const isDashboardRoute = location.pathname.startsWith('/admin');
+  const isUserProfile = location.pathname.startsWith('/usuario');
   // const isAdmin = useSelector((state) => state.auth.user?.role);
+  
   const isAdmin = true
 
   useEffect(() => {
@@ -39,6 +46,7 @@ function App() {
   return (
     <>
       {isDashboardRoute ? <SideBar/> : <NavBar />}
+      {/* {isUserProfile && <SideNav/>} */}
 
       <Routes>
         <Route path='/' element={<Home />} />
@@ -52,6 +60,10 @@ function App() {
         <Route path='/iniciarsesion' element={<LogIn />} />
         <Route path='/registro' element={<SignUp />} />
         <Route path='/usuario/:id' element={<UserProfile />} />
+        <Route path='/usuario/:id/informacionpersonal' element={<MyInformation />}/>
+        <Route path='/usuario/:id/misdonaciones' element={<MyDonations/>}/>
+        <Route path='/usuario/:id/misuscripcion' element={<MySuscription/>}/>
+        <Route path='/usuario/:id/misadopciones' element={<MyAdoptions/>}/>
         {isAdmin && (
           <>
             <Route path='/admin' element={<Dashboard />} />
