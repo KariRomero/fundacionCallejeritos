@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { startGoogleLogin, fetchCurrentUser, startGoogleLogout } from '../../redux/auth/authActions';
 
@@ -9,18 +10,23 @@ const LogInComponent = () => {
   const user = useSelector((state) => state.auth.user);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
+  useEffect(() => {  
+    // if (isLoggedIn) 
+      dispatch(fetchCurrentUser());
+    
+  }, [dispatch]);
+
   const handleGoogleLogin = (response) => {
     if (response.credential) {
       dispatch(startGoogleLogin(response.credential));
-      dispatch(fetchCurrentUser());
     } else {
       console.error('Google login failed. No credential returned.');
     }
   };
 
-  const handleLogout = () => {
-    dispatch(startGoogleLogout());
-  };
+  // const handleLogout = () => {
+  //   dispatch(startGoogleLogout());
+  // };
 
   return (
     <section className='bg-primary'>
@@ -28,14 +34,14 @@ const LogInComponent = () => {
         {isLoggedIn ? (
           <div className='flex flex-col'>
             <p className='flex justify-center'>Welcome, {user?.firstName}</p>
-            <button onClick={handleLogout} className='menu-btn'>Logout</button>
+            {/* <button onClick={handleLogout} className='menu-btn'>Logout</button> */}
           </div>
         ) : (
           <div className='flex justify-center'>
             <GoogleLogin
               onSuccess={handleGoogleLogin}
               onError={(error) => console.error('Google login error:', error)}
-              logoSrc="" 
+              logoSrc=""
             />
           </div>
         )}
