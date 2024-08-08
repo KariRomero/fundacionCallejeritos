@@ -24,9 +24,9 @@ const LogInComponent = () => {
     }
   };
 
-  // const handleLogout = () => {
-  //   dispatch(startGoogleLogout());
-  // };
+  const handleLogout = () => {
+    dispatch(startGoogleLogout());
+  };
 
   return (
     <section className='bg-primary'>
@@ -34,7 +34,7 @@ const LogInComponent = () => {
         {isLoggedIn ? (
           <div className='flex flex-col'>
             <p className='flex justify-center'>Welcome, {user?.firstName}</p>
-            {/* <button onClick={handleLogout} className='menu-btn'>Logout</button> */}
+            <button onClick={handleLogout} className='menu-btn'>Logout</button>
           </div>
         ) : (
           <div className='flex justify-center'>
