@@ -19,10 +19,17 @@ router.get('/auth/google/callback',
 // Ruta para cerrar sesión
 router.get('/logout', (req, res, next) => {
   req.logout((err) => {
-    if (err) { return next(err); }
+    if (err) {
+      console.log('Error en req.logout:', err);
+      return next(err);
+    }
     req.session.destroy((err) => {
-      if (err) return next(err);
+      if (err) {
+        console.log('Error en req.session.destroy:', err);
+        return next(err);
+      }
       res.clearCookie('connect.sid', { path: '/' });
+      console.log('Sesión destruida y cookie eliminada');
       res.redirect('http://localhost:5173'); 
     });
   });

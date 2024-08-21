@@ -1,8 +1,7 @@
-// src/App.js
-import { Route, Routes, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchCurrentUser } from './redux/auth/authActions';
+import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Footter from './components/Footter/Footter';
 import Home from './views/Home/Home';
@@ -18,7 +17,6 @@ import SignUp from './views/SignUp/SignUp';
 import UserProfile from './views/UserProfile/UserProfile';
 import Dashboard from './views/Dashboard/Dashboard';
 import SideBar from './components/Dashboard/SideBar';
-import SideNav from './components/User/SideNav';
 import AdoptionsDashboard from './views/Dashboard/AdoptionsDashboard/AdoptionsDashboard';
 import AdoptionsCreateForm from './views/Dashboard/AdoptionsDashboard/AdoptionsCreateForm';
 import AdoptionsUpdateForm from './views/Dashboard/AdoptionsDashboard/AdoptionsUpdateForm';
@@ -31,20 +29,23 @@ import MyAdoptions from './views/UserProfile/MyAdoptions';
 import MySuscription from './views/UserProfile/MySuscription';
 
 function App() {
-  const location = useLocation();
   const dispatch = useDispatch();
+  const location = useLocation();
   const isDashboardRoute = location.pathname.startsWith('/admin');
-  // const isAdmin = useSelector((state) => state.auth.user?.role);
-  
-  const isAdmin = true
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isAdmin = useSelector((state) => state.auth.user?.role === 'admin');
 
-  // useEffect(() => {
-  //   dispatch(fetchCurrentUser());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("isLoggedIn:", isLoggedIn);
+  }, [isLoggedIn]);
 
   return (
     <>
-      {isDashboardRoute ? <SideBar/> : <NavBar />}
+      {isDashboardRoute ? <SideBar /> : <NavBar />}
 
       <Routes>
         <Route path='/' element={<Home />} />
@@ -57,11 +58,15 @@ function App() {
         <Route path='/hacertesocio' element={<BecomeAPartner />} />
         <Route path='/iniciarsesion' element={<LogIn />} />
         <Route path='/registro' element={<SignUp />} />
-        <Route path='/usuario/:id' element={<UserProfile />} />
-        <Route path='/usuario/:id/informacionpersonal' element={<MyInformation />}/>
-        <Route path='/usuario/:id/misdonaciones' element={<MyDonations/>}/>
-        <Route path='/usuario/:id/misuscripcion' element={<MySuscription/>}/>
-        <Route path='/usuario/:id/misadopciones' element={<MyAdoptions/>}/>
+
+        {/* Rutas protegidas */}
+        <Route path='/usuario/:id' element={isLoggedIn ? <UserProfile /> : <Navigate to='/iniciarsesion' />} />
+        <Route path='/usuario/:id/informacionpersonal' element={isLoggedIn ? <MyInformation /> : <Navigate to='/iniciarsesion' />} />
+        <Route path='/usuario/:id/misdonaciones' element={isLoggedIn ? <MyDonations /> : <Navigate to='/iniciarsesion' />} />
+        <Route path='/usuario/:id/misuscripcion' element={isLoggedIn ? <MySuscription /> : <Navigate to='/iniciarsesion' />} />
+        <Route path='/usuario/:id/misadopciones' element={isLoggedIn ? <MyAdoptions /> : <Navigate to='/iniciarsesion' />} />
+
+        {/* Rutas para administrador */}
         {isAdmin && (
           <>
             <Route path='/admin' element={<Dashboard />} />

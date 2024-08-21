@@ -10,10 +10,8 @@ const LogInComponent = () => {
   const user = useSelector((state) => state.auth.user);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
-  useEffect(() => {  
-    // if (isLoggedIn) 
-      dispatch(fetchCurrentUser());
-    
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
   }, [dispatch]);
 
   const handleGoogleLogin = (response) => {
@@ -26,6 +24,7 @@ const LogInComponent = () => {
 
   const handleLogout = () => {
     dispatch(startGoogleLogout());
+    window.location.reload(); // Recargar la página después de hacer logout
   };
 
   return (
