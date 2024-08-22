@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchCurrentUser } from './redux/auth/authActions';
-import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Footter from './components/Footter/Footter';
 import Home from './views/Home/Home';
@@ -39,9 +39,6 @@ function App() {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log("isLoggedIn:", isLoggedIn);
-  }, [isLoggedIn]);
 
   return (
     <>
@@ -60,11 +57,15 @@ function App() {
         <Route path='/registro' element={<SignUp />} />
 
         {/* Rutas protegidas */}
-        <Route path='/usuario/:id' element={isLoggedIn ? <UserProfile /> : <Navigate to='/iniciarsesion' />} />
-        <Route path='/usuario/:id/informacionpersonal' element={isLoggedIn ? <MyInformation /> : <Navigate to='/iniciarsesion' />} />
-        <Route path='/usuario/:id/misdonaciones' element={isLoggedIn ? <MyDonations /> : <Navigate to='/iniciarsesion' />} />
-        <Route path='/usuario/:id/misuscripcion' element={isLoggedIn ? <MySuscription /> : <Navigate to='/iniciarsesion' />} />
-        <Route path='/usuario/:id/misadopciones' element={isLoggedIn ? <MyAdoptions /> : <Navigate to='/iniciarsesion' />} />
+        {isLoggedIn && (
+          <>
+            <Route path='/usuario/:id' element={<UserProfile />} />
+            <Route path='/usuario/:id/informacionpersonal' element={<MyInformation />} />
+            <Route path='/usuario/:id/misdonaciones' element={<MyDonations />} />
+            <Route path='/usuario/:id/misuscripcion' element={<MySuscription />} />
+            <Route path='/usuario/:id/misadopciones' element={<MyAdoptions />} />
+          </>
+        )}
 
         {/* Rutas para administrador */}
         {isAdmin && (

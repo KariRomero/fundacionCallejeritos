@@ -3,10 +3,13 @@ import { faPaw, faBars } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../Logo/Logo';
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const NavBar = () => {
     const location = useLocation();
     const [showMenu, setShowMenu] = useState(false);
+
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
     const isSelected = (path) => location.pathname === path;
 
@@ -16,7 +19,7 @@ const NavBar = () => {
 
     return (
         <nav className="w-full h-40 flex items-center justify-between px-4 xl:px-8 bg-white shadow-md">
-            
+
             <Link to='/' className='h-40'>
                 <Logo />
             </Link>
@@ -41,10 +44,18 @@ const NavBar = () => {
                 <NavLink to='/donaciones' isSelected={isSelected}>
                     Donaciones
                 </NavLink>
-                <Link to='/iniciarsesion' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
-                <FontAwesomeIcon icon={faPaw} className='mr-2'/>
-                Iniciar sesión
-            </Link>
+                {isLoggedIn ? (
+                    <Link to='/usuario/:id' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                        <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                        Mi Perfil
+                    </Link>
+
+                ) : (
+                    <Link to='/iniciarsesion' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                        <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                        Iniciar sesión
+                    </Link>
+                )}
             </div>
 
             {/* Mobile Menu */}
@@ -72,13 +83,13 @@ const NavBar = () => {
                             Donaciones
                         </NavLinkMobile>
                         <Link to='/iniciarsesion' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
-                <FontAwesomeIcon icon={faPaw} className='mr-2'/>
-                Iniciar sesión
-            </Link>
+                            <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                            Iniciar sesión
+                        </Link>
                     </div>
                 )}
             </div>
-        </nav>
+        </nav >
     );
 };
 

@@ -21,7 +21,7 @@ const BecomeAPartner = () => {
             <div className='w-full h-auto mt-2 grid grid-cols-1 md:grid-cols-2 md:mx-32 ' >
                 <div className='pt-36 text-center bg-repeat bg-center' style={{ backgroundImage: `url(${backG})` }}>
                     <h1 className="title">¡Hazte Socio y Transforma Vidas!</h1>
-                    <Link to='/hacertesocio' className='flex justify-center items-center'>
+                    <Link to='/usuario/:id/misuscripcion' className='flex justify-center items-center'>
                         <button className="menu-btn border border-secondary rounded-full hover:bg-secondary">
                             Hacerte socio
                         </button>

@@ -1,7 +1,9 @@
+import MercadoPagoSuscripcion from "../../components/MercadoPago/MercadoPagoSuscripcion";
+
 const MySuscription = () => {
     return(
-        <section>
-            <h1>Mi suscripción</h1>
+        <section className="h-screen">
+            <MercadoPagoSuscripcion/>
         </section>
     )
 };
