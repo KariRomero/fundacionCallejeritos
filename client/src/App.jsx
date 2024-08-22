@@ -33,7 +33,8 @@ function App() {
   const location = useLocation();
   const isDashboardRoute = location.pathname.startsWith('/admin');
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const isAdmin = useSelector((state) => state.auth.user?.role === 'admin');
+  const isAdmin = useSelector((state) => state.auth.user?.role);
+  // const isAdmin = true;
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
