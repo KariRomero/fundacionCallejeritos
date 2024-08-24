@@ -1,4 +1,4 @@
-const { MercadoPagoConfig, Subscription } = require('mercadopago');
+const { MercadoPagoConfig, Preference } = require('mercadopago');
 require('dotenv').config();
 
 const mercadoPagoConfig = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN });
@@ -21,7 +21,7 @@ const createSubscription = async (req, res) => {
         pending: "http://localhost:5173",
       },
       auto_return: "approved",
-      subscription: {
+      preference: {
         frequency: frequency, // Frecuencia en días, semanas o meses, proporcionada en la solicitud
         frequency_type: frequency_type, // 'day', 'week' o 'month', proporcionado en la solicitud
         transaction_amount: Number(unit_price),
@@ -32,8 +32,8 @@ const createSubscription = async (req, res) => {
     };
 
     // Crear la suscripción
-    const subscription = new Subscription(mercadoPagoConfig);
-    const result = await subscription.create({ body });
+    const preference = new Preference(mercadoPagoConfig);
+    const result = await preference.create({ body });
 
     // Enviar la respuesta con el ID de la suscripción
     res.json({ id: result.id });

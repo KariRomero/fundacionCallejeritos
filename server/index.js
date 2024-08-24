@@ -21,7 +21,7 @@ const corsOptions = {
 app.use(morgan('dev'));
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-
+app.use(express.json());
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -68,7 +68,7 @@ sequelize.authenticate()
     console.error('Unable to connect to the database:', err);
   });
 
-// Middleware de manejo de errores
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
