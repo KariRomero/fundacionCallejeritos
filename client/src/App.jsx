@@ -29,6 +29,8 @@ import SideNav from './components/User/SideNav';
 import UsersDashboard from './views/Dashboard/UsersDashboard/UsersDashboard';
 import UsersInfo from './views/Dashboard/UsersDashboard/UsersInfo';
 import UsersAdoptions from './views/Dashboard/UsersDashboard/UsersAdoptions';
+import ErrorUserProfile from './components/Error/ErrorUserProfile';
+import ErrorAdmin from './components/Error/ErrorAdmin';
 
 function App() {
   const dispatch = useDispatch();
@@ -45,22 +47,25 @@ function App() {
   return (
     <>
       {!isDashboardRoute && <NavBar />}
-      {isDashboardRoute && <SideBar />}
+
+      {isDashboardRoute && isAdmin && <SideBar />}
 
       {isUserProfileRoute ? (
         <div className="flex">
-          <SideNav />
-          <div className="flex-grow">
-            <Routes>
-              {isLoggedIn && (
-                <>
+          {isLoggedIn ? (
+            <>
+              <SideNav />
+              <div className="flex-grow">
+                <Routes>
                   <Route path='/usuario/:id/informacionpersonal' element={<MyInformation />} />
                   <Route path='/usuario/:id/misdonaciones' element={<MyDonations />} />
                   <Route path='/usuario/:id/misadopciones' element={<MyAdoptions />} />
-                </>
-              )}
-            </Routes>
-          </div>
+                </Routes>
+              </div>
+            </>
+          ) : (
+            <ErrorUserProfile />
+          )}
         </div>
       ) : (
         <Routes>
@@ -75,7 +80,7 @@ function App() {
           <Route path='/iniciarsesion' element={<LogIn />} />
           <Route path='/registro' element={<SignUp />} />
 
-          {isAdmin && (
+          {isAdmin ? (
             <>
               <Route path='/admin' element={<Dashboard />} />
               <Route path='/admin/adopciones' element={<AdoptionsDashboard />} />
@@ -86,7 +91,11 @@ function App() {
               <Route path='/admin/rescates/update/:id' element={<RescuesUpdateForm />} />
               <Route path='/admin/usuarios' element={<UsersDashboard />} />
               <Route path='/admin/usuarios/user/:id' element={<UsersInfo />} />
-              <Route path='/admin/usuarios/user/adoptions/:id' element={<UsersAdoptions/>}/>
+              <Route path='/admin/usuarios/user/adoptions/:id' element={<UsersAdoptions />} />
+            </>
+          ) : (
+            <>
+            <Route path='*' element={<ErrorAdmin />}/>
             </>
           )}
         </Routes>
