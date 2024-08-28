@@ -1,6 +1,6 @@
 const Adopciones = require("../models/Adopciones");
 const cloudinary = require("../config/cloudinary");
-
+const User = require("../models/User")
 const createAdopcion = async (adopcionData, imageFiles) => {
   try {
     const newAdopcion = await Adopciones.create(adopcionData);
@@ -36,16 +36,21 @@ const deleteAdopcion = async (id) => {
 };
 
 const getAdopcion = async (id) => {
-  const adopcion = await Adopciones.findByPk(id);
-  if (!adopcion) {
-    throw new Error('Adopción no encontrada');
-  }
+  const adopcion = await Adopciones.findByPk(id, {
+    include: {
+      model: User,
+      as: 'usuarios',  
+      through: { attributes: [] } 
+    }
+  });
+
   return adopcion;
 };
 
 const getAllAdopcion = async (filters = {}, order = 'ASC') => {
   const where = {};
 
+  // Aplicar filtros a la consulta
   if (filters.gender) {
     where.gender = filters.gender;
   } 
@@ -64,7 +69,12 @@ const getAllAdopcion = async (filters = {}, order = 'ASC') => {
 
   return await Adopciones.findAll({
     where,
-    order: [['name', order]] 
+    order: [['name', order]], // Ordenar por nombre
+    include: {
+      model: User,
+      as: 'usuarios',  // Debe coincidir con el alias de la relación definida en el modelo
+      through: { attributes: [] }  // Esto excluye los atributos de la tabla intermedia; puedes incluir atributos si es necesario
+    }
   });
 };
 
