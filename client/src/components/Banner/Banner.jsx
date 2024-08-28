@@ -14,9 +14,9 @@ const Banner = () => {
                 <h1 className='text-3xl font-medium tracking-wider'>Cada rescate cuenta</h1>
                 <h2 className='text-3xl font-medium tracking-wider'>Cada donación ayuda</h2>                
                 <div className="flex flex-col items-center sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <Link to='/hacertesocio'>
+                    <Link to='/donaciones'>
                         <button className='font-medium text-base tracking-wider px-5 py-2.5 me-2 mb-4 mt-4 rounded-full bg-secondary'>
-                            Hacerte socio
+                            Donaciones
                         </button>
                     </Link>
                     <Link to='/fundacion'>

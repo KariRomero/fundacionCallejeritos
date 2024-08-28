@@ -11,9 +11,9 @@ const Carousel = ({ cards }) => {
     const dispatch = useDispatch();
     const { adoptions } = useSelector((state) => state.adoptions);
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getAdoptions())
-    },[dispatch]);
+    }, [dispatch]);
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [cardsToShow, setCardsToShow] = useState(4); // Inicialmente mostrará 4 tarjetas
@@ -22,9 +22,9 @@ const Carousel = ({ cards }) => {
         // Ajustar cardsToShow para mostrar una sola card en dispositivos pequeños
         const resizeHandler = () => {
             if (window.innerWidth < 640) {
-                setCardsToShow(1); 
+                setCardsToShow(1);
             } else {
-                setCardsToShow(4); 
+                setCardsToShow(4);
             }
         };
 
@@ -71,9 +71,9 @@ const Carousel = ({ cards }) => {
                         <FontAwesomeIcon icon={faChevronLeft} />
                     </button>
                     <div className='flex justify-around'>
-                        {displayCards().map((card) => (
+                        {displayCards().map((card, index) => (
                             <CardAdoptions
-                                key={card.id}
+                                key={`${card.id}-${index}`}
                                 id={card.id}
                                 name={card.name}
                                 images={card.image[0]}
@@ -81,6 +81,7 @@ const Carousel = ({ cards }) => {
                                 age={card.age}
                             />
                         ))}
+
                     </div>
                     <button
                         onClick={next}

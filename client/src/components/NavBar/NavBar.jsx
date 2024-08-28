@@ -25,7 +25,7 @@ const NavBar = () => {
             </Link>
 
             {/* Desktop Menu */}
-            <div className="hidden xl:flex items-center justify-around space-x-4">
+            <div className="hidden xl:flex items-center justify-around space-x-12">
                 <NavLink to='/fundacion' isSelected={isSelected}>
                     Fundación
                 </NavLink>
@@ -37,9 +37,6 @@ const NavBar = () => {
                 </NavLink>
                 <NavLink to='/hogardetransito' isSelected={isSelected}>
                     Hogar de tránsito
-                </NavLink>
-                <NavLink to='/hacertesocio' isSelected={isSelected}>
-                    Hacerte socio
                 </NavLink>
                 <NavLink to='/donaciones' isSelected={isSelected}>
                     Donaciones
@@ -63,7 +60,7 @@ const NavBar = () => {
                 <FontAwesomeIcon icon={faBars} className="cursor-pointer" onClick={toggleMenu} />
 
                 {showMenu && (
-                    <div className="absolute top-24 right-0 w-48 bg-white shadow-md py-2 rounded-md flex flex-col space-y-2 z-50">
+                    <div className="absolute top-24 right-0 w-48 bg-white shadow-md p-6 rounded-md flex flex-col space-y-2 z-50">
                         <NavLinkMobile to='/fundacion' isSelected={isSelected} toggleMenu={toggleMenu}>
                             Fundación
                         </NavLinkMobile>
@@ -76,16 +73,21 @@ const NavBar = () => {
                         <NavLinkMobile to='/hogardetransito' isSelected={isSelected} toggleMenu={toggleMenu}>
                             Hogar de tránsito
                         </NavLinkMobile>
-                        <NavLinkMobile to='/hacertesocio' isSelected={isSelected} toggleMenu={toggleMenu}>
-                            Hacerte socio
-                        </NavLinkMobile>
                         <NavLinkMobile to='/donaciones' isSelected={isSelected} toggleMenu={toggleMenu}>
                             Donaciones
                         </NavLinkMobile>
-                        <Link to='/iniciarsesion' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
-                            <FontAwesomeIcon icon={faPaw} className='mr-2' />
-                            Iniciar sesión
-                        </Link>
+                        {isLoggedIn ? (
+                            <Link to='/usuario/:id' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                                <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                                Mi Perfil
+                            </Link>
+
+                        ) : (
+                            <Link to='/iniciarsesion' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                                <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                                Iniciar sesión
+                            </Link>
+                        )}
                     </div>
                 )}
             </div>
