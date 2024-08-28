@@ -51,7 +51,7 @@ const RescuesDashboard = () => {
 
     return (
         <section className="flex justify-center sm:ml-64">
-            <div className="w-full max-w-4xl">
+            <div className="w-full mt-4">
                 <h1 className="title">Casos de Callejeritos</h1>
                 <div className='flex justify-between items-center'>
                     <select className='paragraph bg-white' value={orderBy} onChange={handleOrderChange}>
@@ -69,8 +69,8 @@ const RescuesDashboard = () => {
                 <ul className="w-full">
                     {Array.isArray(rescues) && rescues.map((resc) => (
                         <li key={resc.id} className="flex justify-between border border-l-0 border-r-0 border-t-secondary border-b-secondary p-4 hover:bg-secondary">
-                            <h2 className="paragraph">{resc.name}</h2>
-                            <div>
+                            <h2 className="paragraph pl-16">{resc.name}</h2>
+                            <div className='pr-20'>
                                 <Link to={`/admin/rescates/update/${resc.id}`}>
                                     <button>
                                         <FontAwesomeIcon icon={faPenToSquare} className='px-2' />

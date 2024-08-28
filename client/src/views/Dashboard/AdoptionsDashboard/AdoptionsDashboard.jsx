@@ -49,7 +49,7 @@ const AdoptionsDashboard = () => {
 
     return (
         <section className="flex justify-center sm:ml-64">
-            <div className="w-full max-w-4xl mt-4">
+            <div className="w-full mt-4">
                 <h1 className="title">Callejeritos en adopción</h1>
                 <div className='flex justify-between items-center'>
                     <select className='paragraph bg-white' value={orderBy} onChange={handleOrderChange}>
@@ -67,8 +67,8 @@ const AdoptionsDashboard = () => {
                 <ul className="w-full">
                     {Array.isArray(adoptions) && adoptions.map((adop) => (
                         <li key={adop.id} className="flex justify-between border border-l-0 border-r-0 border-t-secondary border-b-secondary p-4 hover:bg-secondary">
-                            <h2 className="paragraph">{adop.name}</h2>
-                            <div>
+                            <h2 className="paragraph pl-16">{adop.name}</h2>
+                            <div className='pr-20'>
                                 <Link to={`/admin/adopciones/update/${adop.id}`}>
                                     <button>
                                         <FontAwesomeIcon icon={faPenToSquare} className='px-2' />

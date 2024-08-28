@@ -69,138 +69,144 @@ const UserInfo = () => {
     };
 
     return (
-        <section className='w-full'>
-            <h1 className='text-center'>Hola, {user.firstName}</h1>
-            <form onSubmit={handleSubmit} className='w-1/2 m-auto'>
-                <div className="my-4 flex justify-between">
-                    <label className='label'>Nombre:</label>
-                    <input
-                        type="text"
-                        className='rounded-full shadow-md'
-                        value={form.firstName}
-                        name='firstName'
-                        onChange={handleChange}
-                    />
+        <section className='w-full h-screen mt-12'>
+            <form onSubmit={handleSubmit} className='w-1/2 mx-auto '>
+                <div className="my-2 flex justify-between items-center">
+                    <div className='grid grid-cols-1'>
+                        <label className='label'>Nombre:</label>
+                        <input
+                            type="text"
+                            className='rounded-full shadow-md p-2'
+                            value={form.firstName}
+                            name='firstName'
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className='grid grid-cols-1'>
+                        <label className='label'>Apellido:</label>
+                        <input
+                            type="text"
+                            className='rounded-full shadow-md p-2'
+                            value={form.lastName}
+                            name='lastName'
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
 
-                <div className="my-4 flex justify-between">
-                    <label className='label'>Apellido:</label>
-                    <input
-                        type="text"
-                        className='rounded-full shadow-md'
-                        value={form.lastName}
-                        name='lastName'
-                        onChange={handleChange}
-                    />
+                <div className="my-2 flex justify-between items-center">
+                    <div className='grid grid-cols-1'>
+                        <label className='label'>Teléfono:</label>
+                        <input
+                            placeholder='Escriba su teléfono'
+                            type="text"
+                            className='rounded-full shadow-md p-2'
+                            value={form.phone}
+                            name='phone'
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className='grid grid-cols-1'>
+                        <label className='label'>Celular:</label>
+                        <input
+                            placeholder='Su celular sin 0 y sin 15'
+                            type="text"
+                            className='rounded-full shadow-md p-2'
+                            value={form.mobile}
+                            name='mobile'
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
 
-                <div>
-                    <label className='label'>Fecha de nacimiento:</label>
-                    <input
-                        placeholder='DD/MM/YYYY'
-                        type="text"
-                        className='rounded-full shadow-md'
-                        value={form.birthDate}
-                        name='birthDate'
-                        onChange={handleChange}
-                    />
+                <div className="my-2 flex justify-between items-center">
+                    <div className='grid grid-cols-1'>
+                        <label className='label'>Provincia:</label>
+                        <input
+                            placeholder='Escriba su provincia'
+                            type="text"
+                            className='rounded-full shadow-md p-2'
+                            value={form.state}
+                            name='state'
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className='grid grid-cols-1'>
+                        <label className='label'>Ciudad:</label>
+                        <input
+                            placeholder='Escriba su ciudad'
+                            type="text"
+                            className='rounded-full shadow-md p-2'
+                            value={form.city}
+                            name='city'
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                </div>
+                
+                <div className="my-2 flex justify-between items-center">
+                    <div className='grid grid-cols-1'>
+                        <label className='label'>Direccion:</label>
+                        <input
+                            placeholder='Avenida Ramirez 1234'
+                            type="text"
+                            className='rounded-full shadow-md p-2'
+                            value={form.address}
+                            name='address'
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className='grid grid-cols-1'>
+                        <label className='label'>C.P:</label>
+                        <input
+                            placeholder='3100'
+                            type="text"
+                            className='rounded-full shadow-md p-2'
+                            value={form.postalCode}
+                            name='postalCode'
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
 
-                <div className="my-4 flex justify-between">
-                    <label className='label'>Direccion:</label>
-                    <input
-                        placeholder='Avenida Ramirez 1234'
-                        type="text"
-                        className='rounded-full shadow-md'
-                        value={form.address}
-                        name='address'
-                        onChange={handleChange}
-                    />
+
+                <div className="my-2 flex justify-between items-center">
+                    <div className='grid grid-cols-1'>
+                        <label className='label'>DNI:</label>
+                        <input
+                            placeholder='Escriba su dni'
+                            type="text"
+                            className='rounded-full shadow-md p-2'
+                            value={form.dni}
+                            name='dni'
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className='grid grid-cols-1'>
+                        <label className='label'>E-mail:</label>
+                        <input
+                            placeholder='Su celular sin 0 y sin 15'
+                            type="text"
+                            className='rounded-full shadow-md p-2'
+                            value={form.email}
+                            name='email'
+                            onChange={handleChange}
+                        />
+                    </div>                    
                 </div>
 
-                <div className="my-4 flex justify-between">
-                    <label className='label'>Ciudad:</label>
-                    <input
-                        placeholder='Escriba su ciudad'
-                        type="text"
-                        className='rounded-full shadow-md'
-                        value={form.city}
-                        name='city'
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="my-4 flex justify-between">
-                    <label className='label'>Provincia:</label>
-                    <input
-                        placeholder='Escriba su provincia'
-                        type="text"
-                        className='rounded-full shadow-md'
-                        value={form.state}
-                        name='state'
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="my-4 flex justify-between">
-                    <label className='label'>C.P:</label>
-                    <input
-                        placeholder='3100'
-                        type="text"
-                        className='rounded-full shadow-md'
-                        value={form.postalCode}
-                        name='postalCode'
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="my-4 flex justify-between">
-                    <label className='label'>Teléfono:</label>
-                    <input
-                        placeholder='Escriba su teléfono'
-                        type="text"
-                        className='rounded-full shadow-md'
-                        value={form.phone}
-                        name='phone'
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="my-4 flex justify-between">
-                    <label className='label'>Celular:</label>
-                    <input
-                        placeholder='Su celular sin 0 y sin 15'
-                        type="text"
-                        className='rounded-full shadow-md'
-                        value={form.mobile}
-                        name='mobile'
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="my-4 flex justify-between">
-                    <label className='label'>DNI:</label>
-                    <input
-                        placeholder='Escriba su dni'
-                        type="text"
-                        className='rounded-full shadow-md'
-                        value={form.dni}
-                        name='dni'
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="my-4 flex justify-between">
-                    <label className='label'>E-mail:</label>
-                    <input
-                        placeholder='Su celular sin 0 y sin 15'
-                        type="text"
-                        className='rounded-full shadow-md'
-                        value={form.email}
-                        name='email'
-                        onChange={handleChange}
-                    />
-                </div>
+                <div className='grid grid-cols-1'>
+                        <label className='label'>Fecha de nacimiento:</label>
+                        <input
+                            placeholder='DD/MM/YYYY'
+                            type="text"
+                            className='rounded-full shadow-md p-2'
+                            value={form.birthDate}
+                            name='birthDate'
+                            onChange={handleChange}
+                        />
+                    </div>
 
                 <button type="submit" className="menu-btn border border-secondary rounded-full hover:bg-secondary">Guardar</button>
             </form>

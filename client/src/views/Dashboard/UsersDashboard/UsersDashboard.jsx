@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaw, faEye } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { faPlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,8 +18,8 @@ const UsersDashboard = () => {
 
 
     return (
-        <section className="flex justify-center sm:ml-64">
-            <div className="w-full max-w-4xl mt-4">
+        <section className="flex justify-center sm:ml-64 ">
+            <div className="w-full mt-4">
                 <h1 className="title">Usuarios</h1>
                 <div className='flex justify-between items-center'>
                     {/* <select className='paragraph bg-white' value={orderBy} onChange={handleOrderChange}>
@@ -29,14 +30,18 @@ const UsersDashboard = () => {
                 </div>
                 <ul className="w-full">
                     {Array.isArray(users) && users.map((user) => (
-                        <li key={user.id} className="flex justify-between items-center border border-l-0 border-r-0 border-t-secondary border-b-secondary p-4 hover:bg-secondary">
+                        <li key={user.id} className="flex justify-between items-center border border-l-0 border-r-0 border-t-0 border-b-secondary p-4">
+                            <h2 className="paragraph">{user.firstName} {user.lastName}</h2>
                             <Link to={`/admin/usuarios/user/${user.id}`}>
-                                <h2 className="paragraph">{user.firstName} {user.lastName}</h2>
-                                {/* <span>{user.email}</span> */}
-                                <button className='menu-btn'>Ver info</button>
-                                <button className='menu-btn'>Solicitudes de adopcion</button>
-                                {/* <span>{user.mobile}</span> */}
+                                <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>
+                                <FontAwesomeIcon icon={faEye} className='mr-2' />
+                                    Ver info
+                                    </button>
                             </Link>
+                            <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>
+                                <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                                Solicitudes de adopcion
+                            </button>
                         </li>
                     ))}
                 </ul>
