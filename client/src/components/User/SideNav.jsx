@@ -31,10 +31,10 @@ const SideNav = () => {
 
     return (
         <>
-            <div className="top-4 left-4 z-50 md:hidden">
+            {/* <div className="top-4 left-4 z-50 md:hidden">
                 <FontAwesomeIcon icon={faBars} className="cursor-pointer" onClick={toggleMenu} />
-            </div>
-            <aside className={`h-screen w-64 mt-2 bg-white transition-transform transform ${showMenu ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+            </div> */}
+            <aside className={`top-38 left-0 z-40 h-screen w-64 mt-2 bg-white transition-transform transform ${showMenu ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
 
                 <ul className="space-y-2 font-medium">
                     {user && (

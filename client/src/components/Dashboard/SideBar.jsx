@@ -34,9 +34,6 @@ const SideBar = () => {
                     <NavLink to='/admin/adopciones'>
                         Adopciones
                     </NavLink>
-                    <NavLink to='/admin/socios'>
-                        Socios
-                    </NavLink>
                     <NavLink to='/admin/usuarios'>
                         Usuarios
                     </NavLink>

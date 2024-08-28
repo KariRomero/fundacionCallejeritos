@@ -26,61 +26,67 @@ import RescuesUpdateForm from './views/Dashboard/RescuesDashboard/RescuesUpdateF
 import MyInformation from './views/UserProfile/MyInformation';
 import MyDonations from './views/UserProfile/MyDonations';
 import MyAdoptions from './views/UserProfile/MyAdoptions';
-import MySuscription from './views/UserProfile/MySuscription';
+import SideNav from './components/User/SideNav';
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const isDashboardRoute = location.pathname.startsWith('/admin');
+  const isUserProfileRoute = location.pathname.startsWith('/usuario');
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isAdmin = useSelector((state) => state.auth.user?.role);
-  // const isAdmin = true;
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
 
-
   return (
     <>
-      {isDashboardRoute ? <SideBar /> : <NavBar />}
+      {!isDashboardRoute && <NavBar />}
+      {isDashboardRoute && <SideBar />}
 
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/rescates' element={<Rescues />} />
-        <Route path='/rescatesdetalle/:id' element={<DetailRescues />} />
-        <Route path='/fundacion' element={<Foundation />} />
-        <Route path='/adopciones' element={<Adoptions />} />
-        <Route path='/adopcionesdetalle/:id' element={<DetailAdoptions />} />
-        <Route path='/donaciones' element={<Donations />} />
-        <Route path='/hacertesocio' element={<BecomeAPartner />} />
-        <Route path='/iniciarsesion' element={<LogIn />} />
-        <Route path='/registro' element={<SignUp />} />
+      {isUserProfileRoute ? (
+        <div className="flex">
+          <SideNav />
+          <div className="flex-grow">
+            <Routes>
+              {isLoggedIn && (
+                <>
+                  <Route path='/usuario/:id' element={<UserProfile />} />
+                  <Route path='/usuario/:id/informacionpersonal' element={<MyInformation />} />
+                  <Route path='/usuario/:id/misdonaciones' element={<MyDonations />} />
+                  <Route path='/usuario/:id/misadopciones' element={<MyAdoptions />} />
+                </>
+              )}
+            </Routes>
+          </div>
+        </div>
+      ) : (
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/rescates' element={<Rescues />} />
+          <Route path='/rescatesdetalle/:id' element={<DetailRescues />} />
+          <Route path='/fundacion' element={<Foundation />} />
+          <Route path='/adopciones' element={<Adoptions />} />
+          <Route path='/adopcionesdetalle/:id' element={<DetailAdoptions />} />
+          <Route path='/donaciones' element={<Donations />} />
+          <Route path='/hacertesocio' element={<BecomeAPartner />} />
+          <Route path='/iniciarsesion' element={<LogIn />} />
+          <Route path='/registro' element={<SignUp />} />
 
-        {/* Rutas protegidas */}
-        {isLoggedIn && (
-          <>
-            <Route path='/usuario/:id' element={<UserProfile />} />
-            <Route path='/usuario/:id/informacionpersonal' element={<MyInformation />} />
-            <Route path='/usuario/:id/misdonaciones' element={<MyDonations />} />
-            <Route path='/usuario/:id/misuscripcion' element={<MySuscription />} />
-            <Route path='/usuario/:id/misadopciones' element={<MyAdoptions />} />
-          </>
-        )}
-
-        {/* Rutas para administrador */}
-        {isAdmin && (
-          <>
-            <Route path='/admin' element={<Dashboard />} />
-            <Route path='/admin/adopciones' element={<AdoptionsDashboard />} />
-            <Route path='/admin/adopciones/create' element={<AdoptionsCreateForm />} />
-            <Route path='/admin/adopciones/update/:id' element={<AdoptionsUpdateForm />} />
-            <Route path='/admin/rescates' element={<RescuesDashboard />} />
-            <Route path='/admin/rescates/create' element={<RescuesCreateForm />} />
-            <Route path='/admin/rescates/update/:id' element={<RescuesUpdateForm />} />
-          </>
-        )}
-      </Routes>
+          {isAdmin && (
+            <>
+              <Route path='/admin' element={<Dashboard />} />
+              <Route path='/admin/adopciones' element={<AdoptionsDashboard />} />
+              <Route path='/admin/adopciones/create' element={<AdoptionsCreateForm />} />
+              <Route path='/admin/adopciones/update/:id' element={<AdoptionsUpdateForm />} />
+              <Route path='/admin/rescates' element={<RescuesDashboard />} />
+              <Route path='/admin/rescates/create' element={<RescuesCreateForm />} />
+              <Route path='/admin/rescates/update/:id' element={<RescuesUpdateForm />} />
+            </>
+          )}
+        </Routes>
+      )}
 
       {!isDashboardRoute && <Footter />}
     </>
