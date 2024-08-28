@@ -25,9 +25,9 @@ const Donations = () =>{
 
     const handleSubscriptionClick = () => {
         if (isLoggedIn) {
-            navigate('/usuario/:id/misuscripcion');
+            navigate('/usuario/:id/misdonaciones');
         } else {
-            navigate('/iniciarsesion', { state: { from: '/usuario/:id/misuscripcion' } });
+            navigate('/iniciarsesion', { state: { from: '/usuario/:id/misdonaciones' } });
         }
     };
 
@@ -40,7 +40,7 @@ const Donations = () =>{
                         onClick={handleSubscriptionClick} 
                         className="menu-btn border border-secondary rounded-full hover:bg-secondary"
                     >
-                        Hacerte socio
+                        Donaciones
                     </button>
                 </div>
                 <p className="paragraph mx-10 my-10">

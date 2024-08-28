@@ -25,7 +25,8 @@ const SideNav = () => {
 
     const handleLogout = () => {
         dispatch(startGoogleLogout());
-        navigate('/')
+        navigate('/');
+        window.location.reload();
     };
 
     return (
