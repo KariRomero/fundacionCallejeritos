@@ -48,14 +48,7 @@ const Carousel = ({ cards }) => {
             (prevIndex - cardsToShow + adoptions.length) % adoptions.length
         );
     };
-
-    const displayCards = () => {
-        let displayed = [];
-        for (let i = 0; i < cardsToShow; i++) {
-            displayed.push(adoptions[(currentIndex + i) % adoptions.length]);
-        }
-        return displayed;
-    };
+ 
 
     return (
         <section className="relative w-full py-10 mb-10">
@@ -71,9 +64,9 @@ const Carousel = ({ cards }) => {
                         <FontAwesomeIcon icon={faChevronLeft} />
                     </button>
                     <div className='flex justify-around'>
-                        {displayCards().map((card, index) => (
+                        {adoptions.map((card) => (
                             <CardAdoptions
-                                key={`${card.id}-${index}`}
+                                key={card.id}
                                 id={card.id}
                                 name={card.name}
                                 images={card.image[0]}

@@ -3,6 +3,7 @@ import adoptions from './adoptions/adoptionsSlice';
 import rescues from './rescues/rescuesSlice';
 import auth from './auth/authSlice';
 import users from './user/usersSlice';
+import adopt from './adopt/adoptSlice';
 
 
 export default configureStore({
@@ -10,6 +11,7 @@ export default configureStore({
         adoptions: adoptions,
         rescues: rescues,
         auth: auth,
-        users: users
+        users: users,
+        adopt:adopt
     }
 });
