@@ -1,13 +1,26 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw, faRightFromBracket, faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { startGoogleLogout } from "../../redux/auth/authActions";
+
+const GOOGLE_CLIENT_ID = '330217204573-1ohsjkafgv61upbu9tbgd0j269ijul10.apps.googleusercontent.com';
 
 const SideBar = () => {
     const [showMenu, setShowMenu] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setShowMenu(!showMenu);
+    };
+
+    const handleLogout = () => {
+        dispatch(startGoogleLogout());
+        navigate('/');
+        window.location.reload();
     };
 
     return (
@@ -37,10 +50,14 @@ const SideBar = () => {
                     <NavLink to='/admin/usuarios'>
                         Usuarios
                     </NavLink>
-                    <NavLink to='/admin/cerrar-sesion'>
-                        <FontAwesomeIcon icon={faRightFromBracket} className="mr-2" />
-                        Cerrar sesión
-                    </NavLink>
+                    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+                        <li className="hover:bg-secondary">
+                            <button onClick={handleLogout} className='menu-btn hover:bg-secondary'>
+                                <FontAwesomeIcon icon={faRightFromBracket} className="mr-2" />
+                                Cerrar sesión
+                            </button>
+                        </li>
+                    </GoogleOAuthProvider>
                 </ul>
             </aside>
         </>

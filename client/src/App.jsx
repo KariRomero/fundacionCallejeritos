@@ -27,6 +27,8 @@ import MyInformation from './views/UserProfile/MyInformation';
 import MyDonations from './views/UserProfile/MyDonations';
 import MyAdoptions from './views/UserProfile/MyAdoptions';
 import SideNav from './components/User/SideNav';
+import UsersDashboard from './views/Dashboard/UsersDashboard/UsersDashboard';
+import UsersInfo from './views/Dashboard/UsersDashboard/UsersInfo';
 
 function App() {
   const dispatch = useDispatch();
@@ -83,6 +85,8 @@ function App() {
               <Route path='/admin/rescates' element={<RescuesDashboard />} />
               <Route path='/admin/rescates/create' element={<RescuesCreateForm />} />
               <Route path='/admin/rescates/update/:id' element={<RescuesUpdateForm />} />
+              <Route path='/admin/usuarios' element={<UsersDashboard />} />
+              <Route path='/admin/usuarios/user/:id' element={<UsersInfo />} />
             </>
           )}
         </Routes>
