@@ -42,9 +42,6 @@ const SideNav = () => {
                             <NavLink to={`/usuario/${user.id}/misdonaciones`}>
                                 Mis Donaciones
                             </NavLink>
-                            <NavLink to={`/usuario/${user.id}/misuscripcion`}>
-                                Mi suscripción
-                            </NavLink>
                             <NavLink to={`/usuario/${user.id}/misadopciones`}>
                                 Mis adopciones
                             </NavLink>
@@ -70,9 +67,6 @@ const SideNav = () => {
                             </NavLink>
                             <NavLink to={`/usuario/${user.id}/misdonaciones`}>
                                 Mis Donaciones
-                            </NavLink>
-                            <NavLink to={`/usuario/${user.id}/misuscripcion`}>
-                                Mi suscripción
                             </NavLink>
                             <NavLink to={`/usuario/${user.id}/misadopciones`}>
                                 Mis adopciones

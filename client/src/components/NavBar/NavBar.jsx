@@ -42,7 +42,7 @@ const NavBar = () => {
                     Donaciones
                 </NavLink>
                 {isLoggedIn ? (
-                    <Link to='/usuario/:id' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                    <Link to='/usuario/:id/informacionpersonal' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
                         <FontAwesomeIcon icon={faPaw} className='mr-2' />
                         Mi Perfil
                     </Link>
@@ -77,7 +77,7 @@ const NavBar = () => {
                             Donaciones
                         </NavLinkMobile>
                         {isLoggedIn ? (
-                            <Link to='/usuario/:id' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                            <Link to='/usuario/:id/informacionpersonal' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
                                 <FontAwesomeIcon icon={faPaw} className='mr-2' />
                                 Mi Perfil
                             </Link>

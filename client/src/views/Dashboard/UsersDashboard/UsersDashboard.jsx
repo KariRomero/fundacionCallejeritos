@@ -29,11 +29,13 @@ const UsersDashboard = () => {
                 </div>
                 <ul className="w-full">
                     {Array.isArray(users) && users.map((user) => (
-                        <li key={user.id} className="flex justify-between border border-l-0 border-r-0 border-t-secondary border-b-secondary p-4 hover:bg-secondary">
+                        <li key={user.id} className="flex justify-between items-center border border-l-0 border-r-0 border-t-secondary border-b-secondary p-4 hover:bg-secondary">
                             <Link to={`/admin/usuarios/user/${user.id}`}>
                                 <h2 className="paragraph">{user.firstName} {user.lastName}</h2>
-                                <span>{user.email}</span>
-                                <span>{user.mobile}</span>
+                                {/* <span>{user.email}</span> */}
+                                <button className='menu-btn'>Ver info</button>
+                                <button className='menu-btn'>Solicitudes de adopcion</button>
+                                {/* <span>{user.mobile}</span> */}
                             </Link>
                         </li>
                     ))}
