@@ -3,12 +3,11 @@ import Swal from 'sweetalert2';
 import { faPlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getAdoptions, deleteAdoptionById, orderAdoptionsAsc, orderAdoptionsDesc } from '../../../redux/adoptions/adoptionsActions';
 
 const AdoptionsDashboard = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { adoptions } = useSelector(state => state.adoptions);
     const [orderBy, setOrderBy] = useState('');
 

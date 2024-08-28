@@ -18,7 +18,7 @@ const UsersAdoptions = () => {
   return (
     <section className="flex justify-center sm:ml-64 px-4">
             <div className="w-full mt-4">
-                <h1 className="title">Solicitudesd de adopcion</h1>
+                <h1 className="title">Solicitudes de adopcion</h1>
                 <div className='flex justify-between items-center'>
                     {/* <select className='paragraph bg-white' value={orderBy} onChange={handleOrderChange}>
                         <option value="">Ordenar por</option>
