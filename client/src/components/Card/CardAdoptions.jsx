@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const CardAdoptions = ({ id, name, images, gender, age }) => {
+const CardAdoptions = ({ id, name, images, gender }) => {
     return (
         <section>
             <Link to={`/adopcionesdetalle/${id}`}>

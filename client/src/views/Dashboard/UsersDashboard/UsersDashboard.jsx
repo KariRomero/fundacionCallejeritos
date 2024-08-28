@@ -34,14 +34,16 @@ const UsersDashboard = () => {
                             <h2 className="paragraph">{user.firstName} {user.lastName}</h2>
                             <Link to={`/admin/usuarios/user/${user.id}`}>
                                 <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>
-                                <FontAwesomeIcon icon={faEye} className='mr-2' />
+                                    <FontAwesomeIcon icon={faEye} className='mr-2' />
                                     Ver info
-                                    </button>
+                                </button>
                             </Link>
-                            <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>
-                                <FontAwesomeIcon icon={faPaw} className='mr-2' />
-                                Solicitudes de adopcion
-                            </button>
+                            <Link to={`/admin/usuarios/user/adoptions/${user.id}`}>
+                                <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>
+                                    <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                                    Solicitudes de adopcion
+                                </button>
+                            </Link>
                         </li>
                     ))}
                 </ul>

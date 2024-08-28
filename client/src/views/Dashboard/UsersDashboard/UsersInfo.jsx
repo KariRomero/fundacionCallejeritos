@@ -45,6 +45,8 @@ const UsersInfo = () => {
         navigate('/admin/usuarios');
     };
 
+    
+
     return (
         <section className='w-full'>
             <div className='w-1/2 m-auto'>
