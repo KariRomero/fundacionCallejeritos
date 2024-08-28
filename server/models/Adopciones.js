@@ -44,6 +44,14 @@ const Adopciones = sequelize.define('Adopciones', {
     defaultValue: [],
     allowNull: true,
   },
+  userId: {  
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Users', 
+      key: 'id',
+    },
+  },
 });
 
 module.exports = Adopciones;

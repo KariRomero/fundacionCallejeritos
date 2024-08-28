@@ -9,6 +9,8 @@ const session = require('express-session');
 const passport = require('./config/passport');
 const authRoutes = require('./routes/googleAuthRoutes');
 const mercadoPagoRouter = require ('./mercadoPago/mercadoPagoRoutes')
+const User = require('./models/User');  // Asegúrate de que las rutas sean correctas
+const Adopciones = require('./models/Adopciones');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -16,6 +18,16 @@ const corsOptions = {
   origin: 'http://localhost:5173',
   credentials: true,
 };
+
+User.hasMany(Adopciones, {
+  foreignKey: 'userId',
+  as: 'adopciones'
+});
+
+Adopciones.belongsTo(User, {
+  foreignKey: 'userId',
+  as: 'usuario'
+});
 
 // Middleware
 app.use(morgan('dev'));
