@@ -19,14 +19,19 @@ const corsOptions = {
   credentials: true,
 };
 
-User.hasMany(Adopciones, {
+// Define las relaciones de muchos a muchos
+User.belongsToMany(Adopciones, {
+  through: 'UserXAdopciones',
+  as: 'adopciones',
   foreignKey: 'userId',
-  as: 'adopciones'
+  otherKey: 'adopcionId'
 });
 
-Adopciones.belongsTo(User, {
-  foreignKey: 'userId',
-  as: 'usuario'
+Adopciones.belongsToMany(User, {
+  through: 'UserXAdopciones',
+  as: 'usuarios',
+  foreignKey: 'adopcionId',
+  otherKey: 'userId'
 });
 
 // Middleware
@@ -71,7 +76,7 @@ sequelize.authenticate()
     console.log('Connection has been established successfully.');
 
     // Sincroniza los modelos con la base de datos
-    return sequelize.sync({ force: false });
+    return sequelize.sync({ alter: true  });
   })
   .then(() => {
     console.log('Database synchronized successfully.');

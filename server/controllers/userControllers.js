@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const cloudinary = require('../config/cloudinary'); 
+const Adopciones = require ('../models/Adopciones')
 const { uploader } = cloudinary; 
 
 const createUser = async (userData, imageFile) => {
@@ -32,11 +33,23 @@ const deleteUser = async (id) => {
 };
 
 const getUser = async (id) => {
-  return await User.findByPk(id);
+  return await User.findByPk(id, {
+    include: {
+      model: Adopciones,
+      as: 'adopciones',  
+      through: { attributes: [] }  
+    }
+  });
 };
 
 const getAllUsers = async () => {
-  return await User.findAll();
+  return await User.findAll({
+    include: {
+      model: Adopciones,
+      as: 'adopciones', 
+      through: { attributes: [] }  
+    }
+  });
 };
 
 const uploadImage = async (userId, imageFile) => {

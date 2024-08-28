@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-
+const User = require('./User')
 const Adopciones = sequelize.define('Adopciones', {
   id: {
     type: DataTypes.INTEGER,
@@ -44,14 +44,8 @@ const Adopciones = sequelize.define('Adopciones', {
     defaultValue: [],
     allowNull: true,
   },
-  userId: {  
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'Users', 
-      key: 'id',
-    },
-  },
+  
+  
 });
 
 module.exports = Adopciones;
