@@ -19,7 +19,26 @@ const adoptarController = async (userId, adopcionId) => {
   }
 };
 
+const deleteAdoptarController = async (userId, adopcionId)=>{
+  try {
+    const user = await User.findByPk(userId);
+    const adopcion = await Adopciones.findByPk(adopcionId);
+
+    if (!user || !adopcion) {
+      throw new Error('Usuario o adopción no encontrados');
+    }
+
+    
+     await user.removeAdopciones(adopcion);
+    
+    return { message: 'Relacion eliminada correctamente' };
+  } catch (error) {
+    throw error;
+  }
+
+};
 
 
 
-module.exports = { adoptarController };
+
+module.exports = { adoptarController,deleteAdoptarController };
