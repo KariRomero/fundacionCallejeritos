@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { startGoogleLogin, fetchCurrentUser, startGoogleLogout } from '../../redux/auth/authActions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaw } from '@fortawesome/free-solid-svg-icons';
 
 const GOOGLE_CLIENT_ID = '330217204573-1ohsjkafgv61upbu9tbgd0j269ijul10.apps.googleusercontent.com';
 
@@ -24,19 +26,28 @@ const LogInComponent = () => {
 
   const handleLogout = () => {
     dispatch(startGoogleLogout());
-    window.location.reload(); // Recargar la página después de hacer logout
+    window.location.reload();
   };
 
   return (
-    <section className='bg-primary'>
+    <section className="flex flex-col items-center justify-center">
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
         {isLoggedIn ? (
-          <div className='flex flex-col'>
-            <p className='flex justify-center'>Welcome, {user?.firstName}</p>
-            <button onClick={handleLogout} className='menu-btn'>Logout</button>
+          <div className="flex flex-col items-center p-8 bg-white rounded-lg shadow-lg">
+            <p className="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+              <FontAwesomeIcon icon={faPaw} className="mr-2 text-secondary" />
+              Welcome, {user?.firstName}
+            </p>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 menu-btn rounded flex items-center"
+            >
+              <FontAwesomeIcon icon={faPaw} className="mr-2" />
+              Logout
+            </button>
           </div>
         ) : (
-          <div className='flex justify-center'>
+          <div className="flex justify-center p-8 bg-white rounded-lg shadow-lg">
             <GoogleLogin
               onSuccess={handleGoogleLogin}
               onError={(error) => console.error('Google login error:', error)}
