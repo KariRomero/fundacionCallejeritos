@@ -13,7 +13,6 @@ const SideNav = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
-    // console.log(user);
 
     useEffect(() => {
         dispatch(fetchCurrentUser());
@@ -36,12 +35,17 @@ const SideNav = () => {
                 <ul className="flex">
                     {user && (
                         <>
+                            <Link to={`/usuario/${user.id}/misdonaciones`}>
+                                <button className="border border-secondary rounded-full bg-secondary px-10 py-2 flex items-center mt-10 mx-2">
+                                    Donar
+                                </button>
+                            </Link>
                             <NavLink to={`/usuario/${user.id}/informacionpersonal`}>
                                 Mis Datos
                             </NavLink>
-                            <NavLink to={`/usuario/${user.id}/misdonaciones`}>
+                            {/* <NavLink to={`/usuario/${user.id}/misdonaciones`}>
                                 Mis Donaciones
-                            </NavLink>
+                            </NavLink> */}
                             <NavLink to={`/usuario/${user.id}/misadopciones`}>
                                 Mis adopciones
                             </NavLink>
@@ -62,12 +66,17 @@ const SideNav = () => {
                 <ul className="space-y-2 font-medium">
                     {user && (
                         <>
+                            <Link to={`/usuario/${user.id}/misdonaciones`}>
+                                <button className="border border-secondary rounded-full bg-secondary px-10 py-2 flex items-center my-6 mx-2">
+                                    Donar
+                                </button>
+                            </Link>
                             <NavLink to={`/usuario/${user.id}/informacionpersonal`}>
                                 Mis Datos
                             </NavLink>
-                            <NavLink to={`/usuario/${user.id}/misdonaciones`}>
+                            {/* <NavLink to={`/usuario/${user.id}/misdonaciones`}>
                                 Mis Donaciones
-                            </NavLink>
+                            </NavLink> */}
                             <NavLink to={`/usuario/${user.id}/misadopciones`}>
                                 Mis adopciones
                             </NavLink>

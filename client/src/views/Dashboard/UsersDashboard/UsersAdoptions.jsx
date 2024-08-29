@@ -12,8 +12,6 @@ const UsersAdoptions = () => {
     useEffect(() => {
         dispatch(getById(id));
     }, [dispatch, id]);
-
-    console.log(adopciones);
     
   return (
     <section className="flex justify-center sm:ml-64 px-4">

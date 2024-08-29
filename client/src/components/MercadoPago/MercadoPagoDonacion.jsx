@@ -1,5 +1,6 @@
-import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import axios from "axios";
+import Swal from 'sweetalert2';
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { useState } from "react";
 
 const MercadoPagoDonacion = () => {
@@ -12,45 +13,48 @@ const MercadoPagoDonacion = () => {
         try {
             const response = await axios.post("http://localhost:3001/pagos/create_preference", {
                 title: "Donación Fundación Callejeritos",
-                quantity: 1,                
+                quantity: 1,
                 unit_price: Number(amount),
             });
-
             const { id } = response.data;
             return id;
-
         } catch (error) {
             console.log(error);
         }
     };
 
     const handleDonate = async (e) => {
-        if (amount > 0) { 
+        if (amount > 1000) {
             const id = await createPreference(amount);
             if (id) {
                 setPreferenceId(id);
             }
         } else {
-            console.log("El monto debe ser mayor a 0");
+            Swal.fire({
+                title: "Puede donar a partir de $1000",
+                icon: "warning",
+                confirmButtonColor: "#f69a0b",
+                confirmButtonText: "Aceptar"
+            })
         }
     };
 
     return (
-        <section className="h-60 grid border border-secondary rounded-xl mx-10 mt-20">
-            <div className="flex items-center justify-center gap-10">
-                <input
-                    value={amount}
-                    onChange={(e) => setAmount(Number(e.target.value))} // Convertir el valor a un número.
-                    type="number"
-                    className='rounded-full shadow-md p-2'
+        <section>
+            <input
+                value={amount}
+                onChange={(e) => setAmount(Number(e.target.value))}
+                type="number"
+                min={1000}
+                step={500}
+                className='rounded-full shadow-md p-2'
+            />
+            <button onClick={handleDonate} className="menu-btn">Donar</button>
+            {preferenceId && (
+                <Wallet initialization={{ preferenceId: preferenceId }}
+                    customization={{ texts: { valueProp: "smart_option" } }}
                 />
-                <button onClick={handleDonate} className="menu-btn">Donar</button>
-                {preferenceId && (
-                    <Wallet initialization={{ preferenceId: preferenceId }}
-                        customization={{ texts: { valueProp: "smart_option" } }}
-                    />
-                )}
-            </div>
+            )}
         </section>
     );
 };

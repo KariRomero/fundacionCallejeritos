@@ -5,15 +5,13 @@ import { faPaw } from '@fortawesome/free-solid-svg-icons';
 const ErrorUserProfile = () => {
   return (
     <section className="w-full flex flex-col justify-center items-center bg-white ">
-            <div className="bg-secondary rounded-full p-8 my-16">
+            <div className="bg-secondary rounded-full p-8 py-10">
             <FontAwesomeIcon icon={faPaw} className='text-9xl text-primary' />
             </div>
-            <h1 className="paragraph">
-                Debe iniciar sesion
-            </h1>
+            
             <Link to='/iniciarsesion'>
-                <button className="menu-btn">
-                    Iniciar sesion
+                <button className="menu-btn pb-12">
+                    Debe Iniciar sesion
                 </button>
             </Link>
         </section>
