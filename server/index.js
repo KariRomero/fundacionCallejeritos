@@ -17,9 +17,10 @@ const PORT = process.env.PORT || 3001;
 
 // Actualizar la configuración de CORS para permitir múltiples orígenes
 const corsOptions = {
-  origin: ['http://localhost:5173', 'https://fundacion-callejeritos.vercel.app'],  // Permitir ambos orígenes
-  credentials: true,  // Permitir el envío de cookies y encabezados de autorización
+  origin: ['http://localhost:5173', 'https://fundacion-callejeritos.vercel.app'],
+  credentials: true,  // Permitir envío de cookies y encabezados de autorización
 };
+app.use(cors(corsOptions));
 
 // Define las relaciones de muchos a muchos
 User.belongsToMany(Adopciones, {
