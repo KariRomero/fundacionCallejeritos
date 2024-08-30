@@ -14,8 +14,12 @@ const LogInComponent = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(fetchCurrentUser());
+    if(user)dispatch(fetchCurrentUser());
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(fetchCurrentUser());
+  // }, [dispatch]);
 
   const handleGoogleLogin = (response) => {
     if (response.credential) {
