@@ -17,8 +17,9 @@ const PORT = process.env.PORT || 3001;
 // Configurar CORS para permitir múltiples orígenes
 const corsOptions = {
   origin: ['http://localhost:5173', 'https://fundacion-callejeritos.vercel.app'],
-  credentials: true,  // Permitir el envío de cookies y encabezados de autorización
+  credentials: true,
 };
+
 app.use(cors(corsOptions));  // Configurar CORS con múltiples orígenes permitidos
 
 // Middleware
@@ -29,11 +30,11 @@ app.use(express.json());  // Utiliza el analizador JSON incorporado en Express
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false,  // Cambia a `false` para evitar sesiones vacías
+  saveUninitialized: false,
   cookie: {
     httpOnly: true,  // La cookie no puede ser accedida por JavaScript del lado del cliente
-    secure: process.env.NODE_ENV === 'production',  // Solo envía cookies a través de HTTPS en producción
-    sameSite: 'none',  // Necesario para permitir cookies entre sitios (cross-site)
+    secure: process.env.NODE_ENV === 'production',  // true solo en producción, para HTTPS
+    sameSite: 'none',  // Permite cookies entre sitios (cross-site)
   }
 }));
 
