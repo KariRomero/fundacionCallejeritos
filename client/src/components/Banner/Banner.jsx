@@ -6,7 +6,7 @@ import backG from '/BannerLanding.png';
 
 const Banner = () => {
     return (
-        <section className="w-full h-auto mt-1 grid grid-cols-1 mx-0 md:mx-32 bg-cover bg-center md:grid-cols-2" style={{ backgroundImage: `url(${backG})` }}>
+        <section className="w-full h-auto mt-8 grid grid-cols-1 mx-0 md:mx-32 bg-cover bg-center md:grid-cols-2" style={{ backgroundImage: `url(${backG})` }}>
             <div className="sm:justify-end">
                 <img src={doggy} alt='banner' className='h-full' />
             </div>

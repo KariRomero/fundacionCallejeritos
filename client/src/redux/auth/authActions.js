@@ -3,7 +3,7 @@ import { logInGoogle, getCurrentUser, logOutGoogle } from './authSlice';
 
 // Inicia el proceso de autenticación con Google
 export const startGoogleLogin = () => async (dispatch) => {
-  window.location.href = 'http://localhost:3001/auth/google';
+  window.location.href = 'https://fundacioncallejeritos-production.up.railway.app/auth/google';
 };
 
 // Obtiene el usuario actual autenticado
@@ -11,7 +11,7 @@ export const startGoogleLogin = () => async (dispatch) => {
 
 export const fetchCurrentUser = () => async (dispatch) => {
   try {
-    const response = await axios.get('http://localhost:3001/current_user', { withCredentials: true });
+    const response = await axios.get('https://fundacioncallejeritos-production.up.railway.app/current_user', { withCredentials: true });
 
     if (response.data) {
       dispatch(getCurrentUser(response.data)); // Aquí se despacha la acción para actualizar el estado
@@ -26,7 +26,7 @@ export const fetchCurrentUser = () => async (dispatch) => {
 // Cierra sesión
 export const startGoogleLogout = () => async (dispatch) => {
   try {
-    const response = await axios.get('http://localhost:3001/logout', { withCredentials: true });
+    const response = await axios.get('https://fundacioncallejeritos-production.up.railway.app/logout', { withCredentials: true });
     console.log('Respuesta de logout:', response);
     dispatch(logOutGoogle());
   } catch (error) {
