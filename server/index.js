@@ -30,7 +30,7 @@ app.use(express.json());  // Utiliza el analizador JSON incorporado en Express
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false,  // Cambia a `false` para evitar sesiones vacías
+  saveUninitialized: true,  // Cambia a `false` para evitar sesiones vacías
   cookie: {
     httpOnly: true,  // La cookie no puede ser accedida por JavaScript del lado del cliente
     secure: process.env.NODE_ENV === 'production',  // Solo envía cookies a través de HTTPS en producción
