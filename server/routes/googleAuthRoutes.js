@@ -23,12 +23,12 @@ router.get('/auth/google/callback',
 router.get('/logout', (req, res, next) => {
   req.logout((err) => {
     if (err) {
-      console.log('Error en req.logout:', err);
+      console.error('Error en req.logout:', err);
       return next(err);
     }
     req.session.destroy((err) => {
       if (err) {
-        console.log('Error en req.session.destroy:', err);
+        console.error('Error en req.session.destroy:', err);
         return next(err);
       }
       res.clearCookie('connect.sid', { path: '/' });
