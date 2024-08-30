@@ -1,7 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 require('dotenv').config();
 const sequelize = require('./config/database');
 const routes = require('./routes/indexRoutes');
@@ -9,7 +8,7 @@ const session = require('express-session');
 const passport = require('./config/passport');
 const authRoutes = require('./routes/googleAuthRoutes');
 const mercadoPagoRouter = require('./mercadoPago/mercadoPagoRoutes');
-const User = require('./models/User');  // Asegúrate de que las rutas sean correctas
+const User = require('./models/User');
 const Adopciones = require('./models/Adopciones');
 
 const app = express();
@@ -21,6 +20,29 @@ const corsOptions = {
   credentials: true,  // Permitir el envío de cookies y encabezados de autorización
 };
 app.use(cors(corsOptions));  // Configurar CORS con múltiples orígenes permitidos
+
+// Middleware
+app.use(morgan('dev'));
+app.use(express.json());  // Utiliza el analizador JSON incorporado en Express
+
+// Configuración de sesión
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,  // Cambia a `false` para evitar sesiones vacías
+  cookie: {
+    httpOnly: true,  // La cookie no puede ser accedida por JavaScript del lado del cliente
+    secure: process.env.NODE_ENV === 'production',  // Solo envía cookies a través de HTTPS en producción
+    sameSite: 'none',  // Necesario para permitir cookies entre sitios (cross-site)
+  }
+}));
+
+// Inicialización de Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Manejar solicitudes OPTIONS (preflight)
+app.options('*', cors(corsOptions));
 
 // Define las relaciones de muchos a muchos
 User.belongsToMany(Adopciones, {
@@ -37,31 +59,9 @@ Adopciones.belongsToMany(User, {
   otherKey: 'userId'
 });
 
-// Middleware
-app.use(morgan('dev'));
-app.use(bodyParser.json());
-app.use(express.json());
-app.use(session({
-  secret: process.env.SESSION_SECRET,  // Una cadena secreta para firmar la sesión de usuario
-  resave: false,  // No guarda la sesión si no hay cambios
-  saveUninitialized: true,  // Guarda una sesión sin modificar
-  cookie: {
-    httpOnly: true,  // La cookie no puede ser accedida por JavaScript del lado del cliente
-    secure: true,  // Solo envía cookies a través de HTTPS
-    sameSite: 'none',  // Necesario para permitir cookies entre sitios (cross-site)
-  }
-}));
-
-// Inicialización de Passport
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Manejar solicitudes OPTIONS (preflight)
-app.options('*', cors(corsOptions));
-
 // Rutas
 app.use('/api', routes);
-app.use('/', authRoutes); // Asegúrate de que las rutas de autenticación se cargan bajo '/auth'
+app.use('/', authRoutes);  // Asegúrate de que las rutas de autenticación se cargan bajo '/auth'
 app.use('/pagos', mercadoPagoRouter);
 
 // Prueba la conexión a la base de datos
