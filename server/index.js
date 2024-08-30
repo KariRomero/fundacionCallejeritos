@@ -15,12 +15,12 @@ const Adopciones = require('./models/Adopciones');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Actualizar la configuración de CORS para permitir múltiples orígenes
+// Configurar CORS para permitir múltiples orígenes
 const corsOptions = {
   origin: ['http://localhost:5173', 'https://fundacion-callejeritos.vercel.app'],
-  credentials: true,  // Permitir envío de cookies y encabezados de autorización
+  credentials: true,  // Permitir el envío de cookies y encabezados de autorización
 };
-app.use(cors(corsOptions));
+app.use(cors(corsOptions));  // Configurar CORS con múltiples orígenes permitidos
 
 // Define las relaciones de muchos a muchos
 User.belongsToMany(Adopciones, {
@@ -39,7 +39,6 @@ Adopciones.belongsToMany(User, {
 
 // Middleware
 app.use(morgan('dev'));
-app.use(cors(corsOptions));  // Configurar CORS con múltiples orígenes permitidos
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(session({
@@ -48,7 +47,8 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    secure: true, // Cambia a `true` si estás usando HTTPS
+    secure: process.env.NODE_ENV === 'production',  // Cambia a `true` en producción (HTTPS)
+    sameSite: 'none',  // Necesario para permitir cookies entre sitios
   }
 }));
 
@@ -56,8 +56,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Eliminar el middleware redundante para CORS (ya no es necesario)
-app.options('*', cors(corsOptions));  // Manejar solicitudes OPTIONS (preflight) con la configuración de CORS actualizada
+// Manejar solicitudes OPTIONS (preflight)
+app.options('*', cors(corsOptions));
 
 // Rutas
 app.use('/api', routes);
