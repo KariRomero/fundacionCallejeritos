@@ -5,7 +5,7 @@ const User = require('../models/User'); // Ajusta la ruta según tu estructura d
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3001/auth/google/callback" // Ajusta el callback URL según tu entorno
+    callbackURL: "https://fundacion-callejeritos.vercel.app/auth/google/callback"
   },
   async (accessToken, refreshToken, profile, done) => {
     try {

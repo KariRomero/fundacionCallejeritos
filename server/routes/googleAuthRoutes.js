@@ -12,7 +12,7 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('http://localhost:5173'); 
+    res.redirect("https://fundacion-callejeritos.vercel.app"); 
   }
 );
 
@@ -30,7 +30,7 @@ router.get('/logout', (req, res, next) => {
       }
       res.clearCookie('connect.sid', { path: '/' });
       console.log('Sesión destruida y cookie eliminada');
-      res.redirect('http://localhost:5173'); 
+      res.redirect('https://fundacion-callejeritos.vercel.app'); 
     });
   });
 });
