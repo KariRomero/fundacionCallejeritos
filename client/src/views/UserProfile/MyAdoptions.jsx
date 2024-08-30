@@ -1,58 +1,47 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getById } from "../../redux/user/usersActions";
-import { deleteAdoptarAction } from "../../redux/adopt/adoptActions";
 import CardAdoptions from "../../components/Card/CardAdoptions";
 
 const MyAdoptions = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { adopciones } = useSelector(state=>state.users.user);
-    const { user } = useSelector(state=>state.users);
-    // console.log(adopciones);
-    
+    const { adopciones } = useSelector(state => state.users.user);
+    const { user } = useSelector(state => state.users);
+    const [adopcionesList, setAdopcionesList] = useState(adopciones);
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getById(id));
-    },[dispatch,id]);
+    }, [dispatch, id]);
 
+    useEffect(() => {
+        setAdopcionesList(adopciones);
+    }, [adopciones]);
 
-    // const handleClick = (adopcionId) => {
-    //     if (user && id) {
-    //         dispatch(deleteAdoptarAction(user.id, adopcionId))
-    //             .then(() => console.log('Eliminación exitosa'))
-    //             .catch(e => console.log('Error en eliminación:', e));
-    //     } 
-    // };
-    
-    
+    const handleDeleteSuccess = () => {
+        dispatch(getById(id)); // Actualiza el estado de adopciones
+    };
 
-    return(
+    return (
         <section className="flex h-screen justify-center px-4">
             <div className="w-full mt-4">
-                {/* <div className='flex justify-between items-center'>
-                    <select className='paragraph bg-white' value={orderBy} onChange={handleOrderChange}>
-                        <option value="">Ordenar por</option>
-                        <option value="asc">A-Z</option>
-                        <option value="desc">Z-A</option>
-                    </select>
-                </div> */}
                 <ul className="w-full grid grid-cols-3">
-                    {Array.isArray(adopciones) && adopciones.map((adop) => (
+                    {Array.isArray(adopcionesList) && adopcionesList.map(adop => (
                         <CardAdoptions 
-                        key={adop.id}
-                        id={adop.id} 
-                        name={adop.name} 
-                        gender={adop.gender} 
-                        images={adop.image[0]}
-                        userId={user.id}
+                            key={adop.id}
+                            id={adop.id} 
+                            name={adop.name} 
+                            gender={adop.gender} 
+                            images={adop.image[0]}
+                            userId={user.id}
+                            onDeleteSuccess={handleDeleteSuccess}
                         />
                     ))}
                 </ul>
             </div>
         </section>
-    )
+    );
 };
 
 export default MyAdoptions;
