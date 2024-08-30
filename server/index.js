@@ -41,9 +41,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Manejar solicitudes OPTIONS (preflight)
-app.options('*', cors(corsOptions));
-
 // Define las relaciones de muchos a muchos
 User.belongsToMany(Adopciones, {
   through: 'UserXAdopciones',
