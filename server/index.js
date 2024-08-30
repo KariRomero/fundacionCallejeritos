@@ -8,15 +8,17 @@ const routes = require('./routes/indexRoutes');
 const session = require('express-session');
 const passport = require('./config/passport');
 const authRoutes = require('./routes/googleAuthRoutes');
-const mercadoPagoRouter = require ('./mercadoPago/mercadoPagoRoutes')
+const mercadoPagoRouter = require('./mercadoPago/mercadoPagoRoutes');
 const User = require('./models/User');  // Asegúrate de que las rutas sean correctas
 const Adopciones = require('./models/Adopciones');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Actualizar la configuración de CORS para permitir múltiples orígenes
 const corsOptions = {
-  origin: 'http://localhost:5173',
-  credentials: true,
+  origin: ['http://localhost:5173', 'https://fundacion-callejeritos.vercel.app'],  // Permitir ambos orígenes
+  credentials: true,  // Permitir el envío de cookies y encabezados de autorización
 };
 
 // Define las relaciones de muchos a muchos
@@ -36,7 +38,7 @@ Adopciones.belongsToMany(User, {
 
 // Middleware
 app.use(morgan('dev'));
-app.use(cors(corsOptions));
+app.use(cors(corsOptions));  // Configurar CORS con múltiples orígenes permitidos
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(session({
@@ -53,17 +55,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Agregar encabezados CORS a todas las respuestas
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
-
-// Manejar solicitudes OPTIONS (preflight)
-app.options('*', cors(corsOptions));
+// Eliminar el middleware redundante para CORS (ya no es necesario)
+app.options('*', cors(corsOptions));  // Manejar solicitudes OPTIONS (preflight) con la configuración de CORS actualizada
 
 // Rutas
 app.use('/api', routes);
@@ -76,7 +69,7 @@ sequelize.authenticate()
     console.log('Connection has been established successfully.');
 
     // Sincroniza los modelos con la base de datos
-    return sequelize.sync({ alter: true  });
+    return sequelize.sync({ alter: true });
   })
   .then(() => {
     console.log('Database synchronized successfully.');
@@ -85,12 +78,13 @@ sequelize.authenticate()
     console.error('Unable to connect to the database:', err);
   });
 
-
+// Manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
+// Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
