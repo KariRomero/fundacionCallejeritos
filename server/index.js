@@ -20,21 +20,21 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions));  // Configurar CORS con múltiples orígenes permitidos
 
 // Middleware
 app.use(morgan('dev'));
-app.use(express.json());
+app.use(express.json());  // Utiliza el analizador JSON incorporado en Express
 
 // Configuración de sesión
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: false,  // Cambia a `false` para evitar sesiones vacías
   cookie: {
-    httpOnly: true,
-    secure: true,  // true en producción para HTTPS
-    sameSite: 'none',  // Permite cookies entre sitios (cross-site)
+    httpOnly: true,  // La cookie no puede ser accedida por JavaScript del lado del cliente
+    secure: process.env.NODE_ENV === 'production',  // Solo envía cookies a través de HTTPS en producción
+    sameSite: 'none',  // Necesario para permitir cookies entre sitios (cross-site)
   }
 }));
 
@@ -59,13 +59,15 @@ Adopciones.belongsToMany(User, {
 
 // Rutas
 app.use('/api', routes);
-app.use('/', authRoutes);
+app.use('/', authRoutes);  // Asegúrate de que las rutas de autenticación se cargan bajo '/auth'
 app.use('/pagos', mercadoPagoRouter);
 
 // Prueba la conexión a la base de datos
 sequelize.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
+
+    // Sincroniza los modelos con la base de datos
     return sequelize.sync({ alter: true });
   })
   .then(() => {
