@@ -20,7 +20,7 @@ const MyAdoptions = () => {
     }, [adopciones]);
 
     const handleDeleteSuccess = () => {
-        dispatch(getById(id)); // Actualiza el estado de adopciones
+        dispatch(getById(id)); 
     };
 
     return (

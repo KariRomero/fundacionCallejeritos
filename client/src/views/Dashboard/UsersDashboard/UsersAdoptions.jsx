@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getById } from '../../../redux/user/usersActions';
@@ -8,10 +8,20 @@ const UsersAdoptions = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { adopciones } = useSelector(state => state.users.user);
+    const { user } = useSelector(state => state.users);
+    const [adopcionesList, setAdopcionesList] = useState(adopciones);
 
     useEffect(() => {
         dispatch(getById(id));
     }, [dispatch, id]);
+
+    useEffect(() => {
+        setAdopcionesList(adopciones);
+    }, [adopciones]);
+
+    const handleDeleteSuccess = () => {
+        dispatch(getById(id)); 
+    };
     
   return (
     <section className="flex justify-center sm:ml-64 px-4">
@@ -25,8 +35,15 @@ const UsersAdoptions = () => {
                     </select> */}
                 </div>
                 <ul className="w-full grid grid-cols-3">
-                    {Array.isArray(adopciones) && adopciones.map((adop) => (
-                        <CardAdoptions id={adop.id} name={adop.name} gender={adop.gender} images={adop.image[0]}/>
+                    {Array.isArray(adopcionesList) && adopcionesList.map((adop) => (
+                        <CardAdoptions 
+                        id={adop.id} 
+                        name={adop.name} 
+                        gender={adop.gender} 
+                        images={adop.image[0]}
+                        userId={user.id}
+                            onDeleteSuccess={handleDeleteSuccess}
+                        />
                     ))}
                 </ul>
             </div>
