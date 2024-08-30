@@ -15,14 +15,12 @@ import {
 
 
 export const getRescues = () => (dispatch) => {
-  // axios.get('http://localhost:3000/rescues')
   axios.get('https://fundacioncallejeritos-production.up.railway.app/api/casos')
     .then(res => dispatch(getAllRescues(res.data)))
     .catch(e => console.log(e));
 };
 
 export const getById = (id) => (dispatch) => {
-  // axios.get(`http://localhost:3000/rescues/${id}`)
   axios.get(`https://fundacioncallejeritos-production.up.railway.app/api/casos/${id}`)
     .then(res => dispatch(getRescuesById(res.data)))
     .catch(e => console.log(e));
@@ -39,7 +37,6 @@ export const createRescues = (formData) => (dispatch) => {
 };
 
 export const updateById = (id, formData) => (dispatch) => {
-  // axios.get(`http://localhost:3000/adoptions/${id}`)
   axios.put(`https://fundacioncallejeritos-production.up.railway.app/api/casos/${id}`, formData)
     .then(res => dispatch(updateRescueById(res.data)))
     .catch(e => console.log(e));

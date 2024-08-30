@@ -14,14 +14,12 @@ import {
 } from './adoptionsSlice';
 
 export const getAdoptions = () => (dispatch) => {
-  // axios.get('http://localhost:3000/adoptions')
   axios.get('https://fundacioncallejeritos-production.up.railway.app/api/adopciones')
     .then(res => dispatch(getAllAdoptions(res.data)))
     .catch(e => console.log(e));
 };
 
 export const getById = (id) => (dispatch) => {
-  // axios.get(`http://localhost:3000/adoptions/${id}`)
   axios.get(`https://fundacioncallejeritos-production.up.railway.app/api/adopciones/${id}`)
     .then(res => dispatch(getAdoptionsById(res.data)))
     .catch(e => console.log(e));
