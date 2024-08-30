@@ -43,8 +43,7 @@ const CardAdoptions = ({ id, name, images, gender, userId, onDeleteSuccess }) =>
                         </button>
                     </div>
                 </div>
-            ) : (
-                
+            ) : (                
                 <Link to={`/adopcionesdetalle/${id}`}>
                     <div className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col items-center text-center p-4 w-72 h-96 transition-transform transform hover:scale-105">
                         <img
