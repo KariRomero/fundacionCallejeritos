@@ -42,13 +42,13 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
+  secret: process.env.SESSION_SECRET,  // Una cadena secreta para firmar la sesión de usuario
+  resave: false,  // No guarda la sesión si no hay cambios
+  saveUninitialized: true,  // Guarda una sesión sin modificar
   cookie: {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',  // Cambia a `true` en producción (HTTPS)
-    sameSite: 'none',  // Necesario para permitir cookies entre sitios
+    httpOnly: true,  // La cookie no puede ser accedida por JavaScript del lado del cliente
+    secure: true,  // Solo envía cookies a través de HTTPS
+    sameSite: 'none',  // Necesario para permitir cookies entre sitios (cross-site)
   }
 }));
 
