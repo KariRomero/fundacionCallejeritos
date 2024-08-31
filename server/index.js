@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
-const sequelize = require('./config/database');  // Tu instancia de Sequelize
+const sequelize = require('./config/database');
 const routes = require('./routes/indexRoutes');
 const session = require('express-session');
 const passport = require('./config/passport');
@@ -10,7 +10,6 @@ const authRoutes = require('./routes/googleAuthRoutes');
 const mercadoPagoRouter = require('./mercadoPago/mercadoPagoRoutes');
 const User = require('./models/User');
 const Adopciones = require('./models/Adopciones');
-const pgSession = require('connect-pg-simple')(session);  // Importar connect-pg-simple
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -18,28 +17,26 @@ const PORT = process.env.PORT || 3001;
 // Configurar CORS para permitir múltiples orígenes
 const allowedOrigins = ['http://localhost:5173', 'https://fundacion-callejeritos.vercel.app'];
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
+app.use(cors({
+  origin: function (origin, callback) {
+    // Permitir solicitudes desde orígenes definidos o sin origen (solicitudes de la misma máquina)
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error('No permitido por CORS'));
     }
   },
-  credentials: true,
-};
+  credentials: true,  // Permitir el envío de cookies y encabezados de autorización
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Métodos HTTP permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Encabezados permitidos
+}));
 
-app.use(cors(corsOptions));  
 // Middleware
 app.use(morgan('dev'));
 app.use(express.json());  // Utiliza el analizador JSON incorporado en Express
 
-// Configuración de sesión con PostgreSQL
+// Configuración de sesión
 app.use(session({
-  store: new pgSession({
-    pool: sequelize,  // Utiliza tu pool de conexión de Sequelize
-    tableName: 'session'  // Puedes personalizar el nombre de la tabla
-  }),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,  // Cambia a `false` para evitar sesiones vacías
