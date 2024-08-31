@@ -3,13 +3,13 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/User'); // Ajusta la ruta según tu estructura de proyecto
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.NODE_ENV === 'production' 
-      ? "https://fundacion-callejeritos.vercel.app" 
-      : "http://localhost:3001"
-  },
-  async (accessToken, refreshToken, profile, done) => {
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.NODE_ENV === 'production' 
+    ? "https://fundacion-callejeritos.vercel.app/auth/google/callback"  // Cambiado a la ruta completa
+    : "http://localhost:3001/auth/google/callback"
+},
+async (accessToken, refreshToken, profile, done) => {
     try {
       // Busca un usuario existente en la base de datos por Google ID
       let user = await User.findOne({ where: { googleId: profile.id } });
