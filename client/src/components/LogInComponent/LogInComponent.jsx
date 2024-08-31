@@ -28,10 +28,16 @@ const LogInComponent = () => {
   //     console.error('Google login failed. No credential returned.');
   //   }
   // };
-  const handleGoogleLogin = (response) => {
+  const handleGoogleLogin = async (response) => {
     if (response.credential) {
       const token = response.credential; // Obtén el token de la respuesta
-      dispatch(startGoogleLogin(token)); // Envía el token a tu acción de login
+  
+      try {
+        // Aquí haces la llamada a tu backend para enviar el token y autenticar al usuario
+        await dispatch(startGoogleLogin(token)); // Envía el token a tu acción de login
+      } catch (error) {
+        console.error('Error al iniciar sesión con Google:', error);
+      }
     } else {
       console.error('Google login failed. No credential returned.');
     }
@@ -45,7 +51,7 @@ const LogInComponent = () => {
 
   return (
     <section className="flex flex-col items-center justify-center">
-      <GoogleOAuthProvider clientId={'330217204573-1ohsjkafgv61upbu9tbgd0j269ijul10.apps.googleusercontent.com'}>
+      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
         {isLoggedIn ? (
           <div className="flex flex-col items-center p-8 bg-white rounded-lg shadow-lg">
             <p className="text-lg font-semibold text-gray-700 mb-4 flex items-center">
