@@ -45,7 +45,7 @@ const LogInComponent = () => {
 
   return (
     <section className="flex flex-col items-center justify-center">
-      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <GoogleOAuthProvider clientId={'330217204573-1ohsjkafgv61upbu9tbgd0j269ijul10.apps.googleusercontent.com'}>
         {isLoggedIn ? (
           <div className="flex flex-col items-center p-8 bg-white rounded-lg shadow-lg">
             <p className="text-lg font-semibold text-gray-700 mb-4 flex items-center">
