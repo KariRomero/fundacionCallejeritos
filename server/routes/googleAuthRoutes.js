@@ -16,10 +16,10 @@ router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: CLIENT_HOME_PAGE_URL }),
   (req, res) => {
     res.redirect(CLIENT_HOME_PAGE_URL);
+
   }
 );
 
-// Ruta para cerrar sesión
 router.get('/logout', (req, res, next) => {
   req.logout((err) => {
     if (err) {
