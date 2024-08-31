@@ -3,8 +3,7 @@ import { logInGoogle, getCurrentUser, logOutGoogle } from './authSlice';
 
 // Inicia el proceso de autenticación con Google
 export const startGoogleLogin = () => async (dispatch) => {
-  // Usa una ruta relativa para la autenticación cuando se utiliza un proxy inverso
-  window.location.href = '/google';
+  window.location.href = '/auth/google';  // Usa la ruta relativa con el prefijo '/auth'
 };
 
 // Obtiene el usuario actual autenticado
