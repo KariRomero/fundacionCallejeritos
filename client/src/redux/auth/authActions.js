@@ -10,7 +10,7 @@ export const startGoogleLogin = () => async (dispatch) => {
 // Obtiene el usuario actual autenticado
 export const fetchCurrentUser = () => async (dispatch) => {
   try {
-    const response = await axios.get('/auth/current_user', { withCredentials: true }); // Usa la ruta relativa
+    const response = await axios.get('/current_user', { withCredentials: true }); // Usa la ruta relativa
 
     console.log("Response Headers:", response.headers);
     console.log("Response Data:", response.data);
@@ -34,7 +34,7 @@ export const fetchCurrentUser = () => async (dispatch) => {
 // Cierra sesión
 export const startGoogleLogout = () => async (dispatch) => {
   try {
-    const response = await axios.get('/auth/logout', { withCredentials: true });  // Usa la ruta relativa
+    const response = await axios.get('/logout', { withCredentials: true });  // Usa la ruta relativa
     console.log('Respuesta de logout:', response);
     dispatch(logOutGoogle());
   } catch (error) {
