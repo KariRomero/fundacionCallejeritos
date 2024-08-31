@@ -1,7 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-
 require('dotenv').config();
 const sequelize = require('./config/database');
 const routes = require('./routes/indexRoutes');
@@ -17,22 +16,22 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Configurar CORS para permitir múltiples orígenes
-const allowedOrigins = ['http://localhost:5173', 'https://fundacion-callejeritos.vercel.app', ""];
-
-
+const allowedOrigins = ['http://localhost:5173', 'https://fundacion-callejeritos.vercel.app'];
 
 app.use(cors({
   origin: function (origin, callback) {
+    // Permitir solicitudes desde orígenes definidos o sin origen (solicitudes de la misma máquina)
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error('No permitido por CORS'));
     }
   },
-  credentials: true,  // Importante para permitir cookies
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,  // Permitir el envío de cookies y encabezados de autorización
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Métodos HTTP permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Encabezados permitidos
 }));
+
 // Middleware
 app.use(morgan('dev'));
 app.use(express.json());  // Utiliza el analizador JSON incorporado en Express
@@ -74,7 +73,7 @@ Adopciones.belongsToMany(User, {
 
 // Rutas
 app.use('/api', routes);
-app.use('/', authRoutes);  // Asegúrate de que las rutas de autenticación se cargan bajo '/auth'
+app.use('/auth', authRoutes);  // Cambié esta ruta para asegurarme de que todas las rutas de autenticación se cargan bajo '/auth'
 app.use('/pagos', mercadoPagoRouter);
 
 // Prueba la conexión a la base de datos
