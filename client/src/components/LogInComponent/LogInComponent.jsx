@@ -5,8 +5,8 @@ import { startGoogleLogin, fetchCurrentUser, startGoogleLogout } from '../../red
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 
-// const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-const GOOGLE_CLIENT_ID = '330217204573-1ohsjkafgv61upbu9tbgd0j269ijul10.apps.googleusercontent.com';
+// Usar variables de entorno en el frontend (Vite)
+const googleClientID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const LogInComponent = () => {
   const dispatch = useDispatch();
@@ -51,7 +51,7 @@ const LogInComponent = () => {
 
   return (
     <section className="flex flex-col items-center justify-center">
-      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <GoogleOAuthProvider clientId={googleClientID}>
         {isLoggedIn ? (
           <div className="flex flex-col items-center p-8 bg-white rounded-lg shadow-lg">
             <p className="text-lg font-semibold text-gray-700 mb-4 flex items-center">
