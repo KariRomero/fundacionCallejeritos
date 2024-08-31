@@ -26,22 +26,18 @@ export const startGoogleLogin = () => async (dispatch) => {
 
 export const fetchCurrentUser = () => async (dispatch) => {
   try {
-    const response = await axios.get('https://fundacioncallejeritos-production.up.railway.app/current_user', { 
-      withCredentials: true 
-    });
+    const response = await axios.get('https://fundacioncallejeritos-production.up.railway.app/current_user', { withCredentials: true });
 
     console.log("Response Headers:", response.headers);
     console.log("Response Data:", response.data);
 
-    // Verifica que los datos del usuario existan y contengan un ID (o alguna otra verificación relevante)
-    if (response.data && response.data.id) {
+    if (response.data) {
       dispatch(getCurrentUser(response.data));
     } else {
       dispatch(logOutGoogle());
-      console.error("No user data returned or user is not authenticated.");
     }
   } catch (error) {
-    console.error("Fetching current user failed:", error.message);
+    console.error("Fetching current user failed:", error);
     if (error.response) {
       console.error("Error Response Data:", error.response.data);
       console.error("Error Status:", error.response.status);
