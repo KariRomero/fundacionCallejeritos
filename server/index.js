@@ -16,13 +16,20 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Configurar CORS para permitir múltiples orígenes
+const allowedOrigins = ['http://localhost:5173', 'https://fundacion-callejeritos.vercel.app'];
+
 const corsOptions = {
-  origin: ['*'],
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 };
 
-app.use(cors(corsOptions));  // Configurar CORS con múltiples orígenes permitidos
-
+app.use(cors(corsOptions));  
 // Middleware
 app.use(morgan('dev'));
 app.use(express.json());  // Utiliza el analizador JSON incorporado en Express
