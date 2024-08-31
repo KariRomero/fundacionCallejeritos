@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
-const sequelize = require('./config/database');
+const sequelize = require('./config/database');  // Tu instancia de Sequelize
 const routes = require('./routes/indexRoutes');
 const session = require('express-session');
 const passport = require('./config/passport');
@@ -10,6 +10,7 @@ const authRoutes = require('./routes/googleAuthRoutes');
 const mercadoPagoRouter = require('./mercadoPago/mercadoPagoRoutes');
 const User = require('./models/User');
 const Adopciones = require('./models/Adopciones');
+const pgSession = require('connect-pg-simple')(session);  // Importar connect-pg-simple
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -26,8 +27,12 @@ app.use(cors(corsOptions));  // Configurar CORS con múltiples orígenes permiti
 app.use(morgan('dev'));
 app.use(express.json());  // Utiliza el analizador JSON incorporado en Express
 
-// Configuración de sesión
+// Configuración de sesión con PostgreSQL
 app.use(session({
+  store: new pgSession({
+    pool: sequelize,  // Utiliza tu pool de conexión de Sequelize
+    tableName: 'session'  // Puedes personalizar el nombre de la tabla
+  }),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,  // Cambia a `false` para evitar sesiones vacías
