@@ -2,8 +2,22 @@ import axios from 'axios';
 import { logInGoogle, getCurrentUser, logOutGoogle } from './authSlice';
 
 // Inicia el proceso de autenticación con Google
-export const startGoogleLogin = () => async (dispatch) => {
-  window.location.href = 'https://fundacioncallejeritos-production.up.railway.app/auth/google';
+// En tu archivo authActions.js
+export const startGoogleLogin = (token) => async (dispatch) => {
+  try {
+    const response = await axios.post('https://fundacioncallejeritos-production.up.railway.app/auth/google', {
+      token,  // Envía el token en el cuerpo de la solicitud
+    }, { withCredentials: true });
+
+    if (response.data) {
+      dispatch(logInGoogle(response.data)); // Maneja la respuesta del backend y actualiza el estado
+    } else {
+      dispatch(logOutGoogle());
+    }
+  } catch (error) {
+    console.error('Error en la autenticación con Google:', error);
+    dispatch(logOutGoogle());
+  }
 };
 
 // Obtiene el usuario actual autenticado
