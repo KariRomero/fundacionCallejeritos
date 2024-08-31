@@ -10,6 +10,7 @@ const authRoutes = require('./routes/googleAuthRoutes');
 const mercadoPagoRouter = require('./mercadoPago/mercadoPagoRoutes');
 const User = require('./models/User');
 const Adopciones = require('./models/Adopciones');
+const pgSession = require('connect-pg-simple')(session);  // Importar connect-pg-simple
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -35,8 +36,12 @@ app.use(cors({
 app.use(morgan('dev'));
 app.use(express.json());  // Utiliza el analizador JSON incorporado en Express
 
-// Configuración de sesión
+// Configuración de sesión con PostgreSQL
 app.use(session({
+  store: new pgSession({
+    pool: sequelize,  // Utiliza tu pool de conexión de Sequelize
+    tableName: 'session'  // Puedes personalizar el nombre de la tabla
+  }),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,  // Cambia a `false` para evitar sesiones vacías
