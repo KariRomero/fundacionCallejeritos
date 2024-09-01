@@ -4,7 +4,7 @@ const router = express.Router();
 require('dotenv').config();
 
 // Determina la URL de redirección en función del entorno
-const CLIENT_HOME_PAGE_URL = 'https://fundacion-callejeritos.vercel.app';  // Asegúrate de usar la variable de entorno correcta
+const CLIENT_HOME_PAGE_URL = process.env.NODE_ENV === 'production' ? 'https://fundacion-callejeritos.vercel.app' : 'http://localhost:5173';
 
 // Ruta para iniciar el proceso de autenticación con Google
 router.get('/auth/google',
@@ -13,10 +13,9 @@ router.get('/auth/google',
 
 // Ruta de callback para Google después de la autenticación
 router.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: 'https://fundacion-callejeritos.vercel.app' }),  // Redirige al frontend si falla
+  passport.authenticate('google', { failureRedirect: CLIENT_HOME_PAGE_URL }),
   (req, res) => {
-    // Redirige al frontend después de la autenticación exitosa
-    res.redirect("https://fundacion-callejeritos.vercel.app");  
+    res.redirect(CLIENT_HOME_PAGE_URL);
   }
 );
 
@@ -34,13 +33,13 @@ router.get('/logout', (req, res, next) => {
       }
       res.clearCookie('connect.sid', { path: '/' });
       console.log('Sesión destruida y cookie eliminada');
-      res.redirect("https://fundacion-callejeritos.vercel.app");  // Redirige al frontend después de cerrar sesión
+      res.redirect(CLIENT_HOME_PAGE_URL);
     });
   });
 });
 
 // Ruta para obtener la autenticación del usuario
-router.get('/current_user', (req, res) => {
+router.get('/current_user', (req, res) => {  // Correcto sin el prefijo /auth
   if (req.isAuthenticated()) {
     res.json(req.user);
   } else {
