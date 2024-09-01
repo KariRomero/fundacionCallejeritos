@@ -13,13 +13,14 @@ router.get('/auth/google',
 
 // Ruta de callback para Google después de la autenticación
 router.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: CLIENT_HOME_PAGE_URL }),
+  passport.authenticate('google', { failureRedirect: CLIENT_HOME_PAGE_URL }),  // Redirige al frontend si falla
   (req, res) => {
-    res.redirect(CLIENT_HOME_PAGE_URL);
-
+    // Redirige al frontend después de la autenticación exitosa
+    res.redirect(CLIENT_HOME_PAGE_URL);  
   }
 );
 
+// Ruta para cerrar sesión
 router.get('/logout', (req, res, next) => {
   req.logout((err) => {
     if (err) {
