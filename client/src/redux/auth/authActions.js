@@ -3,13 +3,13 @@ import { logInGoogle, getCurrentUser, logOutGoogle } from './authSlice';
 
 // Inicia el proceso de autenticación con Google
 export const startGoogleLogin = () => async (dispatch) => {
-  window.location.href = '/auth/google';  // Usa la ruta relativa con el prefijo '/auth'
+  window.location.href = 'https://fundacioncallejeritos-production.up.railway.app/auth/google';  // Usa la ruta completa
 };
 
 // Obtiene el usuario actual autenticado
 export const fetchCurrentUser = () => async (dispatch) => {
   try {
-    const response = await axios.get('/current_user', { withCredentials: true }); // Usa la ruta relativa
+    const response = await axios.get('https://fundacioncallejeritos-production.up.railway.app/auth/current_user', { withCredentials: true }); // Usa la ruta completa
 
     console.log("Response Headers:", response.headers);
     console.log("Response Data:", response.data);
@@ -33,7 +33,7 @@ export const fetchCurrentUser = () => async (dispatch) => {
 // Cierra sesión
 export const startGoogleLogout = () => async (dispatch) => {
   try {
-    const response = await axios.get('/logout', { withCredentials: true });  // Usa la ruta relativa
+    const response = await axios.get('https://fundacioncallejeritos-production.up.railway.app/auth/logout', { withCredentials: true });  // Usa la ruta completa
     console.log('Respuesta de logout:', response);
     dispatch(logOutGoogle());
   } catch (error) {
