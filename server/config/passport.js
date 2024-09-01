@@ -6,8 +6,8 @@ passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: process.env.NODE_ENV === 'production' 
-    ? "https://fundacion-callejeritos.vercel.app"  // URL de callback del backend en producción
-    : "http://localhost:3001"  // URL de callback del backend en desarrollo
+    ? "https://fundacioncallejeritos-production.up.railway.app/auth/google/callback"  // URL de callback del backend en producción
+    : "http://localhost:3001/auth/google/callback"  // URL de callback del backend en desarrollo
 },
 async (accessToken, refreshToken, profile, done) => {
     try {
