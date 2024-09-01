@@ -3,7 +3,7 @@ const passport = require('passport');
 const router = express.Router();
 require('dotenv').config();
 
-// Determina la URL de redirección en función del entorno
+
 const CLIENT_HOME_PAGE_URL = process.env.NODE_ENV === 'production' ? 'https://fundacion-callejeritos.vercel.app' : 'http://localhost:5173';
 
 // Ruta para iniciar el proceso de autenticación con Google
@@ -11,7 +11,8 @@ router.get('/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
-// Ruta de callback para Google después de la autenticación
+
+
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: CLIENT_HOME_PAGE_URL }),
   (req, res) => {
