@@ -4,7 +4,7 @@ const router = express.Router();
 require('dotenv').config();
 
 // Determina la URL de redirección en función del entorno
-const CLIENT_HOME_PAGE_URL = process.env.NODE_ENV === 'production' ? 'https://fundacion-callejeritos.vercel.app' : 'http://localhost:5173';
+const CLIENT_HOME_PAGE_URL = 'https://fundacion-callejeritos.vercel.app';  // Asegúrate de usar la variable de entorno correcta
 
 // Ruta para iniciar el proceso de autenticación con Google
 router.get('/auth/google',
@@ -34,7 +34,7 @@ router.get('/logout', (req, res, next) => {
       }
       res.clearCookie('connect.sid', { path: '/' });
       console.log('Sesión destruida y cookie eliminada');
-      res.redirect(CLIENT_HOME_PAGE_URL);
+      res.redirect(CLIENT_HOME_PAGE_URL);  // Redirige al frontend después de cerrar sesión
     });
   });
 });
