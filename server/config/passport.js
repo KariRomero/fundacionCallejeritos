@@ -1,3 +1,7 @@
+const passport = require('passport');  // Asegúrate de tener esta línea
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const User = require('../models/User'); // Ajusta la ruta según tu estructura de proyecto
+
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -7,7 +11,7 @@ passport.use(new GoogleStrategy({
 },
 async (accessToken, refreshToken, profile, done) => {
     try {
-      // Lógica de autenticación
+      // Busca un usuario existente en la base de datos por Google ID
       let user = await User.findOne({ where: { googleId: profile.id } });
 
       if (!user) {
@@ -41,3 +45,20 @@ async (accessToken, refreshToken, profile, done) => {
     }
   }
 ));
+
+// Serializa el usuario para almacenarlo en la sesión
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// Deserializa el usuario desde la sesión
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findByPk(id);
+    done(null, user);
+  } catch (error) {
+    done(error, null);
+  }
+});
+
+module.exports = passport;
