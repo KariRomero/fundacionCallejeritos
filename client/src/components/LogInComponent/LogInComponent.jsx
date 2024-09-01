@@ -5,7 +5,7 @@ import { startGoogleLogin, fetchCurrentUser, startGoogleLogout } from '../../red
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 
-// Usar variables de entorno en el frontend (Vite)
+
 const googleClientID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const LogInComponent = () => {
