@@ -13,10 +13,10 @@ router.get('/auth/google',
 
 // Ruta de callback para Google después de la autenticación
 router.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: CLIENT_HOME_PAGE_URL }),  // Redirige al frontend si falla
+  passport.authenticate('google', { failureRedirect: 'https://fundacion-callejeritos.vercel.app' }),  // Redirige al frontend si falla
   (req, res) => {
     // Redirige al frontend después de la autenticación exitosa
-    res.redirect(CLIENT_HOME_PAGE_URL);  
+    res.redirect("https://fundacion-callejeritos.vercel.app");  
   }
 );
 
@@ -34,7 +34,7 @@ router.get('/logout', (req, res, next) => {
       }
       res.clearCookie('connect.sid', { path: '/' });
       console.log('Sesión destruida y cookie eliminada');
-      res.redirect(CLIENT_HOME_PAGE_URL);  // Redirige al frontend después de cerrar sesión
+      res.redirect("https://fundacion-callejeritos.vercel.app");  // Redirige al frontend después de cerrar sesión
     });
   });
 });
