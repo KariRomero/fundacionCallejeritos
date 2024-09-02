@@ -43,8 +43,8 @@ async (accessToken, refreshToken, profile, done) => {
     // Generar JWT
     const token = jwt.sign(
       { id: user.id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' } // El token expira en 1 hora
+      process.env.JWT_SECRET,  // Asegúrate de que esta línea sea correcta
+      { expiresIn: '1h' }
     );
 
     // Pasar el usuario y el token generado a la siguiente función
