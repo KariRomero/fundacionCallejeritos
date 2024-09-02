@@ -78,7 +78,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message || 'Something went wrong!' });
 });
 
-// Iniciar servidor
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
