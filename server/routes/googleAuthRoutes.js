@@ -10,10 +10,10 @@ require('dotenv').config();
 const CLIENT_HOME_PAGE_URL = process.env.NODE_ENV === 'production' ? 'https://fundacion-callejeritos.vercel.app' : 'http://localhost:5173';
 
 // Ruta para iniciar el proceso de autenticación con Google
-router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 // Ruta de callback de Google para manejar la autenticación
-router.get('/auth/google/callback',
+router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: CLIENT_HOME_PAGE_URL }),
   (req, res) => {
     // Generar JWT después de la autenticación exitosa
