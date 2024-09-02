@@ -61,3 +61,4 @@ async (accessToken, refreshToken, profile, done) => {
     done(error, null);
   }
 }));
+module.exports= passport;
