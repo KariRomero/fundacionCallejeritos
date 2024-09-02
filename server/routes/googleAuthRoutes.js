@@ -16,15 +16,15 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: CLIENT_HOME_PAGE_URL }),
   (req, res) => {
-    // Generar JWT después de la autenticación exitosa
     const user = req.user;
     const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    // Redirigir al frontend con el token JWT
-    res.redirect(`${CLIENT_HOME_PAGE_URL}/?token=${token}`);
+    // En lugar de redirigir, devuelve el token como respuesta JSON
+    res.json({ token });  // Devuelve el token al frontend
   }
 );
 
+// Ruta para obtener la autenticación del usuario actual usando JWT
 // Ruta para obtener la autenticación del usuario actual usando JWT
 router.get('/current_user', (req, res) => {
   // Extraer el token JWT del encabezado de autorización
@@ -35,16 +35,36 @@ router.get('/current_user', (req, res) => {
 
   const token = authHeader.split(' ')[1];
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
     if (err) {
       return res.status(403).json({ error: 'Failed to authenticate token' });
     }
 
-    // Aquí puedes usar `decoded` para obtener la información del usuario
-    res.json({ user: decoded });
+    try {
+      // Busca al usuario en la base de datos utilizando el ID del token decodificado
+      const user = await User.findByPk(decoded.googleId); 
+
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Devuelve la información completa del usuario
+      res.json({
+        user: {
+          id: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          googleId: user.googleId,
+          // Añade cualquier otro campo que desees devolver
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      res.status(500).json({ error: 'Error fetching user' });
+    }
   });
 });
-
 // Ruta para cerrar sesión - No se necesita con JWT, ya que la sesión no se almacena en el servidor
 router.get('/logout', (req, res) => {
   // No hay lógica de cerrar sesión del servidor ya que estamos usando JWT
