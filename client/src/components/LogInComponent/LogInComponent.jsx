@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { logInGoogle, startGoogleLogout } from '../../redux/auth/authActions';  // Eliminar fetchCurrentUser aquí
+import { startGoogleLogout } from '../../redux/auth/authActions';
+import { logInGoogle } from '../../redux/auth/authSlice';  // Importa desde authSlice
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
