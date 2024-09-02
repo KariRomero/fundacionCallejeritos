@@ -37,6 +37,10 @@ async (accessToken, refreshToken, profile, done) => {
         dni: null,
         image: profile.photos ? [profile.photos[0].value] : [],
       });
+      
+      console.log('Usuario creado:', user);  // Verificar que el usuario se crea
+    } else {
+      console.log('Usuario encontrado:', user);  // Verificar que el usuario se encuentra
     }
 
     // Generar JWT
@@ -46,6 +50,8 @@ async (accessToken, refreshToken, profile, done) => {
       { expiresIn: '1h' }
     );
 
+    console.log('Token generado:', token);  // Verificar que el token se genera
+
     // Pasar el usuario y el token generado a la siguiente función
     done(null, { user, token });
   } catch (error) {
@@ -53,18 +59,4 @@ async (accessToken, refreshToken, profile, done) => {
     done(error, null);
   }
 }));
-
-passport.serializeUser((userData, done) => {
-  done(null, userData.user.id); // Serializa solo el ID del usuario
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findByPk(id);
-    done(null, user);
-  } catch (error) {
-    done(error, null);
-  }
-});
-
-module.exports = passport;
+module.exports=passport;
