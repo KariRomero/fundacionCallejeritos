@@ -9,16 +9,14 @@ const CLIENT_HOME_PAGE_URL = process.env.NODE_ENV === 'production' ? 'https://fu
 // Ruta para iniciar el proceso de autenticación con Google
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-// Ruta de callback de Google para manejar la autenticación
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: CLIENT_HOME_PAGE_URL }),
   (req, res) => {
-    // Generar JWT después de la autenticación exitosa
-    const { user } = req.user; // Extraer usuario de req.user
+    const user = req.user; // Usuario autenticado
     const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    // Enviar el token JWT al cliente como JSON
-    res.json({ token });
+    // Devuelve el token y los datos del usuario al frontend
+    res.redirect(`${CLIENT_HOME_PAGE_URL}/?token=${token}`);
   }
 );
 
