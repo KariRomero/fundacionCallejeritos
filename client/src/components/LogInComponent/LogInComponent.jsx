@@ -1,13 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { fetchCurrentUser, startGoogleLogout } from '../../redux/auth/authActions'; // Importa solo las acciones asíncronas
-import { logInGoogle } from '../../redux/auth/authSlice'; // Importa logInGoogle desde authSlice.js
+import { fetchCurrentUser, logInGoogle, startGoogleLogout } from '../../redux/auth/authActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-const googleClientID = "330217204573-1ohsjkafgv61upbu9tbgd0j269ijul10.apps.googleusercontent.com"
+const googleClientID = "330217204573-1ohsjkafgv61upbu9tbgd0j269ijul10.apps.googleusercontent.com";
 
 const LogInComponent = () => {
   const dispatch = useDispatch();
