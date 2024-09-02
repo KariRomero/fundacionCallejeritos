@@ -4,7 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 const sequelize = require('./config/database');
 const routes = require('./routes/indexRoutes');
-const authRoutes = require('./routes/googleAuthRoutes');
+const googleAuthRoutes = require('./routes/googleAuthRoutes');  // Asegúrate de que la ruta sea correcta
 const mercadoPagoRouter = require('./mercadoPago/mercadoPagoRoutes');
 const User = require('./models/User');
 const Adopciones = require('./models/Adopciones');
@@ -50,7 +50,7 @@ Adopciones.belongsToMany(User, {
 
 // Rutas
 app.use('/api', routes);
-app.use('/autorizar', authRoutes);
+app.use('/autorizar', googleAuthRoutes);  // Asegúrate de que la ruta sea correcta
 app.use('/pagos', mercadoPagoRouter);
 app.use('/protc', protectedRoutes); // Rutas protegidas
 
@@ -77,7 +77,6 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: err.message || 'Something went wrong!' });
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
