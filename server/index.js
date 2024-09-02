@@ -50,7 +50,7 @@ Adopciones.belongsToMany(User, {
 
 // Rutas
 app.use('/api', routes);
-app.use('/auth', authRoutes);
+app.use('/autorizar', authRoutes);
 app.use('/pagos', mercadoPagoRouter);
 app.use('/protc', protectedRoutes); // Rutas protegidas
 
