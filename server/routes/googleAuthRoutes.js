@@ -4,7 +4,7 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
-const User = require("../models/User")
+const {authenticateJWT} = require ("../middlewares/authMiddleware")
 require('dotenv').config();
 
 // Ruta de redirección al frontend después de la autenticación
@@ -27,58 +27,9 @@ router.get('/google/callback',
 );
 
 // Ruta para obtener la autenticación del usuario actual usando JWT
-// Ruta de callback de Google para manejar la autenticación
-router.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: CLIENT_HOME_PAGE_URL }),
-  (req, res) => {
-    // Obtener el token JWT y los datos del usuario autenticado
-    const { user, token } = req.user;
-
-    // Redirigir al frontend con el token JWT
-    res.redirect(`${CLIENT_HOME_PAGE_URL}/?token=${token}`);
-  }
-);
-
-// Ruta para obtener la autenticación del usuario actual usando JWT
-router.get('/current_user', (req, res) => {
-  // Extraer el token JWT del encabezado de autorización
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return res.status(401).json({ error: 'No token provided' });
-  }
-
-  const token = authHeader.split(' ')[1];
-
-  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
-    if (err) {
-      console.error('Token verification failed:', err);  // Agrega más detalles sobre el error de verificación
-      return res.status(403).json({ error: 'Failed to authenticate token' });
-    }
-
-    try {
-      // Busca al usuario en la base de datos utilizando el ID del token decodificado
-      const user = await User.findByPk(decoded.id);
-
-      if (!user) {
-        console.warn(`User not found for ID: ${decoded.id}`);  // Añade una advertencia de depuración
-        return res.status(404).json({ error: 'User not found' });
-      }
-
-      // Devuelve la información completa del usuario
-      res.json({
-        user: {
-          id: user.id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          // Añade cualquier otro campo que desees devolver
-        }
-      });
-    } catch (error) {
-      console.error('Error fetching user from database:', error);
-      res.status(500).json({ error: 'Error fetching user' });
-    }
-  });
+router.get('/current_user', authenticateJWT, (req, res) => {
+  // Ahora puedes acceder a req.user, que contiene la información del usuario decodificada del token
+  res.json({ user: req.user });
 });
 
 // Ruta para cerrar sesión - No se necesita con JWT, ya que la sesión no se almacena en el servidor
