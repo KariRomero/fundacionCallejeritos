@@ -29,7 +29,7 @@ router.get('/google/callback',
 // Ruta para obtener la autenticación del usuario actual usando JWT
 router.get('/current_user', authenticateJWT, (req, res) => {
   // Ahora puedes acceder a req.user, que contiene la información del usuario decodificada del token
-  res.json({ user: req.user });
+  res.json({ user: res.user });
 });
 
 // Ruta para cerrar sesión - No se necesita con JWT, ya que la sesión no se almacena en el servidor
