@@ -17,29 +17,33 @@ const LogInComponent = () => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
 
-  const handleGoogleLogin = async (response) => {
-    if (response.credential) {
-      const token = response.credential; // Obtén el token de la respuesta
-  
-      try {
-        // Envía el token a tu backend para autenticar al usuario
-        const res = await axios.post(
-          'https://fundacioncallejeritos-production.up.railway.app/auth/google/callback',
-          { token },
-          { withCredentials: true }
-        );
+  // Verificar token en la URL después del redireccionamiento
+  useEffect(() => {
+    const handleGoogleLogin = async () => {
+      const token = new URLSearchParams(window.location.search).get('token'); // Obtener token de la URL
 
-        const { user } = res.data; // Obtén el usuario autenticado del backend
+      if (token) {
         localStorage.setItem('token', token); // Guarda el token en localStorage
-        dispatch(logInGoogle(user)); // Usa la acción logInGoogle para actualizar el estado en Redux
 
-      } catch (error) {
-        console.error('Error al iniciar sesión con Google:', error);
+        try {
+          const res = await axios.get(
+            'https://fundacioncallejeritos-production.up.railway.app/auth/current_user',
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+
+          const user = res.data; // Obtén el usuario autenticado del backend
+          dispatch(logInGoogle(user)); // Usa la acción logInGoogle para actualizar el estado en Redux
+
+        } catch (error) {
+          console.error('Error al obtener el usuario autenticado:', error);
+        }
+      } else {
+        console.error('Google login failed. No token returned.');
       }
-    } else {
-      console.error('Google login failed. No credential returned.');
-    }
-  };
+    };
+
+    handleGoogleLogin();
+  }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(startGoogleLogout());
@@ -67,7 +71,9 @@ const LogInComponent = () => {
         ) : (
           <div className="flex justify-center p-8 bg-white rounded-lg shadow-lg">
             <GoogleLogin
-              onSuccess={handleGoogleLogin}
+              onSuccess={() => {
+                window.location.href = 'https://fundacioncallejeritos-production.up.railway.app/auth/google'; // Redirigir a Google OAuth
+              }}
               onError={(error) => console.error('Google login error:', error)}
               logoSrc=""
             />
