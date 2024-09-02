@@ -21,23 +21,24 @@ router.get('/auth/google/callback',
 );
 
 // Ruta para obtener la autenticación del usuario actual usando JWT
-router.get('/current_user', (req, res) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    return res.status(401).json({ error: 'No token provided' });
-  }
+export const fetchCurrentUser = () => async (dispatch) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.get(
+      'https://fundacioncallejeritos-production.up.railway.app/auth/current_user',
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
 
-  const token = authHeader.split(' ')[1];
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(403).json({ error: 'Failed to authenticate token' });
+    if (response.data) {
+      dispatch(getCurrentUser(response.data));
+    } else {
+      dispatch(logOutGoogle());
     }
-
-    res.json({ user: decoded });
-  });
-});
-
+  } catch (error) {
+    console.error("Fetching current user failed:", error);
+    dispatch(logOutGoogle());
+  }
+};
 // Ruta para cerrar sesión - No se necesita con JWT, ya que la sesión no se almacena en el servidor
 router.get('/logout', (req, res) => {
   res.json({ message: 'Logout successful' });
