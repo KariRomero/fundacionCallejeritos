@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const session = require('express-session'); // Importa express-session
 require('dotenv').config();
 const sequelize = require('./config/database');
 const routes = require('./routes/indexRoutes');
@@ -19,24 +20,36 @@ const allowedOrigins = ['http://localhost:5173', 'https://fundacion-callejeritos
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Permitir solicitudes desde orígenes definidos o sin origen (solicitudes de la misma máquina)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('No permitido por CORS'));  // Manejo de error de CORS
+      callback(new Error('No permitido por CORS'));
     }
   },
-  credentials: true,  // Permitir el envío de cookies y encabezados de autorización
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Métodos HTTP permitidos
-  allowedHeaders: ['Content-Type', 'Authorization'],  // Encabezados permitidos
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // Middleware
 app.use(morgan('dev'));
 app.use(express.json());
 
+// Configuración de express-session
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your_secret_key',  // Cambia esto a un secreto seguro
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',  // Usa cookies seguras en producción
+    httpOnly: true,  // Cookies no accesibles a JavaScript del cliente
+    maxAge: 24 * 60 * 60 * 1000  // 1 día
+  }
+}));
+
 // Inicialización de Passport
 app.use(passport.initialize());
+app.use(passport.session()); // Añadir soporte de sesión para Passport
 
 // Define las relaciones de muchos a muchos
 User.belongsToMany(Adopciones, {
