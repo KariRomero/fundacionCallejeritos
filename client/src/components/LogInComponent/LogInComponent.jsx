@@ -14,33 +14,34 @@ const LogInComponent = () => {
   const user = useSelector((state) => state.auth.user);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
-  // Verificar token en la URL después del redireccionamiento
-  useEffect(() => {
-    const handleGoogleLogin = async () => {
-      const token = new URLSearchParams(window.location.search).get('token'); // Obtener token de la URL
-  
+  // Manejar la respuesta de autenticación de Google
+  const handleGoogleLogin = async () => {
+    try {
+      // Llama al backend para autenticar y obtener el token
+      const res = await axios.get('https://fundacioncallejeritos-production.up.railway.app/auth/google/callback', { withCredentials: true });
+      const { token } = res.data;  // Obtén el token del backend
+
       if (token) {
         localStorage.setItem('token', token); // Guarda el token en localStorage
-  console.log(token, "TOKEN");
-        try {
-          const res = await axios.get(
-            'https://fundacioncallejeritos-production.up.railway.app/auth/current_user',
-            { headers: { Authorization: `Bearer ${token}` } } // Envía el token en el encabezado
-          );
+        const userRes = await axios.get(
+          'https://fundacioncallejeritos-production.up.railway.app/auth/current_user',
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
   
-          const user = res.data; // Obtén el usuario autenticado del backend
-          dispatch(logInGoogle(user)); // Usa la acción logInGoogle para actualizar el estado en Redux
-  
-        } catch (error) {
-          console.error('Error al obtener el usuario autenticado:', error?.response?.data || error.message);
-        }
-      } else {
-        console.error('Google login failed. No token returned.');
+        const user = userRes.data.user; // Obtén el usuario autenticado del backend
+        dispatch(logInGoogle(user)); // Usa la acción logInGoogle para actualizar el estado en Redux
       }
-    };
+    } catch (error) {
+      console.error('Error al iniciar sesión con Google:', error?.response?.data || error.message);
+    }
+  };
 
-    handleGoogleLogin();
-  }, [dispatch]);  // Mantener solo un useEffect para manejar el inicio de sesión
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      handleGoogleLogin(); // Intenta iniciar sesión si hay un token
+    }
+  }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(startGoogleLogout());
@@ -81,4 +82,4 @@ const LogInComponent = () => {
   );
 };
 
-export default LogInComponent;
+export default LogInComponent; 
