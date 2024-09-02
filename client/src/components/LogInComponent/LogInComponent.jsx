@@ -21,7 +21,7 @@ const LogInComponent = () => {
   
       if (token) {
         localStorage.setItem('token', token); // Guarda el token en localStorage
-  
+  console.log(token, "TOKEN");
         try {
           const res = await axios.get(
             'https://fundacioncallejeritos-production.up.railway.app/auth/current_user',
