@@ -1,11 +1,8 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const jwt = require('jsonwebtoken');
-const User = require('../models/User'); // Ajusta la ruta según tu estructura de proyecto
-require('dotenv').config(); // Cargar variables de entorno
-
-// Configuración de la estrategia de autenticación de Google
-// passport.js
+const User = require('../models/User');
+require('dotenv').config();
 
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
@@ -42,14 +39,9 @@ async (accessToken, refreshToken, profile, done) => {
       });
     }
 
-    // Verifica que el usuario tenga un ID válido antes de generar el JWT
-    if (!user.id) {
-      return done(new Error('User creation failed, missing ID.'));
-    }
-
     // Generar JWT
     const token = jwt.sign(
-      { id: user.id, email: user.email },  // Verifica que contenga el ID
+      { id: user.id, email: user.email },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -61,4 +53,18 @@ async (accessToken, refreshToken, profile, done) => {
     done(error, null);
   }
 }));
-module.exports= passport;
+
+passport.serializeUser((userData, done) => {
+  done(null, userData.user.id); // Serializa solo el ID del usuario
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findByPk(id);
+    done(null, user);
+  } catch (error) {
+    done(error, null);
+  }
+});
+
+module.exports = passport;
