@@ -20,15 +20,15 @@ const allowedOrigins = ['http://localhost:5173', 'https://fundacion-callejeritos
 app.use(cors({
   origin: function (origin, callback) {
     // Permitir solicitudes desde orígenes definidos o sin origen (solicitudes de la misma máquina)
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('No permitido por CORS'));
+      callback(new Error('No permitido por CORS'));  // Manejo de error de CORS
     }
   },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,  // Permitir el envío de cookies y encabezados de autorización
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Métodos HTTP permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Encabezados permitidos
 }));
 
 // Middleware
@@ -72,10 +72,15 @@ sequelize.authenticate()
     console.error('Unable to connect to the database:', err);
   });
 
-// Manejo de errores
+// Manejo de errores de rutas no encontradas
+app.use((req, res, next) => {
+  res.status(404).json({ error: 'Ruta no encontrada' });
+});
+
+// Manejo de errores generales
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ error: 'Something went wrong!' });
+  res.status(500).json({ error: err.message || 'Something went wrong!' });
 });
 
 // Iniciar servidor
