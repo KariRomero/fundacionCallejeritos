@@ -1,12 +1,10 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const session = require('express-session'); // Importa express-session
 require('dotenv').config();
 const sequelize = require('./config/database');
 const routes = require('./routes/indexRoutes');
-const passport = require('./config/passport');
-const authRoutes = require('./routes/googleAuthRoutes');
+const authRoutes = require('./routes/googleAuthRoutes');  // Cambia la ruta si es necesario
 const mercadoPagoRouter = require('./mercadoPago/mercadoPagoRoutes');
 const User = require('./models/User');
 const Adopciones = require('./models/Adopciones');
@@ -34,22 +32,6 @@ app.use(cors({
 // Middleware
 app.use(morgan('dev'));
 app.use(express.json());
-
-// Configuración de express-session
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'your_secret_key',  // Cambia esto a un secreto seguro
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: process.env.NODE_ENV === 'production',  // Usa cookies seguras en producción
-    httpOnly: true,  // Cookies no accesibles a JavaScript del cliente
-    maxAge: 24 * 60 * 60 * 1000  // 1 día
-  }
-}));
-
-// Inicialización de Passport
-app.use(passport.initialize());
-app.use(passport.session()); // Añadir soporte de sesión para Passport
 
 // Define las relaciones de muchos a muchos
 User.belongsToMany(Adopciones, {
