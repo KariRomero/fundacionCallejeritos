@@ -4,13 +4,12 @@ const cors = require('cors');
 require('dotenv').config();
 const sequelize = require('./config/database');
 const routes = require('./routes/indexRoutes');
-const session = require('express-session');
 const passport = require('./config/passport');
 const authRoutes = require('./routes/googleAuthRoutes');
 const mercadoPagoRouter = require('./mercadoPago/mercadoPagoRoutes');
 const User = require('./models/User');
 const Adopciones = require('./models/Adopciones');
-const pgSession = require('connect-pg-simple')(session);  // Importar connect-pg-simple
+const protectedRoutes = require('./routes/protectedRoutes'); // Importar rutas protegidas
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -27,34 +26,17 @@ app.use(cors({
       callback(new Error('No permitido por CORS'));
     }
   },
-  credentials: true,  // Permitir el envío de cookies y encabezados de autorización
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Métodos HTTP permitidos
-  allowedHeaders: ['Content-Type', 'Authorization'],  // Encabezados permitidos
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // Middleware
 app.use(morgan('dev'));
-app.use(express.json());  // Utiliza el analizador JSON incorporado en Express
-
-// Configuración de sesión con PostgreSQL
-app.use(session({
-  store: new pgSession({
-    pool: sequelize,  // Utiliza tu pool de conexión de Sequelize
-    tableName: 'session'  // Puedes personalizar el nombre de la tabla
-  }),
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,  // Cambia a `false` para evitar sesiones vacías
-  cookie: {
-    httpOnly: true,  // La cookie no puede ser accedida por JavaScript del lado del cliente
-    secure: process.env.NODE_ENV === 'production',  // Solo envía cookies a través de HTTPS en producción
-    sameSite: 'none',  // Necesario para permitir cookies entre sitios (cross-site)
-  }
-}));
+app.use(express.json());
 
 // Inicialización de Passport
 app.use(passport.initialize());
-app.use(passport.session());
 
 // Define las relaciones de muchos a muchos
 User.belongsToMany(Adopciones, {
@@ -73,15 +55,14 @@ Adopciones.belongsToMany(User, {
 
 // Rutas
 app.use('/api', routes);
-app.use('/auth', authRoutes);  // Cambié esta ruta para asegurarme de que todas las rutas de autenticación se cargan bajo '/auth'
+app.use('/auth', authRoutes);
 app.use('/pagos', mercadoPagoRouter);
+app.use('/protc', protectedRoutes); // Rutas protegidas
 
 // Prueba la conexión a la base de datos
 sequelize.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
-
-    // Sincroniza los modelos con la base de datos
     return sequelize.sync({ alter: true });
   })
   .then(() => {
