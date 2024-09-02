@@ -4,7 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 const sequelize = require('./config/database');
 const routes = require('./routes/indexRoutes');
-const authRoutes = require('./routes/googleAuthRoutes');  // Cambia la ruta si es necesario
+const authRoutes = require('./routes/googleAuthRoutes');
 const mercadoPagoRouter = require('./mercadoPago/mercadoPagoRoutes');
 const User = require('./models/User');
 const Adopciones = require('./models/Adopciones');
