@@ -1,8 +1,8 @@
-// routes/authRoutes.js
-const { Router } = require('express');
+const express = require('express');
+const router = express.Router();
 const { googleLoginHandler, getCurrentUserHandler, logoutHandler } = require('../handlers/googleAuthHandlers');
 
-const router = Router();
+
 
 // Rutas para autenticación
 router.post('/google-login', googleLoginHandler);  // Ruta para iniciar sesión con Google
