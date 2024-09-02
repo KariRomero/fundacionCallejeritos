@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { startGoogleLogin, fetchCurrentUser, startGoogleLogout } from '../../redux/auth/authActions';
+import { fetchCurrentUser, logInGoogle, startGoogleLogout } from '../../redux/auth/authActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 const googleClientID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -21,8 +22,17 @@ const LogInComponent = () => {
       const token = response.credential; // Obtén el token de la respuesta
   
       try {
-        await dispatch(startGoogleLogin(token)); // Envía el token a tu acción de login
+        // Envía el token a tu backend para autenticar al usuario
+        const res = await axios.post(
+          'https://fundacioncallejeritos-production.up.railway.app/auth/google/callback',
+          { token },
+          { withCredentials: true }
+        );
+
+        const { user } = res.data; // Obtén el usuario autenticado del backend
         localStorage.setItem('token', token); // Guarda el token en localStorage
+        dispatch(logInGoogle(user)); // Usa la acción logInGoogle para actualizar el estado en Redux
+
       } catch (error) {
         console.error('Error al iniciar sesión con Google:', error);
       }

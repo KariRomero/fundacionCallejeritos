@@ -1,19 +1,9 @@
 import axios from 'axios';
 import { logInGoogle, getCurrentUser, logOutGoogle } from './authSlice';
 
-// Inicia el proceso de autenticación con Google
-export const startGoogleLogin = (token) => async (dispatch) => {
-  try {
-    const response = await axios.post(
-      'https://fundacioncallejeritos-production.up.railway.app/auth/google/callback', 
-      { token },
-      { withCredentials: true }
-    );
-
-    dispatch(logInGoogle(response.data.user));
-  } catch (error) {
-    console.error('Error al iniciar sesión con Google:', error);
-  }
+// Inicia el proceso de autenticación con Google (redirecciona al backend)
+export const startGoogleLogin = () => {
+  window.location.href = 'https://fundacioncallejeritos-production.up.railway.app/auth/google';
 };
 
 // Obtiene el usuario actual autenticado
