@@ -14,21 +14,19 @@ import {
 } from './adoptionsSlice';
 
 export const getAdoptions = () => (dispatch) => {
-  // axios.get('http://localhost:3000/adoptions')
-  axios.get('http://localhost:3001/api/adopciones')
+  axios.get('https://fundacioncallejeritos-production.up.railway.app/api/adopciones')
     .then(res => dispatch(getAllAdoptions(res.data)))
     .catch(e => console.log(e));
 };
 
 export const getById = (id) => (dispatch) => {
-  // axios.get(`http://localhost:3000/adoptions/${id}`)
-  axios.get(`http://localhost:3001/api/adopciones/${id}`)
+  axios.get(`https://fundacioncallejeritos-production.up.railway.app/api/adopciones/${id}`)
     .then(res => dispatch(getAdoptionsById(res.data)))
     .catch(e => console.log(e));
 };
 
 export const createAdoptions = (formData) => (dispatch) => {
-  axios.post('http://localhost:3001/api/adopciones', formData)
+  axios.post('https://fundacioncallejeritos-production.up.railway.app/api/adopciones', formData)
     .then(res => dispatch(postAdoptionSuccess(res.data)))
     .catch(err => {
       console.error('Error al crear adopción:', err);
@@ -38,7 +36,7 @@ export const createAdoptions = (formData) => (dispatch) => {
 };
 
 export const updateById = (id, formData) => (dispatch) => {
-  axios.put(`http://localhost:3001/api/adopciones/${id}`, formData)
+  axios.put(`https://fundacioncallejeritos-production.up.railway.app/api/adopciones/${id}`, formData)
     .then(res => {
       dispatch(updateAdoptionById(res.data));
     })
@@ -49,7 +47,7 @@ export const updateById = (id, formData) => (dispatch) => {
 };
 
 export const deleteAdoptionById = (id) => (dispatch) => {
-  axios.delete(`http://localhost:3001/api/adopciones/${id}`)
+  axios.delete(`https://fundacioncallejeritos-production.up.railway.app/api/adopciones/${id}`)
     .then(res => {
       dispatch(deleteAdoptionSuccess(res.data));
       dispatch(getAdoptions());
@@ -64,13 +62,13 @@ export const filterAdoptions = (filters) => (dispatch) => {
     Object.entries(filters).filter(([key, value]) => value !== '')
   );
 
-  axios.get('http://localhost:3001/api/adopciones', { params: cleanedFilters })
+  axios.get('https://fundacioncallejeritos-production.up.railway.app/api/adopciones', { params: cleanedFilters })
     .then(res => dispatch(getAllAdoptions(res.data)))
     .catch(e => console.log(e));
 };
 
 export const orderAdoptionsAsc = () => (dispatch) => {
-  axios.get('http://localhost:3001/api/adopciones?order=asc')
+  axios.get('https://fundacioncallejeritos-production.up.railway.app/api/adopciones?order=asc')
     .then(res => dispatch(adoptionsAsc(res.data)))
     .catch(err => {
       console.error('Error ordenar adopciones asc', err);
@@ -78,7 +76,7 @@ export const orderAdoptionsAsc = () => (dispatch) => {
 };
 
 export const orderAdoptionsDesc = () => (dispatch) => {
-  axios.get('http://localhost:3001/api/adopciones?order=desc')
+  axios.get('https://fundacioncallejeritos-production.up.railway.app/api/adopciones?order=desc')
     .then(res => dispatch(adoptionsDesc(res.data)))
     .catch(err => {
       console.error('Error ordenar adopciones desc', err);
@@ -92,7 +90,7 @@ export const uploadAdoptionImages = (id, imageFiles) => async dispatch => {
       formData.append('imageFiles', file);
     });
 
-    const response = await axios.post(`http://localhost:3001/api/adopciones/${id}/image`, formData, {
+    const response = await axios.post(`https://fundacioncallejeritos-production.up.railway.app/api/adopciones/${id}/image`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

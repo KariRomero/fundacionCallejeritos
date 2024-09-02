@@ -12,17 +12,30 @@ const LogInComponent = () => {
   const user = useSelector((state) => state.auth.user);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
+  // useEffect(() => {
+  //   if(user)dispatch(fetchCurrentUser());
+  // }, [dispatch]);
+
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
 
+  // const handleGoogleLogin = (response) => {
+  //   if (response.credential) {
+  //     dispatch(startGoogleLogin(response.credential));
+  //   } else {
+  //     console.error('Google login failed. No credential returned.');
+  //   }
+  // };
   const handleGoogleLogin = (response) => {
     if (response.credential) {
-      dispatch(startGoogleLogin(response.credential));
+      const token = response.credential; // Obtén el token de la respuesta
+      dispatch(startGoogleLogin(token)); // Envía el token a tu acción de login
     } else {
       console.error('Google login failed. No credential returned.');
     }
   };
+  
 
   const handleLogout = () => {
     dispatch(startGoogleLogout());

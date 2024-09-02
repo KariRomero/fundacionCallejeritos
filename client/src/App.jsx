@@ -39,6 +39,11 @@ function App() {
   const isUserProfileRoute = location.pathname.startsWith('/usuario');
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isAdmin = useSelector((state) => state.auth.user?.role);
+  // const { user } = useSelector((state) => state.auth);
+
+  // useEffect(() => {
+  //   if(user)dispatch(fetchCurrentUser());
+  // }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
