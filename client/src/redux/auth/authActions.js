@@ -9,14 +9,14 @@ export const startGoogleLogin = () => {
 // Obtiene el usuario actual autenticado
 export const fetchCurrentUser = () => async (dispatch) => {
   try {
-    const token = localStorage.getItem('token'); // Obtener el token de localStorage
+    const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
     if (!token) {
       dispatch(logOutGoogle());
       return;
     }
 
     const response = await axios.get('https://fundacioncallejeritos-production.up.railway.app/auth/current_user', {
-      headers: { Authorization: `Bearer ${token}` }, // Incluye el token JWT en el encabezado
+      headers: { Authorization: `Bearer ${token}` }, // Incluye el token JWT en los encabezados
     });
 
     if (response.data) {
@@ -25,7 +25,7 @@ export const fetchCurrentUser = () => async (dispatch) => {
       dispatch(logOutGoogle());
     }
   } catch (error) {
-    console.error("Fetching current user failed:", error);
+    console.error("Fetching current user failed:", error.message);
     dispatch(logOutGoogle());
   }
 };
