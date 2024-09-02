@@ -51,14 +51,16 @@ router.get('/current_user', (req, res) => {
 
   jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
     if (err) {
+      console.error('Token verification failed:', err);  // Agrega más detalles sobre el error de verificación
       return res.status(403).json({ error: 'Failed to authenticate token' });
     }
 
     try {
       // Busca al usuario en la base de datos utilizando el ID del token decodificado
-      const user = await User.findByPk(decoded.id); 
+      const user = await User.findByPk(decoded.id);
 
       if (!user) {
+        console.warn(`User not found for ID: ${decoded.id}`);  // Añade una advertencia de depuración
         return res.status(404).json({ error: 'User not found' });
       }
 
@@ -73,12 +75,11 @@ router.get('/current_user', (req, res) => {
         }
       });
     } catch (error) {
-      console.error('Error fetching user:', error);
+      console.error('Error fetching user from database:', error);
       res.status(500).json({ error: 'Error fetching user' });
     }
   });
 });
-
 
 // Ruta para cerrar sesión - No se necesita con JWT, ya que la sesión no se almacena en el servidor
 router.get('/logout', (req, res) => {
