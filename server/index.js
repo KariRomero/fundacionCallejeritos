@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3001;
 // Configurar CORS para permitir múltiples orígenes
 const allowedOrigins = ['http://localhost:5173', 'https://fundacion-callejeritos.vercel.app'];
 
-const cors = require('cors');
+
 app.use(cors({
   origin: '*',
   credentials: true,
