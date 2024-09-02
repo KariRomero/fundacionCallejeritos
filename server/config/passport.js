@@ -5,20 +5,20 @@ const User = require('../models/User'); // Ajusta la ruta según tu estructura d
 require('dotenv').config(); // Cargar variables de entorno
 
 // Configuración de la estrategia de autenticación de Google
+// passport.js
+
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: process.env.NODE_ENV === 'production' 
-    ? "https://fundacioncallejeritos-production.up.railway.app/auth/google/callback"  // URL de callback del backend en producción
-    : "http://localhost:3001/auth/google/callback"  // URL de callback del backend en desarrollo
+    ? "https://fundacioncallejeritos-production.up.railway.app/auth/google/callback"  
+    : "http://localhost:3001/auth/google/callback"
 },
 async (accessToken, refreshToken, profile, done) => {
   try {
-    // Buscar un usuario existente en la base de datos por Google ID
     let user = await User.findOne({ where: { googleId: profile.id } });
 
     if (!user) {
-      // Si el usuario no existe, crea uno nuevo
       const email = profile.emails[0]?.value || 'N/A';
       const nameParts = profile.displayName.split(' ');
       const firstName = nameParts[0] || 'N/A';
@@ -42,8 +42,8 @@ async (accessToken, refreshToken, profile, done) => {
 
     // Generar JWT
     const token = jwt.sign(
-      { id: user.id, email: user.email },
-      process.env.JWT_SECRET,  // Asegúrate de que esta línea sea correcta
+      { id: user.id, email: user.email },  // Asegúrate de que el token contenga el ID y el email del usuario
+      process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
 
@@ -55,12 +55,10 @@ async (accessToken, refreshToken, profile, done) => {
   }
 }));
 
-// Serializar el usuario en la sesión (aunque no usaremos sesiones)
 passport.serializeUser((userData, done) => {
-  done(null, userData.user.id); // Serializa solo el ID del usuario
+  done(null, userData.user.id);
 });
 
-// Deserializar el usuario desde la sesión (aunque no usaremos sesiones)
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findByPk(id);
