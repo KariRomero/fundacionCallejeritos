@@ -5,7 +5,6 @@ import { startGoogleLogin, fetchCurrentUser, startGoogleLogout } from '../../red
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 
-
 const googleClientID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const LogInComponent = () => {
@@ -13,28 +12,17 @@ const LogInComponent = () => {
   const user = useSelector((state) => state.auth.user);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
-  // useEffect(() => {
-  //   if(user)dispatch(fetchCurrentUser());
-  // }, [dispatch]);
-
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
 
-  // const handleGoogleLogin = (response) => {
-  //   if (response.credential) {
-  //     dispatch(startGoogleLogin(response.credential));
-  //   } else {
-  //     console.error('Google login failed. No credential returned.');
-  //   }
-  // };
   const handleGoogleLogin = async (response) => {
     if (response.credential) {
       const token = response.credential; // Obtén el token de la respuesta
   
       try {
-        // Aquí haces la llamada a tu backend para enviar el token y autenticar al usuario
         await dispatch(startGoogleLogin(token)); // Envía el token a tu acción de login
+        localStorage.setItem('token', token); // Guarda el token en localStorage
       } catch (error) {
         console.error('Error al iniciar sesión con Google:', error);
       }
@@ -42,10 +30,10 @@ const LogInComponent = () => {
       console.error('Google login failed. No credential returned.');
     }
   };
-  
 
   const handleLogout = () => {
     dispatch(startGoogleLogout());
+    localStorage.removeItem('token'); // Elimina el token del almacenamiento local
     window.location.reload();
   };
 
