@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { fetchCurrentUser, logInGoogle, startGoogleLogout } from '../../redux/auth/authActions';
+import { logInGoogle, startGoogleLogout } from '../../redux/auth/authActions';  // Eliminar fetchCurrentUser aquí
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -13,29 +13,25 @@ const LogInComponent = () => {
   const user = useSelector((state) => state.auth.user);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    dispatch(fetchCurrentUser());
-  }, [dispatch]);
-
   // Verificar token en la URL después del redireccionamiento
   useEffect(() => {
     const handleGoogleLogin = async () => {
       const token = new URLSearchParams(window.location.search).get('token'); // Obtener token de la URL
-
+  
       if (token) {
         localStorage.setItem('token', token); // Guarda el token en localStorage
-
+  
         try {
           const res = await axios.get(
             'https://fundacioncallejeritos-production.up.railway.app/auth/current_user',
-            { headers: { Authorization: `Bearer ${token}` } }
+            { headers: { Authorization: `Bearer ${token}` } } // Envía el token en el encabezado
           );
-
+  
           const user = res.data; // Obtén el usuario autenticado del backend
           dispatch(logInGoogle(user)); // Usa la acción logInGoogle para actualizar el estado en Redux
-
+  
         } catch (error) {
-          console.error('Error al obtener el usuario autenticado:', error);
+          console.error('Error al obtener el usuario autenticado:', error?.response?.data || error.message);
         }
       } else {
         console.error('Google login failed. No token returned.');
@@ -43,7 +39,7 @@ const LogInComponent = () => {
     };
 
     handleGoogleLogin();
-  }, [dispatch]);
+  }, [dispatch]);  // Mantener solo un useEffect para manejar el inicio de sesión
 
   const handleLogout = () => {
     dispatch(startGoogleLogout());
