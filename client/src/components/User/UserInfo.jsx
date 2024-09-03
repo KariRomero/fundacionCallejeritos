@@ -74,7 +74,7 @@ const UserInfo = () => {
     };
 
     return (
-        <section className='w-full h-screen mt-32'>
+        <section className='w-full h-screen mt-12'>
             <form onSubmit={handleSubmit} className='w-full sm:w-1/2 md:w-1/2 mx-auto '>
                 <div className="my-2 flex justify-between items-center">
                     <div className='grid grid-cols-1'>
