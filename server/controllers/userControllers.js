@@ -30,8 +30,8 @@ const updateUser = async (id, userData) => {
     throw new Error('Usuario no encontrado');
   }
 
-  // Filtrar los campos que existen en el modelo de usuario
-  const allowedFields = Object.keys(User.rawAttributes); // Obtén todos los campos definidos en el modelo
+  // Utilizar getAttributes() en lugar de rawAttributes
+  const allowedFields = Object.keys(User.getAttributes()); // Obtener todos los campos definidos en el modelo
   const filteredUserData = Object.fromEntries(
     Object.entries(userData).filter(([key]) => allowedFields.includes(key))
   );
@@ -42,7 +42,6 @@ const updateUser = async (id, userData) => {
   // Obtener el usuario actualizado
   return await User.findByPk(id);
 };
-
 const deleteUser = async (id) => {
   return await User.destroy({ where: { id } });
 };

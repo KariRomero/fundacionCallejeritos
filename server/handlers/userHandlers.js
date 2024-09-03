@@ -42,7 +42,6 @@ const updateUserHandler = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 const deleteUserHandler = async (req, res) => {
   try {
     const { id } = req.params;
