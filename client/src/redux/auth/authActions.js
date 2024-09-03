@@ -10,7 +10,7 @@ export const fetchCurrentUser = () => async (dispatch) => {
       return;
     }
 
-    const response = await axios.get('https://fundacioncallejeritos-production.up.railway.app/auth/current_user', {
+    const response = await axios.get('https://fundacioncallejeritos-production.up.railway.app/autorizar/current-user', {
       headers: { Authorization: `Bearer ${token}` }, // Incluye el token JWT en los encabezados
     });
 
@@ -28,7 +28,7 @@ export const fetchCurrentUser = () => async (dispatch) => {
 // Cierra sesión
 export const startGoogleLogout = () => async (dispatch) => {
   try {
-    await axios.get('https://fundacioncallejeritos-production.up.railway.app/auth/logout', { withCredentials: true });
+    await axios.post('https://fundacioncallejeritos-production.up.railway.app/autorizar/logout', { withCredentials: true });
     dispatch(logOutGoogle());
   } catch (error) {
     console.error("Google logout failed:", error?.response?.data || error.message);

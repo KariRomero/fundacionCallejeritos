@@ -1,13 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { startGoogleLogout } from '../../redux/auth/authActions';
-import { logInGoogle } from '../../redux/auth/authSlice';  // Importa desde authSlice
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaw } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { startGoogleLogout } from "../../redux/auth/authActions";
+import { logInGoogle } from "../../redux/auth/authSlice"; // Importa desde authSlice
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaw } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
-const googleClientID = "330217204573-1ohsjkafgv61upbu9tbgd0j269ijul10.apps.googleusercontent.com";
+const googleClientID =
+  "330217204573-1ohsjkafgv61upbu9tbgd0j269ijul10.apps.googleusercontent.com";
 
 const LogInComponent = () => {
   const dispatch = useDispatch();
@@ -18,26 +19,32 @@ const LogInComponent = () => {
   const handleGoogleLogin = async () => {
     try {
       // Llama al backend para autenticar y obtener el token
-      const res = await axios.get('https://fundacioncallejeritos-production.up.railway.app/auth/google/callback', { withCredentials: true });
-      const { token } = res.data;  // Obtén el token del backend
+      const res = await axios.get(
+        "https://fundacioncallejeritos-production.up.railway.app/auth/google/callback",
+        { withCredentials: true }
+      );
+      const { token } = res.data; // Obtén el token del backend
 
       if (token) {
-        localStorage.setItem('token', token); // Guarda el token en localStorage
+        localStorage.setItem("token", token); // Guarda el token en localStorage
         const userRes = await axios.get(
-          'https://fundacioncallejeritos-production.up.railway.app/auth/current_user',
+          "https://fundacioncallejeritos-production.up.railway.app/auth/current_user",
           { headers: { Authorization: `Bearer ${token}` } }
         );
-  
+
         const user = userRes.data.user; // Obtén el usuario autenticado del backend
         dispatch(logInGoogle(user)); // Usa la acción logInGoogle para actualizar el estado en Redux
       }
     } catch (error) {
-      console.error('Error al iniciar sesión con Google:', error?.response?.data || error.message);
+      console.error(
+        "Error al iniciar sesión con Google:",
+        error?.response?.data || error.message
+      );
     }
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       handleGoogleLogin(); // Intenta iniciar sesión si hay un token
     }
@@ -45,7 +52,7 @@ const LogInComponent = () => {
 
   const handleLogout = () => {
     dispatch(startGoogleLogout());
-    localStorage.removeItem('token'); // Elimina el token del almacenamiento local
+    localStorage.removeItem("token"); // Elimina el token del almacenamiento local
     window.location.reload();
   };
 
@@ -70,9 +77,10 @@ const LogInComponent = () => {
           <div className="flex justify-center p-8 bg-white rounded-lg shadow-lg">
             <GoogleLogin
               onSuccess={() => {
-                window.location.href = 'https://fundacioncallejeritos-production.up.railway.app/auth/google'; // Redirigir a Google OAuth
+                window.location.href =
+                  "https://fundacioncallejeritos-production.up.railway.app/autorizar/google-login"; // Redirigir a Google OAuth del backend
               }}
-              onError={(error) => console.error('Google login error:', error)}
+              onError={(error) => console.error("Google login error:", error)}
               logoSrc=""
             />
           </div>
@@ -82,4 +90,4 @@ const LogInComponent = () => {
   );
 };
 
-export default LogInComponent; 
+export default LogInComponent;
