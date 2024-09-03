@@ -18,16 +18,15 @@ const LogInComponent = () => {
   const handleGoogleLogin = async (credentialResponse) => {
     try {
       const idToken = credentialResponse.credential; // Obtener el idToken proporcionado por Google
-
+  
       // Envía el idToken al backend para autenticar y obtener el token JWT
-      const res = await axios.post(
-        'https://fundacioncallejeritos-production.up.railway.app/autorizar/google-login', 
+      const res = await axios.post('https://fundacioncallejeritos-production.up.railway.app/autorizar/google-login', 
         { idToken },
-        { withCredentials: true }
+        { withCredentials: true }  // Asegúrate de que withCredentials sea true
       );
-
+  
       const { token } = res.data;  // Obtén el token del backend
-
+  
       if (token) {
         localStorage.setItem('token', token); // Guarda el token en localStorage
         dispatch(fetchCurrentUser()); // Despacha la acción para obtener el usuario actual
