@@ -3,7 +3,7 @@ import { faPaw } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getAdoptions } from '../../redux/adoptions/adoptionsActions';
 import fundacion from '/historiaFundacion.png';
 import Album from '../../components/Album/Album';
@@ -35,7 +35,7 @@ const Donations = () =>{
         <section className='grid grid-cols-1 md:grid-cols-2 p-2'>
             <div>
                 <div className="flex items-center justify-between mx-10">
-                    <h1 className="title text-secondary text-center">¡Ayúdanos a Ayudarlos!</h1>
+                    <h1 className="title text-secondary text-center mt-10">¡Ayúdanos a Ayudarlos!</h1>
                     <button 
                         onClick={handleSubscriptionClick} 
                         className="menu-btn border border-secondary rounded-full hover:bg-secondary"
@@ -48,6 +48,13 @@ const Donations = () =>{
                     Aquí tienes algunas maneras en las que puedes colaborar:
                 </p>
                 <ul className="mx-10">
+                    <li className="paragraph my-10">
+                        <FontAwesomeIcon icon={faPaw} className='mr-2 text-secondary'/>
+                        <strong>Donación Económica:</strong> Tu contribución es fundamental para continuar nuestra misión de rescate y 
+                        cuidado de los animales más necesitados. Puedes realizar donaciones monetarias que nos ayudarán a cubrir los gastos 
+                        de alimentos, medicinas, y otros insumos necesarios para el bienestar de los animales rescatados. 
+                        ¡Tu apoyo es esencial para darles a estos animales una segunda oportunidad!
+                    </li>
                     <li className="paragraph my-10">
                         <FontAwesomeIcon icon={faPaw} className='mr-2 text-secondary'/>
                         <strong>Alimento y Frazadas:</strong> Dona alimento para perros y gatos, pipetas, y antibióticos como cefalexinas. Durante el invierno, necesitamos 
