@@ -9,8 +9,8 @@ const UserInfo = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    const { user } = useSelector((state) => state.auth)
-    console.log('componente UserInfo', user);
+    // const { user } = useSelector((state) => state.auth)
+    const { user } = useSelector(state => state.users);
     
 
     const [form, setForm] = useState({
