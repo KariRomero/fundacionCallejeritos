@@ -13,12 +13,13 @@ const fetchCurrentUser = () => async (dispatch) => {
     const response = await axios.get('https://fundacioncallejeritos-production.up.railway.app/autorizar/current-user', {
       headers: { Authorization: `Bearer ${token}` }, // Incluye el token JWT en los encabezados
     });
-
+console.log(response.data,"soy response");
     if (response.data.user) {
       dispatch(getCurrentUser(response.data.user)); // Despacha la acción para obtener el usuario
     } else {
       dispatch(logOutGoogle());
     }
+    
   } catch (error) {
     console.error("Fetching current user failed:", error?.response?.data || error.message);
     dispatch(logOutGoogle());
