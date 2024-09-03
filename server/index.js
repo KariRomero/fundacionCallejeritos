@@ -13,19 +13,20 @@ const protectedRoutes = require('./routes/protectedRoutes'); // Importar rutas p
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Configurar CORS para permitir múltiples orígenes
+// Configuración de CORS para permitir solo orígenes específicos
 const allowedOrigins = ['http://localhost:5173', 'https://fundacion-callejeritos.vercel.app'];
-
 
 app.use(cors({
   origin: (origin, callback) => {
     // Permitir solicitudes sin origen (por ejemplo, Postman o curl)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'El CORS policy no permite el acceso desde el origen especificado.';
-      return callback(new Error(msg), false);
+    
+    // Si el origen está en la lista de permitidos, permitir la solicitud
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('El CORS policy no permite el acceso desde el origen especificado.'));
     }
-    return callback(null, true);
   },
   credentials: true,  // Habilita el envío de credenciales (cookies, cabeceras de autorización, etc.)
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Métodos HTTP permitidos
