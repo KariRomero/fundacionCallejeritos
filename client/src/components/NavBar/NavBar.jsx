@@ -61,7 +61,7 @@ const NavBar = () => {
                 <FontAwesomeIcon icon={faBars} className="pl-10" onClick={toggleMenu} />
 
                 {showMenu && (
-                    <div className="absolute top-24 right-0 w-full bg-white shadow-md p-6 rounded-md flex flex-col space-y-2 z-50">
+                    <div className="absolute top-28 right-0 w-full bg-white shadow-md p-6 rounded-md flex flex-col space-y-2 z-50">
                         <NavLinkMobile to='/fundacion' isSelected={isSelected} toggleMenu={toggleMenu}>
                             Fundación
                         </NavLinkMobile>
@@ -78,13 +78,13 @@ const NavBar = () => {
                             Donaciones
                         </NavLinkMobile>
                         {isLoggedIn ? (
-                            <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                            <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center">
                                 <FontAwesomeIcon icon={faPaw} className='mr-2' />
                                 Mi Perfil
                             </Link>
 
                         ) : (
-                            <Link to='/iniciarsesion' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                            <Link to='/iniciarsesion' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center">
                                 <FontAwesomeIcon icon={faPaw} className='mr-2' />
                                 Iniciar sesión
                             </Link>
