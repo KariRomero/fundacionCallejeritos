@@ -122,7 +122,7 @@ import { faRightFromBracket, faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from "react";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
-const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_ID = '330217204573-1ohsjkafgv61upbu9tbgd0j269ijul10.apps.googleusercontent.com';
 
 const SideNav = () => {
     const [showMenu, setShowMenu] = useState(false);
@@ -148,12 +148,12 @@ const SideNav = () => {
     return (
         <>
             {/* Botón de menú para dispositivos móviles */}
-            <div className="top-4 left-4 z-50 md:hidden ">
+            <div className="top-4 left-4 z-50 md:hidden">
                 <FontAwesomeIcon icon={faBars} className="cursor-pointer" onClick={toggleMenu} />
             </div>
 
-            {/* Barra lateral */}
-            <aside className={`fixed top-0 left-0 z-40 h-full w-64 bg-primary transition-transform transform ${showMenu ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+            {/* Barra lateral sin posición fija y con altura completa */}
+            <aside className={`h-screen w-64 bg-primary transition-transform transform ${showMenu ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
                 <ul className="space-y-2 font-medium p-4">
                     {user && (
                         <>
