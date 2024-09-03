@@ -149,7 +149,7 @@ const SideNav = () => {
         <>
             {/* Botón de menú para dispositivos móviles */}
             {/* <div className="top-4 left-4 z-50 md:hidden"> */}
-            <div className="top-4 z-50 bg-primary md:hidden flex justify-center mt-2">
+            <div className="top-4 bg-primary md:hidden flex justify-center mt-2">
                 <button
                     className="w-full border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center"
                     onClick={toggleMenu}
@@ -162,7 +162,7 @@ const SideNav = () => {
 
 
             {/* Barra lateral desplegable que aparece sobre la vista */}
-            <aside className={`h-screen w-64 bg-primary transition-transform transform ${showMenu ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0`}>
+            <aside className={`top-0 left-0 h-screen w-64 bg-primary z-40 transition-transform transform ${showMenu ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0`}>
                 <ul className="space-y-2 font-medium p-4">
                     {user && (
                         <>
