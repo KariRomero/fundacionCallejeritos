@@ -10,6 +10,10 @@ const UsersInfo = () => {
     const { id } = useParams();
     const { user } = useSelector(state => state.users);
 
+    if (user.birthDate === 'Invalid date') {
+        user.birthDate = '';
+      }
+
     const [form, setForm] = useState({
         role: false,
     });
