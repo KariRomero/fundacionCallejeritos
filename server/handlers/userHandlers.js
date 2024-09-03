@@ -29,9 +29,16 @@ const updateUserHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const userData = req.body;
+
+    // Validación básica
+    if (!id || !userData) {
+      return res.status(400).json({ error: 'ID o datos de usuario no proporcionados' });
+    }
+
     const updatedUser = await updateUser(id, userData);
     res.status(200).json(updatedUser);
   } catch (error) {
+    console.error('Error al actualizar el usuario:', error.message);
     res.status(500).json({ error: error.message });
   }
 };

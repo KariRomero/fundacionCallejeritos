@@ -24,7 +24,22 @@ const createUser = async (userData, imageFile) => {
 
 
 const updateUser = async (id, userData) => {
-  await User.update(userData, { where: { id } });
+  // Validar si el usuario existe antes de actualizar
+  const user = await User.findByPk(id);
+  if (!user) {
+    throw new Error('Usuario no encontrado');
+  }
+
+  // Filtrar los campos que existen en el modelo de usuario
+  const allowedFields = Object.keys(User.rawAttributes); // Obtén todos los campos definidos en el modelo
+  const filteredUserData = Object.fromEntries(
+    Object.entries(userData).filter(([key]) => allowedFields.includes(key))
+  );
+
+  // Actualizar los datos del usuario en la base de datos
+  await User.update(filteredUserData, { where: { id } });
+
+  // Obtener el usuario actualizado
   return await User.findByPk(id);
 };
 
