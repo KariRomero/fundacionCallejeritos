@@ -36,7 +36,7 @@ const UserInfo = () => {
     useEffect(() => {
         if (user) {
             setForm({
-                birthDate: user.birthDate || '',
+                birthDate: '',
                 firstName: user.firstName || '',
                 lastName: user.lastName || '',
                 address: user.address || '',
