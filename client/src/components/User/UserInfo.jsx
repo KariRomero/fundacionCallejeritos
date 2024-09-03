@@ -11,6 +11,10 @@ const UserInfo = () => {
     const { id } = useParams();
     // const { user } = useSelector((state) => state.auth)
     const { user } = useSelector(state => state.users);
+
+    if (user.birthDate === 'Invalid date') {
+        user.birthDate = '';
+      }
     
 
     const [form, setForm] = useState({
@@ -36,7 +40,7 @@ const UserInfo = () => {
     useEffect(() => {
         if (user) {
             setForm({
-                birthDate: '',
+                birthDate: user.birthDate || '',
                 firstName: user.firstName || '',
                 lastName: user.lastName || '',
                 address: user.address || '',
@@ -202,7 +206,7 @@ const UserInfo = () => {
                 <div className='grid grid-cols-1'>
                         <label className='label'>Fecha de nacimiento:</label>
                         <input
-                            placeholder='YYYY/MM/DD'
+                            placeholder='DD/MM/YYYY'
                             type="text"
                             className='rounded-full shadow-md p-2'
                             value={form.birthDate}
