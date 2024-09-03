@@ -118,7 +118,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentUser, startGoogleLogout } from "../../redux/auth/authActions";
-import { faRightFromBracket, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faRightFromBracket, faPaw } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from "react";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
@@ -149,7 +149,13 @@ const SideNav = () => {
         <>
             {/* Botón de menú para dispositivos móviles */}
             <div className="top-4 left-4 z-50 md:hidden">
-                <FontAwesomeIcon icon={faBars} className="cursor-pointer" onClick={toggleMenu} />
+                <div
+                    className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center"
+                    onClick={toggleMenu}
+                >
+                    <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                    Mi Perfil
+                </div>
             </div>
 
             {/* Barra lateral desplegable que aparece sobre la vista */}
