@@ -13,8 +13,7 @@ const UserInfo = () => {
     const { user } = useSelector(state => state.users);
     
 
-    const [form, setForm] = useState({
-        birthDate: '',
+    const [form, setForm] = useState({      
         firstName: '',
         lastName: '',
         address: '',
@@ -38,7 +37,6 @@ const UserInfo = () => {
     useEffect(() => {
         if (user) {
             setForm({
-                birthDate: user.birthDate || '',
                 firstName: user.firstName || '',
                 lastName: user.lastName || '',
                 address: user.address || '',
