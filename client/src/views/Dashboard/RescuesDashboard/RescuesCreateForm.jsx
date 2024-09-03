@@ -107,7 +107,7 @@ const RescuesCreateForm = () => {
 
     return (
         <section className="flex justify-center sm:ml-64">
-            <div className="w-full max-w-4xl mt-4">
+            <div className="w-full max-w-4xl mt-10">
                 <h1 className="title ml-8">Nuevo Callejerito</h1>
                 <form onSubmit={handleSubmit} className="mx-8">
                     <div className="my-4 flex justify-between">

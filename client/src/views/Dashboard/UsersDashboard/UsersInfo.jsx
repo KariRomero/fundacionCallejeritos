@@ -49,7 +49,7 @@ const UsersInfo = () => {
 
     return (
         <section className='w-full'>
-            <div className='w-1/2 m-auto'>
+            <div className='w-1/2 mx-auto mt-10'>
                 <div className="my-4 flex justify-between">
                     <label className='label'>Nombre:</label>
                     <span>{user.firstName}</span>
