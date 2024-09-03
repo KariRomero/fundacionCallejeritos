@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { startGoogleLogout } from "../../redux/auth/authActions";
-import { logInGoogle } from "../../redux/auth/authSlice"; // Importa desde authSlice
+import { logInGoogle, getCurrentUser } from "../../redux/auth/authSlice"; // Importa desde authSlice
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -18,17 +18,16 @@ const LogInComponent = () => {
   // Manejar la respuesta de autenticación de Google
   const handleGoogleLogin = async () => {
     try {
-      // Llama al backend para autenticar y obtener el token
-      const res = await axios.get(
-        "https://fundacioncallejeritos-production.up.railway.app/auth/google/callback",
-        { withCredentials: true }
-      );
-      const { token } = res.data; // Obtén el token del backend
+      // Llama a la URL adecuada en el backend para autenticar y obtener el token JWT
+      const res = await axios.post('https://fundacioncallejeritos-production.up.railway.app/autorizar/google-login', { withCredentials: true });
+      const { token } = res.data;  // Obtén el token del backend
 
       if (token) {
-        localStorage.setItem("token", token); // Guarda el token en localStorage
+        localStorage.setItem('token', token); // Guarda el token en localStorage
+
+        // Solicita los datos del usuario autenticado utilizando el token JWT
         const userRes = await axios.get(
-          "https://fundacioncallejeritos-production.up.railway.app/auth/current_user",
+          'https://fundacioncallejeritos-production.up.railway.app/autorizar/current-user',
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -36,17 +35,27 @@ const LogInComponent = () => {
         dispatch(logInGoogle(user)); // Usa la acción logInGoogle para actualizar el estado en Redux
       }
     } catch (error) {
-      console.error(
-        "Error al iniciar sesión con Google:",
-        error?.response?.data || error.message
-      );
+      console.error('Error al iniciar sesión con Google:', error?.response?.data || error.message);
+      // En caso de error, elimina el token de localStorage
+      localStorage.removeItem('token');
     }
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      handleGoogleLogin(); // Intenta iniciar sesión si hay un token
+      // Verifica si el usuario ya está autenticado y obtiene sus datos
+      axios
+        .get("https://fundacioncallejeritos-production.up.railway.app/autorizar/current-user", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          dispatch(getCurrentUser(response.data.user)); // Despacha la acción para obtener el usuario actual
+        })
+        .catch((error) => {
+          console.error("Error fetching current user:", error?.response?.data || error.message);
+          localStorage.removeItem("token");
+        });
     }
   }, [dispatch]);
 
