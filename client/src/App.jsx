@@ -25,6 +25,7 @@ import RescuesUpdateForm from './views/Dashboard/RescuesDashboard/RescuesUpdateF
 import MyInformation from './views/UserProfile/MyInformation';
 import MyDonations from './views/UserProfile/MyDonations';
 import MyAdoptions from './views/UserProfile/MyAdoptions';
+import UserInfo from './components/User/UserInfo';
 import SideNav from './components/User/SideNav';
 import UsersDashboard from './views/Dashboard/UsersDashboard/UsersDashboard';
 import UsersInfo from './views/Dashboard/UsersDashboard/UsersInfo';
@@ -62,7 +63,7 @@ function App() {
               <SideNav />
               <div className="flex-grow">
                 <Routes>
-                  <Route path='/usuario/:id/informacionpersonal' element={<MyInformation />} />
+                  <Route path='/usuario/:id/informacionpersonal' element={<UserInfo />} />
                   <Route path='/usuario/:id/misdonaciones' element={<MyDonations />} />
                   <Route path='/usuario/:id/misadopciones' element={<MyAdoptions />} />
                 </Routes>
