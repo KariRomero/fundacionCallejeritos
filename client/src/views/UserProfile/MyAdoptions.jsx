@@ -25,7 +25,7 @@ const MyAdoptions = () => {
 
     return (
         <section className="w-full px-4 flex justify-center">
-            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-8">
+            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-8">
                 {Array.isArray(adopcionesList) && adopcionesList.map(adop => (
                     <CardAdoptions
                         key={adop.id}
