@@ -21,7 +21,7 @@ app.use(cors({
     // Permitir solicitudes sin origen (por ejemplo, Postman o curl)
     if (!origin) return callback(null, true);
     
-
+    // Si el origen está en la lista de permitidos, permitir la solicitud
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
@@ -63,7 +63,7 @@ app.use('/protc', protectedRoutes); // Rutas protegidas
 sequelize.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
-    return sequelize.sync({ alter: true });
+    return sequelize.sync({ force: false });
   })
   .then(() => {
     console.log('Database synchronized successfully.');
