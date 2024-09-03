@@ -57,11 +57,13 @@ function App() {
       {isDashboardRoute && isAdmin && <SideBar />}
 
       {isUserProfileRoute ? (
-        <div className="flex">
+        <div className="grid grid-cols-1">
+        {/* <div className="flex"> */}
           {isLoggedIn ? (
             <>
               <SideNav />
-              <div className="flex-grow">
+              <div>
+              {/* <div className="flex-grow"> */}
                 <Routes>
                   <Route path='/usuario/:id/informacionpersonal' element={<UserInfo />} />
                   <Route path='/usuario/:id/misdonaciones' element={<MyDonations />} />
