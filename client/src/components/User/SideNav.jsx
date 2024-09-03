@@ -149,7 +149,7 @@ const SideNav = () => {
         <>
             {/* Botón de menú para dispositivos móviles */}
             {/* <div className="top-4 left-4 z-50 md:hidden"> */}
-            <div className="top-4 z-50 bg-primary md:hidden">
+            <div className="top-4 z-50 bg-primary md:hidden flex justify-center">
                 <button
                     className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center"
                     onClick={toggleMenu}
