@@ -10,7 +10,6 @@ const UsersInfo = () => {
     const { id } = useParams();
     const { user } = useSelector(state => state.users);
 
-    // Maneja la fecha de nacimiento para evitar "Invalid date"
     const birthDate = user.birthDate === 'Invalid date' ? '' : user.birthDate;
 
     const [form, setForm] = useState({

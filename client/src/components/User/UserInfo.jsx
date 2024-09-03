@@ -9,12 +9,9 @@ const UserInfo = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    // const { user } = useSelector((state) => state.auth)
     const { user } = useSelector(state => state.users);
 
-    if (user.birthDate === 'Invalid date') {
-        user.birthDate = '';
-      }
+    const birthDate = user.birthDate === 'Invalid date' ? '' : user.birthDate;
     
 
     const [form, setForm] = useState({
@@ -31,16 +28,12 @@ const UserInfo = () => {
         email: '',
         image: ''
     })
-
-    // useEffect(() => {
-    //     dispatch(fetchCurrentUser());
-    // }, [dispatch]);
     
 
     useEffect(() => {
         if (user) {
             setForm({
-                birthDate: user.birthDate || '',
+                birthDate,
                 firstName: user.firstName || '',
                 lastName: user.lastName || '',
                 address: user.address || '',
