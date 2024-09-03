@@ -18,10 +18,18 @@ const allowedOrigins = ['http://localhost:5173', 'https://fundacion-callejeritos
 
 
 app.use(cors({
-  origin: '*',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: (origin, callback) => {
+    // Permitir solicitudes sin origen (por ejemplo, Postman o curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'El CORS policy no permite el acceso desde el origen especificado.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,  // Habilita el envío de credenciales (cookies, cabeceras de autorización, etc.)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Métodos HTTP permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Cabeceras permitidas
 }));
  
 
