@@ -28,12 +28,15 @@ const LogInComponent = () => {
   
       // Envía el idToken al backend para autenticar y obtener el token JWT
       const res = await axios.post(
-        'https://fundacioncallejeritos-production.up.railway.app/autorizar/google-login', 
+        'https://fundacioncallejeritos-production.up.railway.app/autorizar/google-login',
         { idToken },  // Asegúrate de enviar el idToken en el cuerpo de la solicitud
-        { headers: { 'Content-Type': 'application/json' }, withCredentials: true }  // Asegura la configuración correcta
+        { 
+          headers: { 'Content-Type': 'application/json' },  // Encabezados correctos
+          withCredentials: true  // Asegúrate de que withCredentials sea true para enviar cookies
+        }
       );
   
-      const { token } = res.data;  // Obtén el token del backend
+      const { token } = res.data;  // Obtén el token del backend (JWT)
   
       if (token) {
         localStorage.setItem('token', token); // Guarda el token en localStorage
@@ -45,7 +48,6 @@ const LogInComponent = () => {
       localStorage.removeItem('token');
     }
   };
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
