@@ -13,7 +13,7 @@ const MercadoPagoDonacion = () => {
 
     const createPreference = async (amount) => {
         try {
-            const response = await axios.post("http://localhost:3001/pagos/create_preference", {
+            const response = await axios.post("https://fundacion-callejeritos.vercel.app/pagos/create_preference", {
                 title: "Donación Fundación Callejeritos",
                 quantity: 1,
                 unit_price: Number(amount),
