@@ -13,7 +13,8 @@ const UserInfo = () => {
     const { user } = useSelector(state => state.users);
     
 
-    const [form, setForm] = useState({      
+    const [form, setForm] = useState({
+        birthDate: '',
         firstName: '',
         lastName: '',
         address: '',
@@ -30,13 +31,12 @@ const UserInfo = () => {
     // useEffect(() => {
     //     dispatch(fetchCurrentUser());
     // }, [dispatch]);
-    useEffect(() => {
-        dispatch(getById(id));
-    }, [dispatch, id]);
+    
 
     useEffect(() => {
         if (user) {
             setForm({
+                birthDate: user.birthDate || '',
                 firstName: user.firstName || '',
                 lastName: user.lastName || '',
                 address: user.address || '',
@@ -202,7 +202,7 @@ const UserInfo = () => {
                 <div className='grid grid-cols-1'>
                         <label className='label'>Fecha de nacimiento:</label>
                         <input
-                            placeholder='DD/MM/YYYY'
+                            placeholder='YYYY/MM/DD'
                             type="text"
                             className='rounded-full shadow-md p-2'
                             value={form.birthDate}
