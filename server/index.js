@@ -63,7 +63,7 @@ app.use('/protc', protectedRoutes); // Rutas protegidas
 sequelize.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
-    return sequelize.sync({ alter: true });
+    return sequelize.sync({ force: true });
   })
   .then(() => {
     console.log('Database synchronized successfully.');
