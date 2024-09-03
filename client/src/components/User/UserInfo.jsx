@@ -28,9 +28,12 @@ const UserInfo = () => {
         image: ''
     })
 
+    // useEffect(() => {
+    //     dispatch(fetchCurrentUser());
+    // }, [dispatch]);
     useEffect(() => {
-        dispatch(fetchCurrentUser());
-    }, [dispatch]);
+        dispatch(getById(id));
+    }, [dispatch, id]);
 
     useEffect(() => {
         if (user) {
