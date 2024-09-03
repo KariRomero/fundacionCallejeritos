@@ -67,7 +67,7 @@ const UserInfo = () => {
             icon: "success",
             confirmButtonColor: "#f69a0b",
         });
-        navigate(`/usuario/${id}`)
+        navigate(`/usuario/${id}/informacionpersonal`)
     };
 
     return (
