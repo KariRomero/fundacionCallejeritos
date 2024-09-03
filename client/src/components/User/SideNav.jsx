@@ -148,15 +148,17 @@ const SideNav = () => {
     return (
         <>
             {/* Botón de menú para dispositivos móviles */}
-            <div className="top-4 left-4 z-50 md:hidden">
-                <div
+            {/* <div className="top-4 left-4 z-50 md:hidden"> */}
+            <div className="top-4 left-1/2 transform -translate-x-1/2 z-50 md:hidden">
+                <button
                     className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center"
                     onClick={toggleMenu}
                 >
                     <FontAwesomeIcon icon={faPaw} className='mr-2' />
                     Mi Perfil
-                </div>
+                </button>
             </div>
+
 
             {/* Barra lateral desplegable que aparece sobre la vista */}
             <aside className={`absolute top-0 left-0 h-screen w-64 bg-primary z-40 transition-transform transform ${showMenu ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0`}>
