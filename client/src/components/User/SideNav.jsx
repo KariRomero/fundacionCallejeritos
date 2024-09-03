@@ -152,8 +152,8 @@ const SideNav = () => {
                 <FontAwesomeIcon icon={faBars} className="cursor-pointer" onClick={toggleMenu} />
             </div>
 
-            {/* Barra lateral sin posición fija y con altura completa */}
-            {/* <aside className={`h-screen w-64 bg-primary transition-transform transform ${showMenu ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+            {/* Barra lateral desplegable que aparece sobre la vista */}
+            <aside className={`absolute top-0 left-0 h-screen w-64 bg-primary z-40 transition-transform transform ${showMenu ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0`}>
                 <ul className="space-y-2 font-medium p-4">
                     {user && (
                         <>
@@ -179,7 +179,7 @@ const SideNav = () => {
                         </li>
                     </GoogleOAuthProvider>
                 </ul>
-            </aside> */}
+            </aside>
         </>
     );
 };
