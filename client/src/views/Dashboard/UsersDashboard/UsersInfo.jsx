@@ -10,9 +10,8 @@ const UsersInfo = () => {
     const { id } = useParams();
     const { user } = useSelector(state => state.users);
 
-    if (user.birthDate === 'Invalid date') {
-        user.birthDate = '';
-      }
+    // Maneja la fecha de nacimiento para evitar "Invalid date"
+    const birthDate = user.birthDate === 'Invalid date' ? '' : user.birthDate;
 
     const [form, setForm] = useState({
         role: false,
@@ -49,8 +48,6 @@ const UsersInfo = () => {
         navigate('/admin/usuarios');
     };
 
-    
-
     return (
         <section className='w-full'>
             <div className='w-1/2 m-auto'>
@@ -66,7 +63,7 @@ const UsersInfo = () => {
 
                 <div className="my-4 flex justify-between">
                     <label className='label'>Fecha de nacimiento:</label>
-                    <span>{user.birthDate}</span>
+                    <span>{birthDate}</span>
                 </div>
 
                 <div className="my-4 flex justify-between">
@@ -130,7 +127,7 @@ const UsersInfo = () => {
                 </form>
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default UsersInfo
+export default UsersInfo;
