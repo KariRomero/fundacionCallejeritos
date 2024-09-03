@@ -9,6 +9,11 @@ const UserInfo = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
+
+    useEffect(()=>{
+        dispatch(getById(id))
+    },[dispatch,id])
+
     const { user } = useSelector(state => state.users);
 
     const birthDate = user.birthDate === 'Invalid date' ? '' : user.birthDate;
