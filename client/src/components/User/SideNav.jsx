@@ -162,7 +162,7 @@ const SideNav = () => {
 
 
             {/* Barra lateral desplegable que aparece sobre la vista */}
-            <aside className={`absolute top-0 left-0 h-screen w-64 bg-primary z-40 transition-transform transform ${showMenu ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0`}>
+            <aside className={`top-38 left-0 h-screen w-64 bg-primary z-40 transition-transform transform ${showMenu ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0`}>
                 <ul className="space-y-2 font-medium p-4">
                     {user && (
                         <>
