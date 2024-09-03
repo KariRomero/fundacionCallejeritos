@@ -21,7 +21,7 @@ app.use(cors({
     // Permitir solicitudes sin origen (por ejemplo, Postman o curl)
     if (!origin) return callback(null, true);
     
-    // Si el origen está en la lista de permitidos, permitir la solicitud
+
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
