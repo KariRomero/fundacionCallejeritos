@@ -154,7 +154,7 @@ const SideNav = () => {
                     className="w-full border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center"
                     onClick={toggleMenu}
                 >
-                    <FontAwesomeIcon icon={faPaw} className='text-2xl mr-2' />
+                    <FontAwesomeIcon icon={faPaw} className='mr-2' />
                     Mi Perfil
                 </button>
             </div>

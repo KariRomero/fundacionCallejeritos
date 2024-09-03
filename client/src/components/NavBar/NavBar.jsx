@@ -58,7 +58,7 @@ const NavBar = () => {
 
             {/* Mobile Menu */}
             <div className="xl:hidden flex space-x-4">
-                <FontAwesomeIcon icon={faBars} className="pl-10" onClick={toggleMenu} />
+                <FontAwesomeIcon icon={faBars} className="text-xl pl-10" onClick={toggleMenu} />
 
                 {showMenu && (
                     <div className="absolute top-28 right-0 w-full bg-white shadow-md p-6 rounded-md flex flex-col space-y-2 z-50">
