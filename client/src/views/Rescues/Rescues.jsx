@@ -15,7 +15,7 @@ const Rescues = ()=>{
     },[dispatch]);
     return(
         <section>
-            <h1 className='title text-secondary text-center'>Finales felices</h1>
+            <h1 className='title text-secondary text-center mt-10'>Finales felices</h1>
             <p className="paragraph mx-10 my-10">En esta sección, te invitamos a conocer los relatos conmovedores de algunos de los perritos que hemos rescatado. Cada historia es un testimonio de resiliencia y amor, y una muestra del impacto positivo que tu apoyo puede lograr.
             Desde situaciones de abandono hasta recuperaciones difíciles, estos casos ejemplifican nuestra misión y la diferencia que podemos hacer juntos.
             </p>
