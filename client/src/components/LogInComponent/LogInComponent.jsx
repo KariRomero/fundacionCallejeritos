@@ -87,7 +87,7 @@ const LogInComponent = () => {
             <GoogleLogin
               onSuccess={() => {
                 window.location.href =
-                  "https://fundacioncallejeritos-production.up.railway.app/autorizar/google-login"; // Redirigir a Google OAuth del backend
+                  "https://fundacioncallejeritos-production.up.railway.app"; // Redirigir a Google OAuth del backend
               }}
               onError={(error) => console.error("Google login error:", error)}
               logoSrc=""
