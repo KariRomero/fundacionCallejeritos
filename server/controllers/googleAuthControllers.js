@@ -31,7 +31,7 @@ const googleLoginController = async (idToken) => {
         email,
         firstName,
         lastName,
-        image: picture,
+        image: [picture],
       });
     }
 
