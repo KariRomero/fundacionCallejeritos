@@ -1,15 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw, faBars } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../Logo/Logo';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const NavBar = () => {
     const location = useLocation();
+    const { id } = useParams();
     const [showMenu, setShowMenu] = useState(false);
 
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+    const { user } = useSelector((state) => state.auth)
 
     const isSelected = (path) => location.pathname === path;
 
@@ -42,7 +44,7 @@ const NavBar = () => {
                     Donaciones
                 </NavLink>
                 {isLoggedIn ? (
-                    <Link to='/usuario/:id/informacionpersonal' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                    <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
                         <FontAwesomeIcon icon={faPaw} className='mr-2' />
                         Mi Perfil
                     </Link>
@@ -77,7 +79,7 @@ const NavBar = () => {
                             Donaciones
                         </NavLinkMobile>
                         {isLoggedIn ? (
-                            <Link to='/usuario/:id/informacionpersonal' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                            <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
                                 <FontAwesomeIcon icon={faPaw} className='mr-2' />
                                 Mi Perfil
                             </Link>

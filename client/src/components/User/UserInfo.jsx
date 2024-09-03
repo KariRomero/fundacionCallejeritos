@@ -10,6 +10,8 @@ const UserInfo = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const { user } = useSelector((state) => state.auth)
+    console.log('componente UserInfo', user);
+    
 
     const [form, setForm] = useState({
         birthDate: '',
@@ -65,7 +67,7 @@ const UserInfo = () => {
             icon: "success",
             confirmButtonColor: "#f69a0b",
         });
-        navigate(`/usuario/${id}`)
+        navigate(`/usuario/${id}/informacionpersonal`)
     };
 
     return (
