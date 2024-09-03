@@ -149,7 +149,7 @@ const SideNav = () => {
         <>
             {/* Botón de menú para dispositivos móviles */}
             {/* <div className="top-4 left-4 z-50 md:hidden"> */}
-            <div className="top-4 left-1/2 transform -translate-x-1/2 z-50 md:hidden">
+            <div className="top-4 left-0 right-0 mx-auto z-50 md:hidden flex justify-center">
                 <button
                     className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center"
                     onClick={toggleMenu}
@@ -158,6 +158,7 @@ const SideNav = () => {
                     Mi Perfil
                 </button>
             </div>
+
 
 
             {/* Barra lateral desplegable que aparece sobre la vista */}
