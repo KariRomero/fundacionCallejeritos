@@ -19,7 +19,8 @@ const SideBar = () => {
 
     const handleLogout = () => {
         dispatch(startGoogleLogout());
-        navigate('/');
+        localStorage.removeItem("token"); // Elimina el token del almacenamiento local
+        navigate('/')
         window.location.reload();
     };
 
