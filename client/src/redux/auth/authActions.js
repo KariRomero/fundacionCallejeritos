@@ -2,7 +2,7 @@ import axios from 'axios';
 import { logInGoogle, getCurrentUser, logOutGoogle } from './authSlice';
 
 // Obtiene el usuario actual autenticado
-export const fetchCurrentUser = () => async (dispatch) => {
+const fetchCurrentUser = () => async (dispatch) => {
   try {
     const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
     if (!token) {
@@ -24,3 +24,16 @@ export const fetchCurrentUser = () => async (dispatch) => {
     dispatch(logOutGoogle());
   }
 };
+
+// Cierra sesión
+const startGoogleLogout = () => async (dispatch) => {
+  try {
+    await axios.post('https://fundacioncallejeritos-production.up.railway.app/autorizar/logout', { withCredentials: true });
+    dispatch(logOutGoogle());
+  } catch (error) {
+    console.error("Google logout failed:", error?.response?.data || error.message);
+  }
+};
+
+// Asegúrate de exportar todas las acciones necesarias
+export { fetchCurrentUser, startGoogleLogout };
