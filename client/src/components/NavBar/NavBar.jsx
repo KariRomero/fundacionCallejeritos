@@ -1,13 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw, faBars } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../Logo/Logo';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const NavBar = () => {
     const location = useLocation();
-    const { id } = useParams();
     const [showMenu, setShowMenu] = useState(false);
 
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -59,10 +58,10 @@ const NavBar = () => {
 
             {/* Mobile Menu */}
             <div className="xl:hidden flex space-x-4">
-                <FontAwesomeIcon icon={faBars} className="cursor-pointer" onClick={toggleMenu} />
+                <FontAwesomeIcon icon={faBars} className="pl-10" onClick={toggleMenu} />
 
                 {showMenu && (
-                    <div className="absolute top-24 right-0 w-48 bg-white shadow-md p-6 rounded-md flex flex-col space-y-2 z-50">
+                    <div className="absolute top-24 right-0 w-full bg-white shadow-md p-6 rounded-md flex flex-col space-y-2 z-50">
                         <NavLinkMobile to='/fundacion' isSelected={isSelected} toggleMenu={toggleMenu}>
                             Fundación
                         </NavLinkMobile>
