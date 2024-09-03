@@ -24,9 +24,9 @@ const SideNav = () => {
 
     const handleLogout = () => {
         dispatch(startGoogleLogout());
-        navigate('/');
+        localStorage.removeItem("token"); // Elimina el token del almacenamiento local
         window.location.reload();
-    };
+      };
 
     return (
         <>
