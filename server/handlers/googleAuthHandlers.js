@@ -9,7 +9,7 @@ const googleLoginHandler = async (req, res) => {
   }
 
   try {
-    const { user, token: appToken } = await googleLoginController(token);
+    const { user, token: appToken } = await googleLoginController(idToken);
     res.status(200).json({ user, token: appToken });
   } catch (error) {
     console.error('Error en googleLoginHandler:', error.message);
