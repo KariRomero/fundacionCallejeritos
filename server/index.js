@@ -14,7 +14,13 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Configuración de CORS para permitir solo orígenes específicos
-const allowedOrigins = ['http://localhost:5173', 'https://fundacion-callejeritos.vercel.app'];
+
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://fundacion-callejeritos.vercel.app',
+  'https://fundacioncallejeritos-production.up.railway.app'
+];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -22,7 +28,7 @@ app.use(cors({
     if (!origin) return callback(null, true);
     
     // Si el origen está en la lista de permitidos, permitir la solicitud
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('El CORS policy no permite el acceso desde el origen especificado.'));
