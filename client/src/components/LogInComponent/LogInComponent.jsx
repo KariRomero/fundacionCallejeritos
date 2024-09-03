@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { startGoogleLogout } from "../../redux/auth/authActions";
-import { logInGoogle, getCurrentUser } from "../../redux/auth/authSlice"; // Importa desde authSlice
+import { startGoogleLogout, fetchCurrentUser } from "../../redux/auth/authActions"; // Importa las acciones necesarias
+import { logInGoogle } from "../../redux/auth/authSlice"; // Importa desde authSlice
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -16,46 +16,34 @@ const LogInComponent = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   // Manejar la respuesta de autenticación de Google
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = async (response) => {
     try {
-      // Llama a la URL adecuada en el backend para autenticar y obtener el token JWT
-      const res = await axios.post('https://fundacioncallejeritos-production.up.railway.app/autorizar/google-login', { withCredentials: true });
+      // Obtener el token del login de Google
+      const idToken = response.credential; // Si estás utilizando @react-oauth/google
+
+      // Envía el idToken al backend para autenticar y obtener el token JWT
+      const res = await axios.post(
+        'https://fundacioncallejeritos-production.up.railway.app/autorizar/google-login', 
+        { idToken }, 
+        { withCredentials: true }
+      );
+      
       const { token } = res.data;  // Obtén el token del backend
 
       if (token) {
         localStorage.setItem('token', token); // Guarda el token en localStorage
-
-        // Solicita los datos del usuario autenticado utilizando el token JWT
-        const userRes = await axios.get(
-          'https://fundacioncallejeritos-production.up.railway.app/autorizar/current-user',
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-
-        const user = userRes.data.user; // Obtén el usuario autenticado del backend
-        dispatch(logInGoogle(user)); // Usa la acción logInGoogle para actualizar el estado en Redux
+        dispatch(fetchCurrentUser()); // Despacha la acción para obtener el usuario actual
+        window.location.href = '/'; // Redirige al home de la aplicación
       }
     } catch (error) {
       console.error('Error al iniciar sesión con Google:', error?.response?.data || error.message);
-      // En caso de error, elimina el token de localStorage
-      localStorage.removeItem('token');
     }
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      // Verifica si el usuario ya está autenticado y obtiene sus datos
-      axios
-        .get("https://fundacioncallejeritos-production.up.railway.app/autorizar/current-user", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((response) => {
-          dispatch(getCurrentUser(response.data.user)); // Despacha la acción para obtener el usuario actual
-        })
-        .catch((error) => {
-          console.error("Error fetching current user:", error?.response?.data || error.message);
-          localStorage.removeItem("token");
-        });
+      dispatch(fetchCurrentUser()); // Verifica si el usuario ya está autenticado y obtiene sus datos
     }
   }, [dispatch]);
 
@@ -85,12 +73,8 @@ const LogInComponent = () => {
         ) : (
           <div className="flex justify-center p-8 bg-white rounded-lg shadow-lg">
             <GoogleLogin
-              onSuccess={() => {
-                window.location.href =
-                  "https://fundacioncallejeritos-production.up.railway.app"; // Redirigir a Google OAuth del backend
-              }}
+              onSuccess={handleGoogleLogin} // Usar la función para manejar el éxito del login
               onError={(error) => console.error("Google login error:", error)}
-              logoSrc=""
             />
           </div>
         )}
