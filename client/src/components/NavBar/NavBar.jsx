@@ -36,9 +36,6 @@ const NavBar = () => {
                 <NavLink to='/adopciones' isSelected={isSelected}>
                     Adopciones
                 </NavLink>
-                <NavLink to='/hogardetransito' isSelected={isSelected}>
-                    Hogar de tránsito
-                </NavLink>
                 <NavLink to='/donaciones' isSelected={isSelected}>
                     Donaciones
                 </NavLink>
@@ -71,9 +68,6 @@ const NavBar = () => {
                         </NavLinkMobile>
                         <NavLinkMobile to='/adopciones' isSelected={isSelected} toggleMenu={toggleMenu}>
                             Adopciones
-                        </NavLinkMobile>
-                        <NavLinkMobile to='/hogardetransito' isSelected={isSelected} toggleMenu={toggleMenu}>
-                            Hogar de tránsito
                         </NavLinkMobile>
                         <NavLinkMobile to='/donaciones' isSelected={isSelected} toggleMenu={toggleMenu}>
                             Donaciones

@@ -84,7 +84,7 @@ function App() {
           <Route path='/adopciones' element={<Adoptions />} />
           <Route path='/adopcionesdetalle/:id' element={<DetailAdoptions />} />
           <Route path='/donaciones' element={<Donations />} />
-          <Route path='/hacertesocio' element={<BecomeAPartner />} />
+          {/* <Route path='/hacertesocio' element={<BecomeAPartner />} /> */}
           <Route path='/iniciarsesion' element={<LogIn />} />
           <Route path='/registro' element={<SignUp />} />
 
