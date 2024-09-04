@@ -42,6 +42,14 @@ const DetailAdoptions = () => {
                     if (result.isConfirmed)
                         dispatch(createAdoptar(user.id, id));
                 })
+                .then(
+                    Swal.fire({
+                        title: "Nos pondremos encontacto a la brevedad, asegurate de completar tus datos en tu perfil",
+                        icon: "info",
+                        confirmButtonColor: "#f69a0b",
+                        confirmButtonText: "Aceptar"
+                    })
+                )
 
         } else {
             Swal.fire({
