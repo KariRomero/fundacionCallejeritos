@@ -10,7 +10,7 @@ const NavBar = () => {
     const [showMenu, setShowMenu] = useState(false);
 
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-    const { user } = useSelector((state) => state.auth)
+    const { user } = useSelector((state) => state.users)
 
     const isSelected = (path) => location.pathname === path;
 
@@ -44,8 +44,9 @@ const NavBar = () => {
                 </NavLink>
                 {isLoggedIn ? (
                     <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
-                        <FontAwesomeIcon icon={faPaw} className='mr-2' />
-                        Mi Perfil
+                        {/* <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                        Mi Perfil */}
+                        <img src={user.image} alt='Foto perfil' className='rounded-full w-20 h-20'/>
                     </Link>
 
                 ) : (
@@ -79,8 +80,9 @@ const NavBar = () => {
                         </NavLinkMobile>
                         {isLoggedIn ? (
                             <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center">
-                                <FontAwesomeIcon icon={faPaw} className='mr-2' />
-                                Mi Perfil
+                                {/* <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                                Mi Perfil */}
+                                <img src={user.image} alt='Foto perfil' className='rounded-full w-20 h-20'/>
                             </Link>
 
                         ) : (
