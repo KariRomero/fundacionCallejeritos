@@ -27,29 +27,31 @@ const NavBar = () => {
 
             {/* Desktop Menu */}
             <div className="hidden xl:flex items-center justify-around space-x-12">
-                <NavLink to='/fundacion' isSelected={isSelected}>
+                <NavLink to='/fundacion' isSelected={isSelected} toggleMenu={toggleMenu}>
                     Fundación
                 </NavLink>
-                <NavLink to='/rescates' isSelected={isSelected}>
+                <NavLink to='/rescates' isSelected={isSelected} toggleMenu={toggleMenu}>
                     Rescates
                 </NavLink>
-                <NavLink to='/adopciones' isSelected={isSelected}>
+                <NavLink to='/adopciones' isSelected={isSelected} toggleMenu={toggleMenu}>
                     Adopciones
                 </NavLink>
-                <NavLink to='/donaciones' isSelected={isSelected}>
+                <NavLink to='/donaciones' isSelected={isSelected} toggleMenu={toggleMenu}>
                     Donaciones
                 </NavLink>
                 {isLoggedIn ? (
-                    <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full w-16 h-16">
-                        {/* <FontAwesomeIcon icon={faPaw} className='mr-2' />
-                        Mi Perfil */}
-                        <img src={user.image} alt='Foto perfil' className='rounded-full'/>
+                    <Link to={`/usuario/${user.id}/informacionpersonal`} >
+                        <button className="border border-secondary rounded-full w-16 h-16" toggleMenu={toggleMenu}>
+                            <img src={user.image} alt='Foto perfil' className='rounded-full' />
+                        </button>
                     </Link>
 
                 ) : (
-                    <Link to='/iniciarsesion' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
-                        <FontAwesomeIcon icon={faPaw} className='mr-2' />
-                        Iniciar sesión
+                    <Link to='/iniciarsesion'>
+                        <button className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center" toggleMenu={toggleMenu}>
+                            <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                            Iniciar sesión
+                        </button>
                     </Link>
                 )}
             </div>
@@ -73,16 +75,17 @@ const NavBar = () => {
                             Donaciones
                         </NavLinkMobile>
                         {isLoggedIn ? (
-                            <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full w-16 h-16">
-                                {/* <FontAwesomeIcon icon={faPaw} className='mr-2' />
-                                Mi Perfil */}
-                                <img src={user.image} alt='Foto perfil' className='rounded-full'/>
+                            <Link to={`/usuario/${user.id}/informacionpersonal`} >
+                                <button className="border border-secondary rounded-full w-16 h-16" toggleMenu={toggleMenu}>
+                                    <img src={user.image} alt='Foto perfil' className='rounded-full' />
+                                </button>
                             </Link>
-
                         ) : (
-                            <Link to='/iniciarsesion' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center">
-                                <FontAwesomeIcon icon={faPaw} className='mr-2' />
-                                Iniciar sesión
+                            <Link to='/iniciarsesion'>
+                                <button className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center" toggleMenu={toggleMenu}>
+                                    <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                                    Iniciar sesión
+                                </button>
                             </Link>
                         )}
                     </div>
@@ -92,9 +95,9 @@ const NavBar = () => {
     );
 };
 
-const NavLink = ({ to, isSelected, children }) => (
+const NavLink = ({ to, isSelected, children, }) => (
     <Link to={to}>
-        <button className={`menu-btn ${isSelected(to) ? 'menu-selected' : 'hover:menu-btn-hover'}`}>
+        <button className={`menu-btn ${isSelected(to) ? 'menu-selected' : 'hover:menu-btn-hover'}`} >
             {children}
         </button>
     </Link>
@@ -102,7 +105,7 @@ const NavLink = ({ to, isSelected, children }) => (
 
 const NavLinkMobile = ({ to, isSelected, toggleMenu, children }) => (
     <Link to={to}>
-        <button onClick={toggleMenu} className={`menu-btn ${isSelected(to) ? 'menu-selected' : 'hove:menu-btn-hover'}`}>
+        <button onClick={toggleMenu} className={`menu-btn ${isSelected(to) ? 'menu-selected' : 'hove:menu-btn-hover'}`} >
             {children}
         </button>
     </Link>

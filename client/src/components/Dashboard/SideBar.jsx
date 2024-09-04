@@ -6,7 +6,7 @@ import { useState } from "react";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { startGoogleLogout } from "../../redux/auth/authActions";
 
-const GOOGLE_CLIENT_ID = '330217204573-1ohsjkafgv61upbu9tbgd0j269ijul10.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID
 
 const SideBar = () => {
     const [showMenu, setShowMenu] = useState(false);
