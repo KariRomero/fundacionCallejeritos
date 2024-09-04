@@ -17,7 +17,7 @@ const UserDonations = () => {
                 <p>
                     ¡Gracias por ser parte de este cambio positivo y por darle una nueva oportunidad a quienes más lo necesitan!
                 </p>
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-center mt-2">
                     <MercadoPagoDonacion />
                 </div>
             </div>

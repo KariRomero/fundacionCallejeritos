@@ -51,7 +51,7 @@ const MercadoPagoDonacion = () => {
                 className='rounded-full shadow-md p-2'
             />
             <div className="flex items-center justify-between">
-                <button onClick={handleDonate} className="menu-btn">Donar</button>
+                <button onClick={handleDonate} className="menu-btn border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center ">Donar</button>
                 {preferenceId && (
                     <Wallet initialization={{ preferenceId: preferenceId }}
                         customization={{ texts: { valueProp: "smart_option" } }}
