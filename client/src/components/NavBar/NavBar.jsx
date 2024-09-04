@@ -75,11 +75,11 @@ const NavBar = () => {
                             Donaciones
                         </NavLinkMobile>
                         {isLoggedIn ? (
-                            <Link to={`/usuario/${user.id}/informacionpersonal`} >
-                                <button className="border border-secondary rounded-full w-16 h-16" toggleMenu={toggleMenu}>
+                            <button className="border border-secondary rounded-full w-16 h-16" toggleMenu={toggleMenu}>
+                                <Link to={`/usuario/${user.id}/informacionpersonal`} >
                                     <img src={user.image} alt='Foto perfil' className='rounded-full' />
-                                </button>
-                            </Link>
+                                </Link>
+                            </button>
                         ) : (
                             <Link to='/iniciarsesion'>
                                 <button className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center" toggleMenu={toggleMenu}>
