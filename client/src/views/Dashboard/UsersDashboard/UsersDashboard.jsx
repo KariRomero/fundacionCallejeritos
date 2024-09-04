@@ -31,19 +31,19 @@ const UsersDashboard = () => {
                 <ul className="w-full">
                     {Array.isArray(users) && users.map((user) => (
                         <li key={user.id} className="flex justify-between items-center border border-l-0 border-r-0 border-t-0 border-b-secondary p-4">
-                            <div>
-                                <img src={user.image} alt='foto perfil' className='w-12 h-12 rounded-full' />
+                            <div className='flex'>
+                                <img src={user.image} alt='foto perfil' className='w-16 h-1w-16 rounded-full mx-4' />
                                 <h2 className="font-normal tracking-wide text-sm">{user.firstName} {user.lastName}</h2>
                             </div>
                             <div>
                                 <Link to={`/admin/usuarios/user/${user.id}`}>
-                                    <button className='font-medium text-base tracking-wider border border-secondary rounded-full hover:bg-secondary'>
-                                        <FontAwesomeIcon icon={faEye} className='mr-2' />                                        
+                                    <button className='font-medium text-base tracking-wider p-2 border border-secondary rounded-full hover:bg-secondary'>
+                                        <FontAwesomeIcon icon={faEye}/>                                        
                                     </button>
                                 </Link>
                                 <Link to={`/admin/usuarios/user/adoptions/${user.id}`}>
-                                    <button className='font-medium text-base tracking-wider border border-secondary rounded-full hover:bg-secondary'>
-                                        <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                                    <button className='font-medium text-base tracking-wider p-2 border border-secondary rounded-full hover:bg-secondary'>
+                                        <FontAwesomeIcon icon={faPaw}/>
                                         Solicitudes
                                     </button>
                                 </Link>
