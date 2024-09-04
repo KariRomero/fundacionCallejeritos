@@ -43,7 +43,7 @@ const UsersDashboard = () => {
                                 </Link>
                                 <Link to={`/admin/usuarios/user/adoptions/${user.id}`}>
                                     <button className='font-medium text-base tracking-wider p-2 border border-secondary rounded-full hover:bg-secondary'>
-                                        <FontAwesomeIcon icon={faPaw} className='ml-2'/>
+                                        <FontAwesomeIcon icon={faPaw} className='mr-2'/>
                                         Solicitudes
                                     </button>
                                 </Link>
