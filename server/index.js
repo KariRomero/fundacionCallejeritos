@@ -15,12 +15,9 @@ const PORT = process.env.PORT || 3001;
 
 // Configuración de CORS para permitir solo orígenes específicos
 
-
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://fundacion-callejeritos.vercel.app',
-  'https://fundacioncallejeritos-production.up.railway.app'
-];
+// Middleware
+app.use(morgan('dev'));
+app.use(express.json());
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -40,9 +37,13 @@ app.use(cors({
 }));
  
 
-// Middleware
-app.use(morgan('dev'));
-app.use(express.json());
+
+
+// Rutas
+app.use('/api', routes);
+app.use('/autorizar', authRoutes);  // Asegúrate de que la ruta sea correcta
+app.use('/pagos', mercadoPagoRouter);
+app.use('/protc', protectedRoutes); // Rutas protegidas
 
 // Define las relaciones de muchos a muchos
 User.belongsToMany(Adopciones, {
@@ -58,12 +59,6 @@ Adopciones.belongsToMany(User, {
   foreignKey: 'adopcionId',
   otherKey: 'userId'
 });
-
-// Rutas
-app.use('/api', routes);
-app.use('/autorizar', authRoutes);  // Asegúrate de que la ruta sea correcta
-app.use('/pagos', mercadoPagoRouter);
-app.use('/protc', protectedRoutes); // Rutas protegidas
 
 // Prueba la conexión a la base de datos
 sequelize.authenticate()

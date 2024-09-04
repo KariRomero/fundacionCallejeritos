@@ -16,9 +16,9 @@ const {  title, unit_price ,quantity } = req.body
                 currency_id: "ARS",
             }],
             back_urls: {
-                success: "http://localhost:5173",
-                failure: "http://localhost:5173",
-                pending: "http://localhost:5173",
+                success: "https://fundacion-callejeritos.vercel.app/",
+                failure: "https://fundacion-callejeritos.vercel.app/",
+                pending: "https://fundacion-callejeritos.vercel.app/",
             },
             auto_return: "approved"
         };
