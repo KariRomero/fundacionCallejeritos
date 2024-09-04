@@ -70,13 +70,13 @@ const NavLink = ({ to, children, toggleMenu }) => {
     const isSelected = location.pathname.includes(to);
 
     return (
-        <button className={`menu-btn ${isSelected ? 'menu-selected' : 'hover:bg-secondary'}`} onClick={toggleMenu}>
-            <Link to={to} >
+        <Link to={to} >
+            <button className={`menu-btn ${isSelected ? 'menu-selected' : 'hover:bg-secondary'}`} onClick={toggleMenu}>
                 <li className="hover:bg-secondary">
                     {children}
                 </li>
-            </Link>
-        </button>
+            </button>
+        </Link>
     );
 };
 
