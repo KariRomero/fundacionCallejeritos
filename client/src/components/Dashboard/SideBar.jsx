@@ -71,11 +71,12 @@ const NavLink = ({ to, children, toggleMenu }) => {
 
     return (
         <Link to={to} >
-            <button className={`menu-btn ${isSelected ? 'menu-selected' : 'hover:bg-secondary'}`} onClick={toggleMenu}>
-                <li className="hover:bg-secondary">
+            <li className="hover:bg-secondary">
+                <button className={`menu-btn ${isSelected ? 'menu-selected' : 'hover:bg-secondary'}`} onClick={toggleMenu}>
                     {children}
-                </li>
-            </button>
+                </button>
+
+            </li>
         </Link>
     );
 };
