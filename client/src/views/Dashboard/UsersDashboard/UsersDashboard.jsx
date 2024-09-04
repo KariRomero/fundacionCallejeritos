@@ -20,7 +20,7 @@ const UsersDashboard = () => {
     return (
         <section className="flex justify-center sm:ml-64 ">
             <div className="w-full mt-10">
-                <h1 className="paragraph">Usuarios</h1>
+                <h1 className="title">Usuarios</h1>
                 <div className='flex justify-between items-center'>
                     {/* <select className='paragraph bg-white' value={orderBy} onChange={handleOrderChange}>
                         <option value="">Ordenar por</option>
@@ -43,7 +43,7 @@ const UsersDashboard = () => {
                                 </Link>
                                 <Link to={`/admin/usuarios/user/adoptions/${user.id}`}>
                                     <button className='font-medium text-base tracking-wider p-2 border border-secondary rounded-full hover:bg-secondary'>
-                                        <FontAwesomeIcon icon={faPaw}/>
+                                        <FontAwesomeIcon icon={faPaw} className='ml-2'/>
                                         Solicitudes
                                     </button>
                                 </Link>
