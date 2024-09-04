@@ -42,13 +42,13 @@ const SideBar = () => {
                             </button>
                         </li>
                     </Link>
-                    <NavLink to='/admin/rescates'>
+                    <NavLink to='/admin/rescates' toggleMenu={toggleMenu}>
                         Rescates
                     </NavLink>
-                    <NavLink to='/admin/adopciones'>
+                    <NavLink to='/admin/adopciones' toggleMenu={toggleMenu}>
                         Adopciones
                     </NavLink>
-                    <NavLink to='/admin/usuarios'>
+                    <NavLink to='/admin/usuarios' toggleMenu={toggleMenu}>
                         Usuarios
                     </NavLink>
                     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
@@ -65,14 +65,14 @@ const SideBar = () => {
     )
 };
 
-const NavLink = ({ to, children }) => {
+const NavLink = ({ to, children, toggleMenu }) => {
     const location = useLocation();
     const isSelected = location.pathname.includes(to);
 
     return (
         <Link to={to} >
             <li className="hover:bg-secondary">
-                <button className={`menu-btn ${isSelected ? 'menu-selected' : 'hover:bg-secondary'}`}>
+                <button className={`menu-btn ${isSelected ? 'menu-selected' : 'hover:bg-secondary'}`} onClick={toggleMenu}>
                     {children}
                 </button>
 
