@@ -10,7 +10,7 @@ const NavBar = () => {
     const [showMenu, setShowMenu] = useState(false);
 
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-    const { user } = useSelector((state) => state.users)
+    const { user } = useSelector((state) => state.auth)
 
     const isSelected = (path) => location.pathname === path;
 
