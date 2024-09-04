@@ -71,8 +71,7 @@ const NavBar = () => {
                             Donaciones
                         </NavLinkMobile>
                         {isLoggedIn ? (
-                            <button
-                                className="border border-secondary rounded-full w-16 h-16"
+                            <button className="border border-secondary rounded-full w-16 h-16"
                                 onClick={() => {
                                     toggleMenu();
                                     setShowMenu(false);
@@ -83,18 +82,17 @@ const NavBar = () => {
                                 </Link>
                             </button>
                         ) : (
-                            <button
-                                className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center"
-                                onClick={() => {
-                                    toggleMenu();
-                                    setShowMenu(false);
-                                }}
-                            >
-                                <Link to='/iniciarsesion' >
+                            <Link to='/iniciarsesion' >
+                                <button className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center"
+                                    onClick={() => {
+                                        toggleMenu();
+                                        setShowMenu(false);
+                                    }}
+                                >
                                     <FontAwesomeIcon icon={faPaw} className='mr-2' />
                                     Iniciar sesión
-                                </Link>
-                            </button>
+                                </button>
+                            </Link>
                         )}
                     </div>
                 )}
