@@ -20,7 +20,7 @@ const UsersDashboard = () => {
     return (
         <section className="flex justify-center sm:ml-64 ">
             <div className="w-full mt-10">
-                <h1 className="title">Usuarios</h1>
+                <h1 className="paragraph">Usuarios</h1>
                 <div className='flex justify-between items-center'>
                     {/* <select className='paragraph bg-white' value={orderBy} onChange={handleOrderChange}>
                         <option value="">Ordenar por</option>
@@ -32,19 +32,19 @@ const UsersDashboard = () => {
                     {Array.isArray(users) && users.map((user) => (
                         <li key={user.id} className="flex justify-between items-center border border-l-0 border-r-0 border-t-0 border-b-secondary p-4">
                             <div>
-                                <img src={user.image} alt='foto perfil' className='rounded-full' />
-                                <h2 className="title">{user.firstName} {user.lastName}</h2>
+                                <img src={user.image} alt='foto perfil' className='w-12 h-12 rounded-full' />
+                                <h2 className="font-normal tracking-wide text-sm">{user.firstName} {user.lastName}</h2>
                             </div>
                             <div>
                                 <Link to={`/admin/usuarios/user/${user.id}`}>
-                                    <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>
+                                    <button className='font-medium text-base tracking-wider border border-secondary rounded-full hover:bg-secondary'>
                                         <FontAwesomeIcon icon={faEye} className='mr-2' />                                        
                                     </button>
                                 </Link>
                                 <Link to={`/admin/usuarios/user/adoptions/${user.id}`}>
-                                    <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>
+                                    <button className='font-medium text-base tracking-wider border border-secondary rounded-full hover:bg-secondary'>
                                         <FontAwesomeIcon icon={faPaw} className='mr-2' />
-                                        Solicitudes de adopcion
+                                        Solicitudes
                                     </button>
                                 </Link>
                             </div>
