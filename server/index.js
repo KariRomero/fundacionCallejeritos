@@ -36,7 +36,7 @@ app.use(cors({
     }
   },
   credentials: true,  // Habilita el envío de credenciales (cookies, cabeceras de autorización, etc.)
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Métodos HTTP permitidos
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  
   allowedHeaders: ['Content-Type', 'Authorization'],  // Cabeceras permitidas
 }));
  
@@ -49,7 +49,7 @@ app.use('/autorizar', authRoutes);
 app.use('/pagos', mercadoPagoRouter);
 
 
-// Define las relaciones de muchos a muchos
+
 User.belongsToMany(Adopciones, {
   through: 'UserXAdopciones',
   as: 'adopciones',
