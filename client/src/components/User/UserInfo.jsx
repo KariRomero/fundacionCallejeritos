@@ -76,7 +76,7 @@ const UserInfo = () => {
     return (
         <section className='w-full h-screen mt-12 grid grid-cols-1'>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-2 mx-auto justify-center'>
-                <img src={user.image} alt='Foto de perfil' className="w-40 object-cover rounded-t-lg transition-transform transform hover:scale-110" />
+                <img src={user.image} alt='Foto de perfil' className="w-40 rounded-full transition-transform transform hover:scale-110" />
                 <div>
                     <h1 className='title'> {user.firstName} {user.lastName}</h1>
                     <span className='paragraph'>{user.email}</span>
