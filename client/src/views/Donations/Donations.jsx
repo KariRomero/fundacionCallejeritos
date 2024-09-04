@@ -14,6 +14,7 @@ const Donations = () =>{
     const navigate = useNavigate();
     const { adoptions } = useSelector((state) => state.adoptions);
     const { isLoggedIn } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.auth);
 
     useEffect(()=>{
         dispatch(getAdoptions());
@@ -25,7 +26,7 @@ const Donations = () =>{
 
     const handleSubscriptionClick = () => {
         if (isLoggedIn) {
-            navigate('/usuario/:id/misdonaciones');
+            navigate(`/usuario/${user.id}/misdonaciones`);
         } else {
             navigate('/iniciarsesion', { state: { from: '/usuario/:id/misdonaciones' } });
         }
