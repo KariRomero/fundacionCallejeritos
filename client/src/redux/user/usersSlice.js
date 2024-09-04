@@ -5,6 +5,8 @@ const usersSlice = createSlice({
     initialState: {
         users: [],
         user: {},
+        error:'idle',
+        status:'idle'
     },
     reducers: {
         getAllUsers: (state,action) => {
@@ -15,6 +17,16 @@ const usersSlice = createSlice({
         },
         updateUserById: (state,action) => {
             state.user = action.payload
+        },
+        deleteUserByIdSuccess: (state,action) => {
+            const deletedId = action.payload;
+            state.users = state.users.filter(u => u.id !== deletedId);
+            state.status = 'succeeded';
+            state.error = null;
+        },
+        deleteUserByIdFailure(state, action) {
+            state.status = 'failed';
+            state.error = action.payload;
         }
     }
 });
@@ -22,7 +34,9 @@ const usersSlice = createSlice({
 export const {
     getAllUsers,
     getUserById,
-    updateUserById
+    updateUserById,
+    deleteUserByIdSuccess,
+    deleteUserByIdFailure
 } = usersSlice.actions
 
 export default usersSlice.reducer;

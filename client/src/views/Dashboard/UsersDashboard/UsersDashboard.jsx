@@ -1,11 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaw, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faPaw, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
-import { faPlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getUsers } from '../../../redux/user/usersActions';
+import { getUsers, deleteById } from '../../../redux/user/usersActions';
 
 const UsersDashboard = () => {
     const dispatch = useDispatch();
@@ -16,6 +15,26 @@ const UsersDashboard = () => {
         dispatch(getUsers());
     }, [dispatch]);
 
+    const handleClick = (id) => {
+        Swal.fire({
+            title: "Seguro quieres eliminar el usuario ?",
+            text: "Esta acción no se revertirá",
+            icon: "warning",
+            confirmButtonColor: "#b91c1c",
+            confirmButtonText: "Eliminar"
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Eliminado!",
+                        text: "Usuario ha sido eliminado",
+                        icon: "success",
+                        confirmButtonColor: "#f69a0b",
+                    });
+                    dispatch(deleteById(id));
+                }
+            });
+    };
 
     return (
         <section className="flex justify-center sm:ml-64 ">
@@ -36,17 +55,20 @@ const UsersDashboard = () => {
                                 <h2 className="font-normal tracking-wide text-sm">{user.firstName} {user.lastName}</h2>
                             </div>
                             <div>
-                                <Link to={`/admin/usuarios/user/${user.id}`}>
-                                    <button className='font-medium text-base tracking-wider p-2 mx-2'>
-                                        <FontAwesomeIcon icon={faEye}/>                                        
-                                    </button>
-                                </Link>
                                 <Link to={`/admin/usuarios/user/adoptions/${user.id}`}>
                                     <button className='font-medium text-base tracking-wider p-2 border border-secondary rounded-full hover:bg-secondary'>
-                                        <FontAwesomeIcon icon={faPaw} className='mr-2'/>
+                                        <FontAwesomeIcon icon={faPaw} className='mr-2' />
                                         Solicitudes
                                     </button>
                                 </Link>
+                                <Link to={`/admin/usuarios/user/${user.id}`}>
+                                    <button className=' p-2 mx-2'>
+                                        <FontAwesomeIcon icon={faEye} />
+                                    </button>
+                                </Link>
+                                <button onClick={() => handleClick(user.id)} className=' p-2 mx-2'>
+                                    <FontAwesomeIcon icon={faTrash}/>
+                                </button>
                             </div>
                         </li>
                     ))}

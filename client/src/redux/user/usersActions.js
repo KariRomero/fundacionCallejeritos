@@ -2,7 +2,9 @@ import axios from "axios";
 import {
     getAllUsers,
     getUserById,
-    updateUserById
+    updateUserById,
+    deleteUserByIdSuccess,
+    deleteUserByIdFailure
 } from './usersSlice';
 
 export const getUsers = () => (dispatch) => {
@@ -24,3 +26,16 @@ export const updateById = (id, formData) => (dispatch) => {
         console.log('Error al actualizar usuario:', err);        
     })
 }
+
+export const deleteById = (id) => (dispatch) => {
+    axios.delete(`https://fundacioncallejeritos-production.up.railway.app/api/users/${id}`)
+    .then(res=>{
+        dispatch(deleteUserByIdSuccess(res.data))
+        dispatch(getAllUsers())
+    })
+    .catch(err=>{
+        dispatch(deleteUserByIdFailure(err.message))
+    })
+}
+
+//fundacioncallejeritos-production.up.railway.app/api/users/id
