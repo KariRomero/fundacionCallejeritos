@@ -40,18 +40,14 @@ const NavBar = () => {
                     Donaciones
                 </NavLink>
                 {isLoggedIn ? (
-                    <Link to={`/usuario/${user.id}/informacionpersonal`} >
-                        <button className="border border-secondary rounded-full w-16 h-16" toggleMenu={toggleMenu}>
-                            <img src={user.image} alt='Foto perfil' className='rounded-full' />
-                        </button>
+                    <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full w-16 h-16">
+                        <img src={user.image} alt='Foto perfil' className='rounded-full' />
                     </Link>
 
                 ) : (
-                    <Link to='/iniciarsesion'>
-                        <button className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center" toggleMenu={toggleMenu}>
-                            <FontAwesomeIcon icon={faPaw} className='mr-2' />
-                            Iniciar sesión
-                        </button>
+                    <Link to='/iniciarsesion' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                        <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                        Iniciar sesión
                     </Link>
                 )}
             </div>
@@ -75,18 +71,30 @@ const NavBar = () => {
                             Donaciones
                         </NavLinkMobile>
                         {isLoggedIn ? (
-                            <button className="border border-secondary rounded-full w-16 h-16" toggleMenu={toggleMenu}>
+                            <button
+                                className="border border-secondary rounded-full w-16 h-16"
+                                onClick={() => {
+                                    toggleMenu();
+                                    setShowMenu(false);
+                                }}
+                            >
                                 <Link to={`/usuario/${user.id}/informacionpersonal`} >
                                     <img src={user.image} alt='Foto perfil' className='rounded-full' />
                                 </Link>
                             </button>
                         ) : (
-                            <Link to='/iniciarsesion'>
-                                <button className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center" toggleMenu={toggleMenu}>
+                            <button
+                                className="border border-secondary rounded-full w-16 h-16"
+                                onClick={() => {
+                                    toggleMenu();
+                                    setShowMenu(false);
+                                }}
+                            >
+                                <Link to='/iniciarsesion'>
                                     <FontAwesomeIcon icon={faPaw} className='mr-2' />
                                     Iniciar sesión
-                                </button>
-                            </Link>
+                                </Link>
+                            </button>
                         )}
                     </div>
                 )}
