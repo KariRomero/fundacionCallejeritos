@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-const googleClientID = "330217204573-1ohsjkafgv61upbu9tbgd0j269ijul10.apps.googleusercontent.com";
-
+const googleClientID = import.meta.env.VITE_GOOGLE_CLIENT_ID
 const LogInComponent = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
