@@ -66,7 +66,7 @@ const UsersDashboard = () => {
                                         <FontAwesomeIcon icon={faEye} />
                                     </button>
                                 </Link>
-                                <button onClick={() => handleClick(user.id)} className=' p-2 mx-2'>
+                                <button onClick={() => handleClick(user.id)} className=' p-2'>
                                     <FontAwesomeIcon icon={faTrash}/>
                                 </button>
                             </div>
