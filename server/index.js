@@ -18,23 +18,26 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(morgan('dev'));
 app.use(express.json());
-
-app.use(cors({
-  origin: (origin, callback) => {
-    // Permitir solicitudes sin origen (por ejemplo, Postman o curl)
-    if (!origin) return callback(null, true);
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`); // Esto registrará todas las solicitudes entrantes
+  next();
+});
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     // Permitir solicitudes sin origen (por ejemplo, Postman o curl)
+//     if (!origin) return callback(null, true);
     
-    // Si el origen está en la lista de permitidos, permitir la solicitud
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('El CORS policy no permite el acceso desde el origen especificado.'));
-    }
-  },
-  credentials: true,  // Habilita el envío de credenciales (cookies, cabeceras de autorización, etc.)
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Métodos HTTP permitidos
-  allowedHeaders: ['Content-Type', 'Authorization'],  // Cabeceras permitidas
-}));
+//     // Si el origen está en la lista de permitidos, permitir la solicitud
+//     if (allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('El CORS policy no permite el acceso desde el origen especificado.'));
+//     }
+//   },
+//   credentials: true,  // Habilita el envío de credenciales (cookies, cabeceras de autorización, etc.)
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Métodos HTTP permitidos
+//   allowedHeaders: ['Content-Type', 'Authorization'],  // Cabeceras permitidas
+// }));
  
 
 
