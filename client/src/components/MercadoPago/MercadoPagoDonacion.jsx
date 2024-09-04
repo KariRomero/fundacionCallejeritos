@@ -24,7 +24,7 @@ const MercadoPagoDonacion = () => {
     };
 
     const handleDonate = async (e) => {
-        if (amount > 1000) {
+        if (amount > 999) {
             const id = await createPreference(amount);
             if (id) {
                 setPreferenceId(id);
