@@ -31,7 +31,10 @@ const UsersDashboard = () => {
                 <ul className="w-full">
                     {Array.isArray(users) && users.map((user) => (
                         <li key={user.id} className="flex justify-between items-center border border-l-0 border-r-0 border-t-0 border-b-secondary p-4">
-                            <h2 className="paragraph">{user.firstName} {user.lastName}</h2>
+                            <div>
+                                <img src={user.image} alt='foto perfil' className='rounded-full'/>
+                                <h2 className="paragraph">{user.firstName} {user.lastName}</h2>
+                            </div>
                             <Link to={`/admin/usuarios/user/${user.id}`}>
                                 <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>
                                     <FontAwesomeIcon icon={faEye} className='mr-2' />
