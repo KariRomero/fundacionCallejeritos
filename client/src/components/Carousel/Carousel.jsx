@@ -147,7 +147,7 @@ const Carousel = () => {
     return (
         <section className="relative w-full py-10 mb-10">
             <Link to='/adopciones'>
-                <h1 className="title text-secondary text-center">Tu Futuro Mejor Amigo Te Espera</h1>
+                <h1 className="title text-secondary text-center">Tu futuro mejor amigo te espera</h1>
             </Link>
             {adoptions && adoptions.length > 0 ? (
                 <>
