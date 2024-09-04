@@ -75,7 +75,7 @@ const UserInfo = () => {
 
     return (
         <section className='w-full h-screen mt-12 grid grid-cols-1'>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 mx-auto gap-2 justify-center'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-2 justify-center'>
                 <img src={user.image} alt='Foto de perfil' className="w-40 object-cover rounded-t-lg transition-transform transform hover:scale-110" />
                 <div>
                     <h1 className='title'> {user.firstName} {user.lastName}</h1>
@@ -83,7 +83,8 @@ const UserInfo = () => {
                 </div>
             </div>
             <div>
-                <form onSubmit={handleSubmit} className='w-full sm:w-1/2 md:w-1/2 mx-auto '>
+                {/* <form onSubmit={handleSubmit} className='w-full sm:w-1/2 md:w-1/2 mx-auto '> */}
+                <form onSubmit={handleSubmit} className='w-full sm:w-1/2 md:w-1/2 flex justify-center'>
                     <div className="my-2 flex justify-between items-center">
                         <div className='grid grid-cols-1'>
                             <label className='label'>Teléfono:</label>
