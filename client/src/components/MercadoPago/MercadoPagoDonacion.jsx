@@ -41,7 +41,7 @@ const MercadoPagoDonacion = () => {
     };
 
     return (
-        <section>
+        <section className="grid grid-cols-1">
             <input
                 value={amount}
                 onChange={(e) => setAmount(Number(e.target.value))}
@@ -50,12 +50,14 @@ const MercadoPagoDonacion = () => {
                 step={500}
                 className='rounded-full shadow-md p-2'
             />
-            <button onClick={handleDonate} className="menu-btn">Donar</button>
-            {preferenceId && (
-                <Wallet initialization={{ preferenceId: preferenceId }}
-                    customization={{ texts: { valueProp: "smart_option" } }}
-                />
-            )}
+            <div className="flex items-center justify-between">
+                <button onClick={handleDonate} className="menu-btn">Donar</button>
+                {preferenceId && (
+                    <Wallet initialization={{ preferenceId: preferenceId }}
+                        customization={{ texts: { valueProp: "smart_option" } }}
+                    />
+                )}
+            </div>
         </section>
     );
 };
