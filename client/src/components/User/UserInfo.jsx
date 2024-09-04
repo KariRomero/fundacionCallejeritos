@@ -84,7 +84,7 @@ const UserInfo = () => {
             </div>
             <div>
                 {/* <form onSubmit={handleSubmit} className='w-full sm:w-1/2 md:w-1/2 mx-auto '> */}
-                <form onSubmit={handleSubmit} className='w-full sm:w-1/2 md:w-1/2 flex justify-center'>
+                <form onSubmit={handleSubmit} className='w-full sm:w-1/2 md:w-1/2 grid justify-center'>
                     <div className="my-2 flex justify-between items-center">
                         <div className='grid grid-cols-1'>
                             <label className='label'>Teléfono:</label>
