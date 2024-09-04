@@ -11,7 +11,7 @@ const {
 const createAdopcionesHandler = async (req, res) => {
   try {
     const adopcion = await createAdopcion(req.body, req.files);
-    res.status(201).json(adopcion);  // Aquí se retorna directamente la adopción creada
+    res.status(201).json(adopcion); 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

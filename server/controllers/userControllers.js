@@ -24,22 +24,22 @@ const createUser = async (userData, imageFile) => {
 
 
 const updateUser = async (id, userData) => {
-  // Validar si el usuario existe antes de actualizar
+
   const user = await User.findByPk(id);
   if (!user) {
     throw new Error('Usuario no encontrado');
   }
 
-  // Utilizar getAttributes() en lugar de rawAttributes
-  const allowedFields = Object.keys(User.getAttributes()); // Obtener todos los campos definidos en el modelo
+
+  const allowedFields = Object.keys(User.getAttributes()); 
   const filteredUserData = Object.fromEntries(
     Object.entries(userData).filter(([key]) => allowedFields.includes(key))
   );
 
-  // Actualizar los datos del usuario en la base de datos
+ 
   await User.update(filteredUserData, { where: { id } });
 
-  // Obtener el usuario actualizado
+
   return await User.findByPk(id);
 };
 const deleteUser = async (id) => {
@@ -81,10 +81,8 @@ const uploadImage = async (userId, imageFile) => {
       throw new Error('User not found');
     }
 
-    
     const updatedUser = await user.update({ image: [result.secure_url] });
 
-   
     return updatedUser;
   } catch (error) {
     throw new Error('Error uploading image: ' + error.message);

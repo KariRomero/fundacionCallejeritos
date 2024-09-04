@@ -10,7 +10,6 @@ const adoptarController = async (userId, adopcionId) => {
       throw new Error('Usuario o adopción no encontrados');
     }
 
-    
     await adopcion.addUsuario(user);
 
     return { message: 'Adopción exitosa' };

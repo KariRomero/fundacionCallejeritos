@@ -1,5 +1,3 @@
-// casosHandlers.js
-
 const {
     createCasos,
     updateCasos,

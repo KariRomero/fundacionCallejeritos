@@ -17,7 +17,6 @@ const createUserHandler = async (req, res) => {
       throw new Error('No file uploaded');
     }
 
-   
     const userData = { ...body, imageFile: imageFile || body.imageFile };
     const user = await createUser(userData, imageFile || body.imageFile);
     res.status(201).json(user);
@@ -25,12 +24,12 @@ const createUserHandler = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 const updateUserHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const userData = req.body;
 
-    // Validación básica
     if (!id || !userData) {
       return res.status(400).json({ error: 'ID o datos de usuario no proporcionados' });
     }
@@ -42,6 +41,7 @@ const updateUserHandler = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 const deleteUserHandler = async (req, res) => {
   try {
     const { id } = req.params;

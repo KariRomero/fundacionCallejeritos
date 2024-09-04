@@ -1,6 +1,5 @@
 const { googleLoginController, getCurrentUser, logoutUser } = require('../controllers/googleAuthControllers');
 
-// Handler para iniciar sesión con Google
 const googleLoginHandler = async (req, res) => {
   const { idToken } = req.body; 
 
@@ -17,10 +16,10 @@ const googleLoginHandler = async (req, res) => {
   }
 };
 
-// Handler para obtener el usuario actual
+
 const getCurrentUserHandler = async (req, res) => {
   const authHeader = req.headers.authorization;
-  const token = authHeader && authHeader.split(' ')[1];  // Extraer el token del encabezado de autorización
+  const token = authHeader && authHeader.split(' ')[1];  
 
   if (!token) {
     return res.status(401).json({ error: 'No token provided' });
@@ -35,7 +34,7 @@ const getCurrentUserHandler = async (req, res) => {
   }
 };
 
-// Handler para cerrar sesión
+
 const logoutHandler = (req, res) => {
   try {
     const response = logoutUser();

@@ -5,7 +5,6 @@ require('dotenv').config();
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-// Controlador para iniciar sesión con Google
 const googleLoginController = async (idToken) => {
   try {
     const ticket = await client.verifyIdToken({
@@ -22,7 +21,6 @@ const googleLoginController = async (idToken) => {
       throw new Error('Audience del token no válido');
     }
 
-    // Buscar o crear usuario en la base de datos
     let user = await User.findOne({ where: { googleId } });
 
     if (!user) {
@@ -45,11 +43,11 @@ const googleLoginController = async (idToken) => {
     return { user, token: appToken };
   } catch (error) {
     console.error('Error en el inicio de sesión con Google:', error.message);
-    // Devuelve el error específico para ayudar a depurar
+
     throw new Error(`Error en la autenticación con Google: ${error.message}`);
   }
 };
-// Controlador para obtener el usuario actual
+
 const getCurrentUser = async (token) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -66,7 +64,7 @@ const getCurrentUser = async (token) => {
   }
 };
 
-// Controlador para cerrar sesión
+
 const logoutUser = () => {
 
   return { message: 'Logout successful' };
