@@ -2,7 +2,7 @@ import MercadoPagoDonacion from "../MercadoPago/MercadoPagoDonacion";
 
 const UserDonations = () => {
     return (
-        <section className="w-full max-w-4xl mx-auto h-auto my-36 p-8 flex flex-col justify-center items-center">
+        <section className="w-full max-w-4xl mx-auto h-auto my-20 px-8 flex flex-col justify-center items-center">
             <div className=" paragraph text-lg text-start ">
                 <h1 className="title mt-2">Tu Ayuda, Su Segunda Oportunidad</h1>
                 <p>
