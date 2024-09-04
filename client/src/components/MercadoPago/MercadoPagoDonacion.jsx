@@ -7,11 +7,12 @@ const MercadoPagoDonacion = () => {
     const [preferenceId, setPreferenceId] = useState(null);
     const [amount, setAmount] = useState(0);
 
-    initMercadoPago("TEST-24713d63-1517-4b72-8bcc-06cb6b589ced", { locale: "es-AR" });
+    const credential = import.meta.VITE_MERCADOPAGO
+    initMercadoPago(credential, { locale: "es-AR" });
 
     const createPreference = async (amount) => {
         try {
-            const response = await axios.post("http://localhost:3001/pagos/create_preference", {
+            const response = await axios.post("https://fundacioncallejeritos-production.up.railway.app/pagos/create_preference", {
                 title: "Donación Fundación Callejeritos",
                 quantity: 1,
                 unit_price: Number(amount),
