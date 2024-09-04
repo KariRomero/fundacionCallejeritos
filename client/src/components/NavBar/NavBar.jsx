@@ -43,10 +43,10 @@ const NavBar = () => {
                     Donaciones
                 </NavLink>
                 {isLoggedIn ? (
-                    <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full">
+                    <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full w-16 h-16">
                         {/* <FontAwesomeIcon icon={faPaw} className='mr-2' />
                         Mi Perfil */}
-                        <img src={user.image} alt='Foto perfil'/>
+                        <img src={user.image} alt='Foto perfil' className='rounded-full'/>
                     </Link>
 
                 ) : (
@@ -79,10 +79,10 @@ const NavBar = () => {
                             Donaciones
                         </NavLinkMobile>
                         {isLoggedIn ? (
-                            <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full">
+                            <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full w-16 h-16">
                                 {/* <FontAwesomeIcon icon={faPaw} className='mr-2' />
                                 Mi Perfil */}
-                                <img src={user.image} alt='Foto perfil' />
+                                <img src={user.image} alt='Foto perfil' className='rounded-full'/>
                             </Link>
 
                         ) : (
