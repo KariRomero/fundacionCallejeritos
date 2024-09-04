@@ -47,7 +47,7 @@ const SideNav = () => {
                 <ul className="space-y-2 font-medium p-4">
                     {user && (
                         <>
-                            <Link to={`/usuario/${user.id}/misdonaciones`}>
+                            <Link to={`/usuario/${user.id}/misdonaciones`} toggleMenu={toggleMenu}>
                                 <button className="border border-secondary rounded-full bg-secondary px-10 py-2 flex items-center my-6 mx-2">
                                     Donar
                                 </button>
