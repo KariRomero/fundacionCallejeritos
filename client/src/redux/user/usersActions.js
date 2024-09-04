@@ -31,7 +31,7 @@ export const deleteById = (id) => (dispatch) => {
     axios.delete(`https://fundacioncallejeritos-production.up.railway.app/api/users/${id}`)
     .then(res=>{
         dispatch(deleteUserByIdSuccess(res.data))
-        dispatch(getAllUsers())
+        dispatch(getUsers())
     })
     .catch(err=>{
         dispatch(deleteUserByIdFailure(err.message))
