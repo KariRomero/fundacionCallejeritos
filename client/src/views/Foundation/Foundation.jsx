@@ -11,7 +11,7 @@ const Foundation = ()=>{
 
     return(
         <section>
-            <div className="grid grid-cols-1 md:grid-cols-2 p-2">                
+            <div className="grid grid-cols-1 md:grid-cols-2 p-2 mb-10">                
                 <div>
                     <h1 className='title text-secondary text-center my-10'>Bienvenidos a Fundación Callejeritos</h1>
                     <p className="paragraph my-10 mx-10">Desde 2021, estamos unidos en la realización de este sueño.</p>
@@ -23,7 +23,7 @@ const Foundation = ()=>{
                     <p className="paragraph my-10 mx-10">Nuestra misión ha sido guiada por la pasión y la solidaridad de nuestra 
                     comunidad, desde nuestros humildes comienzos hasta convertirnos en un faro de esperanza para innumerables animales. Cada paso que damos está 
                     guiado por el deseo de hacer una diferencia tangible en la vida de cada animal y en nuestra comunidad.</p>
-                    <img src={fundacion} alt="" className="h-56 ml-60"/>
+                    <img src={fundacion} alt="" className="h-44 md:h-56 ml-60"/>
                 </div>
 
                 <div className='bg-white shadow-md rounded-lg p-4'>

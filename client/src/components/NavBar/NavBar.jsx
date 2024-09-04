@@ -1,13 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw, faBars } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../Logo/Logo';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const NavBar = () => {
     const location = useLocation();
-    const { id } = useParams();
     const [showMenu, setShowMenu] = useState(false);
 
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -59,10 +58,10 @@ const NavBar = () => {
 
             {/* Mobile Menu */}
             <div className="xl:hidden flex space-x-4">
-                <FontAwesomeIcon icon={faBars} className="cursor-pointer" onClick={toggleMenu} />
+                <FontAwesomeIcon icon={faBars} className="text-xl pl-14" onClick={toggleMenu} />
 
                 {showMenu && (
-                    <div className="absolute top-24 right-0 w-48 bg-white shadow-md p-6 rounded-md flex flex-col space-y-2 z-50">
+                    <div className="absolute top-28 right-0 w-full bg-white shadow-md p-6 rounded-md flex flex-col space-y-2 z-50">
                         <NavLinkMobile to='/fundacion' isSelected={isSelected} toggleMenu={toggleMenu}>
                             Fundación
                         </NavLinkMobile>
@@ -79,13 +78,13 @@ const NavBar = () => {
                             Donaciones
                         </NavLinkMobile>
                         {isLoggedIn ? (
-                            <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                            <Link to={`/usuario/${user.id}/informacionpersonal`} className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center">
                                 <FontAwesomeIcon icon={faPaw} className='mr-2' />
                                 Mi Perfil
                             </Link>
 
                         ) : (
-                            <Link to='/iniciarsesion' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center">
+                            <Link to='/iniciarsesion' className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex justify-center items-center">
                                 <FontAwesomeIcon icon={faPaw} className='mr-2' />
                                 Iniciar sesión
                             </Link>

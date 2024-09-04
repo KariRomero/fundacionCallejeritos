@@ -95,7 +95,7 @@ const AdoptionsUpdateForm = () => {
     
     return (
         <section className="flex justify-center sm:ml-64">
-            <div className="w-full max-w-4xl mt-4">
+            <div className="w-full max-w-4xl mt-10">
                 <h1 className="title">Editar Callejerito</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="my-4 flex justify-between">

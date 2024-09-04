@@ -9,8 +9,14 @@ const UserInfo = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    const { user } = useSelector((state) => state.auth)
-    console.log('componente UserInfo', user);
+
+    useEffect(()=>{
+        dispatch(getById(id))
+    },[dispatch,id])
+
+    const { user } = useSelector(state => state.users);
+
+    const birthDate = user.birthDate === 'Invalid date' ? '' : user.birthDate;
     
 
     const [form, setForm] = useState({
@@ -27,15 +33,12 @@ const UserInfo = () => {
         email: '',
         image: ''
     })
-
-    useEffect(() => {
-        dispatch(fetchCurrentUser());
-    }, [dispatch]);
+    
 
     useEffect(() => {
         if (user) {
             setForm({
-                birthDate: user.birthDate || '',
+                birthDate,
                 firstName: user.firstName || '',
                 lastName: user.lastName || '',
                 address: user.address || '',
@@ -72,7 +75,7 @@ const UserInfo = () => {
 
     return (
         <section className='w-full h-screen mt-12'>
-            <form onSubmit={handleSubmit} className='w-1/2 mx-auto '>
+            <form onSubmit={handleSubmit} className='w-full sm:w-1/2 md:w-1/2 mx-auto '>
                 <div className="my-2 flex justify-between items-center">
                     <div className='grid grid-cols-1'>
                         <label className='label'>Nombre:</label>

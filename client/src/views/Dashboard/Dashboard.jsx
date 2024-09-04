@@ -9,7 +9,8 @@ const Dashboard = () => {
                     <h1 className="title">¡Bienvenido al panel del Administrador!</h1>
                 </div>
                 <div className='flex justify-center mt-10'>
-                    <img src={doggy} alt='banner' className='w-2/3' />
+                    {/* <img src={doggy} alt='banner' className='w-2/3' /> */}
+                    <img src={doggy} alt='banner' className='w-full' />
                 </div>
             </div>
         </section>

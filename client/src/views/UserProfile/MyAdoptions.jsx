@@ -20,26 +20,24 @@ const MyAdoptions = () => {
     }, [adopciones]);
 
     const handleDeleteSuccess = () => {
-        dispatch(getById(id)); 
+        dispatch(getById(id));
     };
 
     return (
-        <section className="flex h-screen justify-center px-4">
-            <div className="w-full mt-4">
-                <ul className="w-full grid grid-cols-3">
-                    {Array.isArray(adopcionesList) && adopcionesList.map(adop => (
-                        <CardAdoptions 
-                            key={adop.id}
-                            id={adop.id} 
-                            name={adop.name} 
-                            gender={adop.gender} 
-                            images={adop.image[0]}
-                            userId={user.id}
-                            onDeleteSuccess={handleDeleteSuccess}
-                        />
-                    ))}
-                </ul>
-            </div>
+        <section className="w-full px-4 flex justify-center">
+            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-8">
+                {Array.isArray(adopcionesList) && adopcionesList.map(adop => (
+                    <CardAdoptions
+                        key={adop.id}
+                        id={adop.id}
+                        name={adop.name}
+                        gender={adop.gender}
+                        images={adop.image[0]}
+                        userId={user.id}
+                        onDeleteSuccess={handleDeleteSuccess}
+                    />
+                ))}
+            </ul>
         </section>
     );
 };
