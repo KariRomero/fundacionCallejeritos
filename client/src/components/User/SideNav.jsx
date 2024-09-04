@@ -52,10 +52,10 @@ const SideNav = () => {
                                     Donar
                                 </button>
                             </Link>
-                            <NavLink to={`/usuario/${user.id}/informacionpersonal`}>
+                            <NavLink to={`/usuario/${user.id}/informacionpersonal`} toggleMenu={toggleMenu}>
                                 Mis Datos
                             </NavLink>
-                            <NavLink to={`/usuario/${user.id}/misadopciones`}>
+                            <NavLink to={`/usuario/${user.id}/misadopciones`} toggleMenu={toggleMenu}>
                                 Mis Adopciones
                             </NavLink>
                         </>
@@ -74,14 +74,14 @@ const SideNav = () => {
     );
 };
 
-const NavLink = ({ to, children }) => {
+const NavLink = ({ to, children, toggleMenu }) => {
     const location = useLocation();
     const isSelected = location.pathname.includes(to);
 
     return (
         <Link to={to}>
             <li className="hover:bg-secondary">
-                <button className={`menu-btn ${isSelected ? 'menu-selected' : 'hover:bg-secondary'}`}>
+                <button className={`menu-btn ${isSelected ? 'menu-selected' : 'hover:bg-secondary'}`} onClick={toggleMenu}>
                     {children}
                 </button>
             </li>
