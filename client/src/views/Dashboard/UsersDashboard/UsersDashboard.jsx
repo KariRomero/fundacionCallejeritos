@@ -32,21 +32,22 @@ const UsersDashboard = () => {
                     {Array.isArray(users) && users.map((user) => (
                         <li key={user.id} className="flex justify-between items-center border border-l-0 border-r-0 border-t-0 border-b-secondary p-4">
                             <div>
-                                <img src={user.image} alt='foto perfil' className='rounded-full'/>
-                                <h2 className="paragraph">{user.firstName} {user.lastName}</h2>
+                                <img src={user.image} alt='foto perfil' className='rounded-full' />
+                                <h2 className="title">{user.firstName} {user.lastName}</h2>
                             </div>
-                            <Link to={`/admin/usuarios/user/${user.id}`}>
-                                <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>
-                                    <FontAwesomeIcon icon={faEye} className='mr-2' />
-                                    Ver info
-                                </button>
-                            </Link>
-                            <Link to={`/admin/usuarios/user/adoptions/${user.id}`}>
-                                <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>
-                                    <FontAwesomeIcon icon={faPaw} className='mr-2' />
-                                    Solicitudes de adopcion
-                                </button>
-                            </Link>
+                            <div>
+                                <Link to={`/admin/usuarios/user/${user.id}`}>
+                                    <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>
+                                        <FontAwesomeIcon icon={faEye} className='mr-2' />                                        
+                                    </button>
+                                </Link>
+                                <Link to={`/admin/usuarios/user/adoptions/${user.id}`}>
+                                    <button className='menu-btn border border-secondary rounded-full hover:bg-secondary'>
+                                        <FontAwesomeIcon icon={faPaw} className='mr-2' />
+                                        Solicitudes de adopcion
+                                    </button>
+                                </Link>
+                            </div>
                         </li>
                     ))}
                 </ul>
