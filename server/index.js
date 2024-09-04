@@ -4,18 +4,16 @@ const cors = require('cors');
 require('dotenv').config();
 const sequelize = require('./config/database');
 const routes = require('./routes/indexRoutes');
-const authRoutes = require('./routes/authRoutes');  // Asegúrate de que la ruta sea correcta
+const authRoutes = require('./routes/authRoutes');  
 const mercadoPagoRouter = require('./mercadoPago/mercadoPagoRoutes');
 const User = require('./models/User');
 const Adopciones = require('./models/Adopciones');
-const protectedRoutes = require('./routes/protectedRoutes'); // Importar rutas protegidas
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Configuración de CORS para permitir solo orígenes específicos
-
-
 const allowedOrigins = [
   'http://localhost:5173',
   'https://fundacion-callejeritos.vercel.app',
@@ -47,9 +45,9 @@ app.use(cors({
 
 // Rutas
 app.use('/api', routes);
-app.use('/autorizar', authRoutes);  // Asegúrate de que la ruta sea correcta
+app.use('/autorizar', authRoutes);  
 app.use('/pagos', mercadoPagoRouter);
-app.use('/protc', protectedRoutes); // Rutas protegidas
+
 
 // Define las relaciones de muchos a muchos
 User.belongsToMany(Adopciones, {

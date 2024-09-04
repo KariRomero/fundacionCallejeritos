@@ -14,7 +14,7 @@ const googleLoginController = async (idToken) => {
     });
 
     const payload = ticket.getPayload();
-    console.log("Payload de Google:", payload);  // Verificar el payload
+  
     const { sub: googleId, email, given_name: firstName, family_name: lastName, picture } = payload;
 
     if (payload.aud !== process.env.GOOGLE_CLIENT_ID) {
@@ -68,7 +68,7 @@ const getCurrentUser = async (token) => {
 
 // Controlador para cerrar sesión
 const logoutUser = () => {
-  // Lógica adicional para cerrar sesión si es necesario
+
   return { message: 'Logout successful' };
 };
 

@@ -2,8 +2,8 @@ const { googleLoginController, getCurrentUser, logoutUser } = require('../contro
 
 // Handler para iniciar sesión con Google
 const googleLoginHandler = async (req, res) => {
-  const { idToken } = req.body;  // Validar que el token se proporcione
-  console.log("Body recibido en el backend:", req.body)
+  const { idToken } = req.body; 
+
   if (!idToken) {
     return res.status(400).json({ error: 'Token de Google no proporcionado' });
   }
