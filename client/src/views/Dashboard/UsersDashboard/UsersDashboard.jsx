@@ -61,6 +61,7 @@ const UsersDashboard = () => {
                                         Solicitudes
                                     </button>
                                 </Link>
+                                <div className='flex items-center'>
                                 <Link to={`/admin/usuarios/user/${user.id}`}>
                                     <button className=' p-2 mx-2'>
                                         <FontAwesomeIcon icon={faEye} />
@@ -69,6 +70,8 @@ const UsersDashboard = () => {
                                 <button onClick={() => handleClick(user.id)} className=' p-2'>
                                     <FontAwesomeIcon icon={faTrash}/>
                                 </button>
+
+                                </div>
                             </div>
                         </li>
                     ))}
