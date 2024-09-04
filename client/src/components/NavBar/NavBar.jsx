@@ -84,13 +84,13 @@ const NavBar = () => {
                             </button>
                         ) : (
                             <button
-                                className="border border-secondary rounded-full w-16 h-16"
+                                className="border border-secondary rounded-full hover:bg-secondary px-4 py-2 flex items-center"
                                 onClick={() => {
                                     toggleMenu();
                                     setShowMenu(false);
                                 }}
                             >
-                                <Link to='/iniciarsesion'>
+                                <Link to='/iniciarsesion' >
                                     <FontAwesomeIcon icon={faPaw} className='mr-2' />
                                     Iniciar sesión
                                 </Link>
