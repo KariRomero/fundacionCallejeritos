@@ -64,14 +64,11 @@ const uploadImage = async (casosId, imageFiles) => {
 
       const uploadedImages = await Promise.all(uploadPromises);
 
-      
       if (!Array.isArray(casos.image)) {
         casos.image = [];
       }
 
-     
       casos.image = [...casos.image, ...uploadedImages];
-
     
       const updatedCasos = await casos.save();
 
@@ -100,11 +97,9 @@ const deleteImage = async (casosId, imageUrl) => {
       throw new Error('Imagen no encontrada en el caso de rescate');
     }
 
-    
     casos.image.splice(imageIndex, 1);
     await casos.save();
 
-    
     const publicId = imageUrl.split('/').pop().split('.')[0];
     await cloudinary.uploader.destroy(`casos_images/${publicId}`);
 

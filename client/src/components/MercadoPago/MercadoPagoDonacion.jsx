@@ -7,9 +7,7 @@ const MercadoPagoDonacion = () => {
     const [preferenceId, setPreferenceId] = useState(null);
     const [amount, setAmount] = useState(0);
 
-    const mercadoPago = import.meta.env.VITE_MERCADOPAGO
-
-    initMercadoPago(mercadoPago, { locale: "es-AR" });
+    initMercadoPago("TEST-24713d63-1517-4b72-8bcc-06cb6b589ced", { locale: "es-AR" });
 
     const createPreference = async (amount) => {
         try {

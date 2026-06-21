@@ -2,7 +2,7 @@ import axios from "axios";
 import { postAdoptar, deleteAdoptar } from "./adoptSlice";
 
 export const createAdoptar = (userId, adopcionId) => (dispatch) => {
-    axios.post('http://localhost:3001/api/adoptar', { userId, adopcionId })
+    axios.post('https://fundacioncallejeritos-production.up.railway.app/api/adoptar', { userId, adopcionId })
         .then(res => dispatch(postAdoptar(res.data)))
         .catch(e => console.log(e));
 }
@@ -10,7 +10,7 @@ export const createAdoptar = (userId, adopcionId) => (dispatch) => {
 export const deleteAdoptarAction = (userId, adopcionId) => (dispatch) => {
     console.log('userId:', userId);
     console.log('adopcionId:', adopcionId);
-    return axios.delete('http://localhost:3001/api/adoptar/delete', { 
+    return axios.delete('https://fundacioncallejeritos-production.up.railway.app/api/adoptar/delete', { 
         data: { userId, adopcionId }  
     })
     .then(res => {

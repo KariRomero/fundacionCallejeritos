@@ -24,10 +24,24 @@ const createUser = async (userData, imageFile) => {
 
 
 const updateUser = async (id, userData) => {
-  await User.update(userData, { where: { id } });
+
+  const user = await User.findByPk(id);
+  if (!user) {
+    throw new Error('Usuario no encontrado');
+  }
+
+
+  const allowedFields = Object.keys(User.getAttributes()); 
+  const filteredUserData = Object.fromEntries(
+    Object.entries(userData).filter(([key]) => allowedFields.includes(key))
+  );
+
+ 
+  await User.update(filteredUserData, { where: { id } });
+
+
   return await User.findByPk(id);
 };
-
 const deleteUser = async (id) => {
   return await User.destroy({ where: { id } });
 };
@@ -67,10 +81,8 @@ const uploadImage = async (userId, imageFile) => {
       throw new Error('User not found');
     }
 
-    
     const updatedUser = await user.update({ image: [result.secure_url] });
 
-   
     return updatedUser;
   } catch (error) {
     throw new Error('Error uploading image: ' + error.message);
